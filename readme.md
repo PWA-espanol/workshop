@@ -8,49 +8,27 @@ En este workshop vamos a ver que es una progressive web app (PWA) y los concepto
 
 El workshop cuenta con los siguientes módulos:
 
-1. [Configurando el ambiente](./1-setup)
-    
-    - En este módulo se verá cuáles son las herramientas necesarias para poder desarrollar con estas tecnologías.
+1. [Configurando el ambiente](./1-setup): En este módulo se verá cuáles son las herramientas necesarias para poder desarrollar con estas tecnologías.
 
-1. [Explorando el proyecto inicial](./2-proyecto)
+1. [Explorando el proyecto inicial](./2-proyecto): En este módulo se verá la aplicación inicial para entender el contexto en el cual estamos trabajando.
 
-    - En este módulo se verá la aplicación inicial para entender el contexto en el cual estamos trabajando.
+1. [Conceptos principales](./3-conceptos): En este módulo se verán algunos de los conceptos principales que están atras de una PWA.
 
-1. [Conceptos principales](./3-conceptos)
+1. [Appificación de nuestro sitio web](./4-appification): En este módulo se verán los primeros pasos a la hora de convertir nuestro sitio web en una app aprovechando el [Web App Manifest](https://www.w3.org/TR/appmanifest/).
 
-    - En este módulo se verán algunos de los conceptos principales que están atras de una PWA.
+1. [Haciendo que el sitio funcione de forma offline](./5-offline): En este módulo se verán TBC
 
-1. [Appificación de nuestro sitio web](./4-appification)
+1. [Agregando soporte para compartir de forma nativa](./6-share): En este módulo se verán TBC
 
-    - En este módulo se verán los primeros pasos a la hora de convertir nuestro sitio web en una app aprovechando el [Web App Manifest](https://www.w3.org/TR/appmanifest/).
+1. [Agregando soporte para notificaciones](./7-notifications): En este módulo se verán TBC
 
-1. [Haciendo que el sitio funcione de forma offline](./5-offline)
+1. [Agregando soporte para Background Sync](./8-background): En este módulo se verán TBC
 
-    - En este módulo se verán TBC
+1. [Herramientas para desarrollo](./9-tooling): En este módulo se verán TBC
 
-1. [Agregando soporte para compartir de forma nativa](./6-share)
+1. [Optimizando nuestro sitio web](./10-optimization): En este módulo se verán TBC
 
-    - En este módulo se verán TBC
-
-1. [Agregando soporte para notificaciones](./7-notifications)
-
-    - En este módulo se verán TBC
-
-1. [Agregando soporte para Background Sync](./8-background)
-
-    - En este módulo se verán TBC
-
-1. [Herramientas para desarrollo](./9-tooling)
-
-    - En este módulo se verán TBC
-
-1. [Optimizando nuestro sitio web](./10-optimization)
-
-    - En este módulo se verán TBC
-
-1. [Como seguir](./11-links)
-
-    - En este módulo se verán TBC
+1. [Como seguir](./11-links): En este módulo se verán TBC
 
 
 ## Feedback
