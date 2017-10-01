@@ -64,7 +64,6 @@ Creado por:
     - Twitter: [@leopittelli](https://twitter.com/leopittelli)
 - [Nicolas Bello Camilletti](https://nbellocam.me/)
     - Twitter: [@nbellocam](https://twitter.com/nbellocam)
-    - Blog en español: [https://medium.com/nbellocam-es/](https://medium.com/nbellocam-es/)
 - [Andrés Villanueva](http://www.andresvillanueva.com.ve)
     - Twitter: [@villanuevand](https://twitter.com/villanuevand) 
 
