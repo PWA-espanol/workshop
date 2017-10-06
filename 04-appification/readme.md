@@ -59,21 +59,70 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     > - **prefer_related_applications**: TBC
     > - **icons**: TBC
 
-1. Ahora
+Poner screenshots de las distintas opciones de display
+
+1. Ahora, abrir el archivo `index.html` dentro de la carpeta `public` y agregar la siguient linea en el header, debajo del meta tag `theme-color`.
+
+    ```html
+    <link rel="manifest" href="/manifest.json">
+    ```
+
+1. Repetir la operación anterior en el archivo `expense.html`.
 
 1. Por último, agregar los assets que faltan que definimos en el manifest como iconos dentro de la carpeta `img`, para esto, copiarlos desde `TBC`.
 
-Poner screenshots de las distintas opciones de display
+1. Correr la app y navegar al index.
 
-Agregar el tag
+1. Abrir las dev tools, seleccionar Applications y ver la información que figura.
 
 
-## Consumir datos
-JSON estático
-AJAX
-Mejorar AJAX por Promises
-Cambiar AJAX por Fetch
-Si no existe fetch no rompamos!
+## Consumir datos desde el servidor
+
+Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción concida es la utilización de AJAX (Asynchronous JavaScript And XML), pero en la actualidad, aparece una nueva API del navegador llamada fetch, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asyncronico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá mas adelante.
+
+### Migrando a usar los datos con AJAX
+
+1. Abrir el archivo `common.js` dentro de `public/js` y notar que la implementación actual se basa en consumir datos que están en el mismo archivo.
+
+    ```js
+    //codigo inicial js
+    ```
+
+1.  Notar aparte que estos datos se están guardando y leyendo desde localstorage para permitir pasar de una página a otra manteniendo la información.
+
+    ```js
+    //codigo inicial js que usa local storage
+    ```
+
+1. Agregar la siguiente función al inicio del archivo que implementa una llamada AJAX genérica que nos permitirá leer y escribir los datos en el servidor
+
+    ```js
+    function TBCclient() {
+        // metodo ajax
+    }
+    ```
+
+1. Actualizar el método `TBC` para leer los datos desde el servidor gracias al nuevo método `TBCclient`.
+
+    ```js
+    //codigo inicial js que usa local storage
+    ```
+
+1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
+
+### Conociendo las promesas
+
+TBC intro a Promises
+
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `TBCclient` para que funcione con Promises en vez de con callbacks.
+
+1. Actualizar como se usa la función `TBCclient`.
+
+### Migrando a Fetch
+
+1. Cambiar AJAX por Fetch
+
+1. Si no existe fetch no rompamos!
 
 ## Intro a SW
 Qué es
