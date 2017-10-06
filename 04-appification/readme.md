@@ -97,32 +97,193 @@ Un paso importante a la hora de trabajar en aplicaciones web es consumir datos d
 1. Agregar la siguiente función al inicio del archivo que implementa una llamada AJAX genérica que nos permitirá leer y escribir los datos en el servidor
 
     ```js
-    function TBCclient() {
-        // metodo ajax
+    function apiClient(url, options, success, error) {
+        options = options || {};
+        let request = new XMLHttpRequest();
+        
+        request.open(options.method || 'get', url);
+
+        request.onload = () => {
+            if (request.status == 200 && request.getResponseHeader('Content-Type') == 'application/json') {
+                const responseObj = JSON.parse(request.response);
+                success(responseObj);
+            } else {
+                throw new TypeError();
+            }
+        };
+
+        request.onerror = error;
+
+        request.send(options.body);
     }
     ```
 
-1. Actualizar el método `TBC` para leer los datos desde el servidor gracias al nuevo método `TBCclient`.
+    > **Nota**: la función **apiClient** tiene cuatro parametros:
+        - **url**: a la cual vamos a hacer el request
+        - **options**: este objeto donde tenemos el method que tendrá el request (ej. GET, POST, PUT, etc.) y el body en caso de tenerlo (para request como POST y PUT)
+        - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya parseado.
+        - **error**: función de callback que se llama en caso de error
+    > La llamada al servidor se hace por medio del objeto `XMLHttpRequest`, configurando todos los event handlers como onload y onerror.
+
+1. Ahora hay que actualizar el código existente para usar esta función. Para esto, actualizar las funciones `getExpenses` y `getExpense` para leer los datos desde el servidor gracias a la nueva función `apiClient`.
 
     ```js
-    //codigo inicial js que usa local storage
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`, {}, cb)
+    }
+
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`, {}, cb);
+    }
+    ```
+
+1. Aparte de las funciones de lectura, tenemos que actualizar la función que usamos para grabar los datos para que ahora lo haga en el servidor. Para eso actualizamos la función `saveExpense` con el siguiente código.
+
+    ```js
+    function saveExpense(expense) {
+        apiClient(`${serverUrl}api/expense/${expense.id || ''}`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expense)
+        });
+    }
     ```
 
 1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
 
 ### Conociendo las promesas
 
-TBC intro a Promises
+<!-- https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Promise -->
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `TBCclient` para que funcione con Promises en vez de con callbacks.
+El objeto `Promise` (Promesa) es usado para computaciones asíncronas. Una promesa representa un valor que puede estar disponible ahora, en el futuro, o nunca.
 
-1. Actualizar como se usa la función `TBCclient`.
+La sintaxis es la siguiente.
+
+```js
+new Promise( function(resolver, rechazar) { ... } );
+```
+
+El parametro que es una función con los argumentos resolver y rechazar. Está función es ejecutada inmediatamente por la implementación de la Promesa, pasándole las funciones resolver y rechazar (el ejecutor es llamado incluso antes de que el constructor de la Promesa devuelva el objeto creado). Las funciones resolver y rechazar, al ser llamadas, resuelven o rechazan la promesa, respectivamente. Normalmente el ejecutor inicia un trabajo asíncrono, y luego, una vez que es completado, llama a la función resolver para resolver la promesa o la rechaza si ha ocurrido un error.
+Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
+
+
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con Promises en vez de con callbacks, remplazandola por la siguiente implementación.
+
+    ```js
+    function apiClient(url, options) {
+        options = options || {};
+        return new Promise( (resolve, reject) => {
+            let request = new XMLHttpRequest();
+            
+            request.open(options.method || 'get', url);
+
+            request.onload = () => {
+                if (request.status == 200 && request.getResponseHeader('Content-Type') == 'application/json') {
+                    const responseObj = JSON.parse(request.response);
+                    resolve(responseObj);
+                } else {
+                    reject(new TypeError());
+                }
+            };
+
+            request.onerror = reject;
+
+            request.send(options.body);
+        });
+    }
+    ```
+
+1. Ahora hay que actualizar el código existente nuevamente para usar esta función. Para esto, actualizar las funciones `getExpenses` y `getExpense` para leer los datos desde el servidor gracias a la nueva función `apiClient`.
+
+    ```js
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`)
+            .then(cb);
+    }
+
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`)
+            .then(cb);
+    }
+    ```
+
+1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
 
 ### Migrando a Fetch
 
-1. Cambiar AJAX por Fetch
+TBC explicación de fetch
 
-1. Si no existe fetch no rompamos!
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplazandola por la siguiente implementación.
+
+    ```js
+    function apiClient(url, options) {
+        options = options || {};
+        return fetch(url, options);
+    }
+    ```
+
+1. Dado que fetch es mas flexible que nuestra implementación anterior de la función `apiClient`, tenemos que aclarar que tipo de respuesta queremos a la hora de consumirlo. En nuestro caso queremos usar json, para lo cual antes haciamos uso de `JSON.parse`. Para esto, actualizar las funciones `getExpenses` y `getExpense` con el siguiente código.
+
+    ```js
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`)
+            .then(response => response.json())
+            .then(cb);
+    }
+
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`)
+            .then(response => response.json())
+            .then(cb);
+    }
+    ```
+
+    > **Nota**: El objeto que devuelve fetch tiene algunos métodos que nos ayudan a consumir mas simplemente los datos que pedimos, entre ellos `json()`, `text()` y `blob()`.
+
+1. Si bien el código anda en browsers modernos, hay que tener en cuenta que no en todos está soportado fetch, por lo que tenemos que usar un fallback (polyfill) para los casos en los que no tenga soporte. Para eso remplazamos la función `apiClient` nuevamente con el siguiente código que implementa un polyfill muy básico.
+
+    ```js
+    function apiClient(url, options) {
+        options = options || {};
+        if (!('fetch' in window)) {
+            // Real fetch polyfill: https://github.com/github/fetch
+            return new Promise( (resolve, reject) => {
+                let request = new XMLHttpRequest();
+                
+                request.open(options.method || 'get', url);
+
+                request.onload = () => {
+                    resolve(response());
+                };
+
+                request.onerror = reject;
+
+                request.send(options.body);
+
+                function response() {
+                    return {
+                        ok: (request.status/200|0) == 1,		// 200-299
+                        status: request.status,
+                        statusText: request.statusText,
+                        url: request.responseURL,
+                        clone: response,
+                        text: () => Promise.resolve(request.responseText),
+                        json: () => Promise.resolve(request.responseText).then(JSON.parse),
+                        blob: () => Promise.resolve(new Blob([request.response]))
+                    };
+                };
+            });
+        }
+
+        return fetch(url, options);
+    }
+    ```
+
+    > **Nota**: Para un polyfill mas completo ver [github/fetch](https://github.com/github/fetch).
+
+1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
 
 ## Intro a SW
 Qué es
@@ -149,7 +310,7 @@ HTTPS
 
     ```js
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
+        navigator.serviceWorker.register('/service-worker.js')
         .then(function(registration) {
             console.log('Registered:', registration);
         })
