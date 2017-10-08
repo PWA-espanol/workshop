@@ -44,20 +44,26 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     ```
 
     > **Nota**: el manifest apunta a definir información del sitio para ser tratado como una aplicación, entre otras cosas, el nombre a mostrar, colores a utilizar, orientaciones, forma en la que se muestra, iconos, etc.
-    > - **dir**: TBC
-    > - **lang**: TBC
-    > - **name**: TBC
-    > - **short_name**: TBC
-    > - **description**: TBC
-    > - **start_url**: TBC
-    > - **scope**: TBC
-    > - **display**: TBC
-    > - **orientation**: TBC
-    > - **theme_color**: TBC
-    > - **background_color**: TBC
-    > - **related_applications**: TBC
-    > - **prefer_related_applications**: TBC
-    > - **icons**: TBC
+    > - **dir**: Especifica la dirección del texto para `name`, `short_name`, y `description`. Junto con `lang`, ayuda a representar correctamente los idiomas que se escriben de derecha a izquierda. Puede tener uno de los siguentes valores: **ltr** (izquierda a derecha), **rtl** (derecha a izquierda), **auto** (indica al navegador que use el algoritmo Unicode bidirectional para hacer una estimación apropiada sobre la dirección del texto.)
+    > - **lang**: Especifica el idioma principal.
+    > - **name**: Especifica el nombre de la aplicación para mostrarle al usuario.
+    > - **short_name**: Proporciona un nombre corto para la aplicación. Está destinado para su uso cuando hay poco espacio para mostrar el nombre completo de la aplicación.
+    > - **description**: Proporciona una descripción general sobre qué hace la aplicación.
+    > - **start_url**: Especifica la URL que se carga cuando el usuario lanza la aplicación desde un dispositivo. 
+    > - **scope**: Define el ámbito de navegación en el contexto de la aplicación web. Esto basicamente restringe qué paginas se pueden ver cuando se aplica el manifiesto. Si el usuario navega fuera del `scope` de la aplicación, continúa como en una web normal.
+    > - **display**: Define el modo de visualización preferido para la aplicación web.
+    > | display    | Descripción                                                                                                                                                                                                                                                                                                           | fallback display |
+    > |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
+    > | fullscreen | Se utiliza toda la pantalla disponible no se muestran elementos del user agent chrome.                                                                                                                                                                                                                                | standalone       |
+    > | standalone | La aplicación se mostrará como una app independiente. Así la aplicación puede tener su porpia ventana, su propio icono en el lanzador de aplicaciones, etc. En este modo, the user agent excluirá los elementos de interfaz para controlar la navegación, pero puede incluir otros elementos como la barra de estado. | minimal-ui       |
+    > | minimal-ui | La aplicación se mostrará como una app independiente, pero tendrá un minimo de elementos de interfaz para controlar la navegación. Estos elementos podrán variar según navegador.                                                                                                                                     | browser          |
+    > | browser    | La aplicación se abrirá en una pestaña nueva del navegador o una ventana nueva, dependiendo del navegador y plataforma. Esto es por defecto.                                                                                                                                                                          | (ninguno)        | 
+    > - **orientation**: Define la orientación por defecto. Puede ser: **any**, **natural**, **landscape**, **landscape-primary**, **landscape-secondary**, **portrait**, **portrait-primary**, **portrait-secondary**
+    > - **theme_color**: Define el color por defecto para la aplicación. Esto en ocasiones afecta como se muestra por el sistema operativo (por ejemplo, en el lanzador de aplicaciones de Android, el color envuelve la aplicación).  
+    > - **background_color**: Define el color de fondo deseado para la aplicación. Este valor repite lo definido en la hoja de estilos de la aplicación, pero puede ser utilizado por los navegadores para pintar el color de fondo de una app si el manifiesto está disponible antes de que la hoja de estilos se haya cargado. Esto suaviza la transición entre lanzar una aplicación y cargar el contenido de la misma.
+    > - **related_applications**: Un array especificando las aplicaciones nativas disponibles.
+    > - **prefer_related_applications**: Un valor booleano que especifica si sugerirle al usuario que existe una aplicación nativa disponible y recomendada sobre la experiencia web. sólo debería ser utilizado si la aplicación nativa ofrece una experiencia realmente superadora. Para la sugerencia utiliza lo especificado en `elated_applications`
+    > - **icons**: Especifica un array de imágenes que pueden servir como iconos de aplicación en diferentes contextos. Por ejemplo, se pueden utilizar para representar la aplicación entre un listado de aplicaciones, o para mostrar la pantalla de Splash.
 
 Poner screenshots de las distintas opciones de display
 
