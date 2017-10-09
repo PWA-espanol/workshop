@@ -118,7 +118,7 @@ Un ejemplo simple para ver estos conceptos es el tag `picture`, donde en caso de
 </picture>
 ```
 
-_En este ejemplo vemos como en caso de no tener soporte para el formato webp se usa la imagen jpg y en caso de no tener soporte para picture se usa el img_
+_En este ejemplo vemos como en caso de no tener soporte para el formato webp se usa la imagen jpg y en caso de no tener soporte para picture se usa el img._
 
 
 ## Checklist PWA
@@ -126,45 +126,48 @@ Para ayudar a los equipos a construir las mejores experiences posibles, el equip
 
 ### PWA base
 
--[x] El sitio se sirve sobre HTTPS.
--[x] Las páginas se adaptan a todas las resoluciones y tamaños de pantalla de dispositivos móviles.
--[x] Todas las URLs cargan sin conexión.
--[x] Se provee Metadata para ser usada al agregar el acceso directo al sitio.
--[x] La primera carga es rápida inclusive en 3G.
--[x] El sitio funciona en todos los navegadores.
--[x] Las transiciones se sienten fluidas.
--[x] Cada página tiene su propia URL.
+- [x] El sitio se sirve sobre HTTPS.
+- [x] Las páginas se adaptan a todas las resoluciones y tamaños de pantalla de dispositivos móviles.
+- [x] Todas las URLs cargan sin conexión.
+- [x] Se provee Metadata para ser usada al agregar el acceso directo al sitio.
+- [x] La primera carga es rápida inclusive en 3G.
+- [x] El sitio funciona en todos los navegadores.
+- [x] Las transiciones se sienten fluidas.
+- [x] Cada página tiene su propia URL.
 
-#### PWA ejemplar
+### PWA ejemplar
 
-##### Indexability & social
--[x] El contenido puede ser indexado por los motores de búsqueda. Intentar que el contenido de la página no dependa de la ejecución de Javascript del lado del cliente.
--[x] Proveer metadata de [Schema.org](http://schema.org) donde corresponda.
--[x] Proveer metadata Social donde corresponda (tags meta [OpenGraph](http://ogp.me/)).
--[x] Indicar URLs canónicas cuando el contenido esté disponible en múltiples URLs.
--[x] Usar la History API y evitar las URLs con hashes (https://example.com/#!user/26601).
+#### Indexability & social
+- [x] El contenido puede ser indexado por los motores de búsqueda. Intentar que el contenido de la página no dependa de la ejecución de Javascript del lado del cliente.
+- [x] Proveer metadata de [Schema.org](http://schema.org) donde corresponda.
+- [x] Proveer metadata Social donde corresponda (tags meta [OpenGraph](http://ogp.me/)).
+- [x] Indicar URLs canónicas cuando el contenido esté disponible en múltiples URLs.
+- [x] Usar la History API y evitar las URLs con hashes (https://example.com/#!user/26601).
 
-##### User experience
--[x] Evitar que el contenido se mueva mientras carga asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
--[x] Asegurar que el botón de atás mantiene la posición del scroll en la página anterior.
--[x] Evitar que los inputs se oculten cuando se abre el teclado.
--[x] El contenido es fácil de compartir en modo pantalla completa.
--[x] El contenido se adapta a todos los tamaños de pantalla.
--[x] Interceptar el pedido de agregar acesso directo usando el evento `beforeinstallprompt` para lanzarlo en el mejor momento para el usuario.
+#### User experience
+
+- [x] Evitar que el contenido se mueva mientras carga asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
+- [x] Asegurar que el botón de atás mantiene la posición del scroll en la página anterior.
+- [x] Evitar que los inputs se oculten cuando se abre el teclado.
+- [x] El contenido es fácil de compartir en modo pantalla completa.
+- [x] El contenido se adapta a todos los tamaños de pantalla.
+- [x] Interceptar el pedido de agregar acceso directo usando el evento `beforeinstallprompt` para lanzarlo en el mejor momento para el usuario.
 
 
-##### Cache
--[x] Intentar siempre que se pueda, traer datos de cache antes de ir a la red.
--[x] Informar al usuario cuando se encuentra offline.
+#### Cache
 
-##### Push notifications
+- [x] Intentar siempre que se pueda, traer datos de cache antes de ir a la red.
+- [x] Informar al usuario cuando se encuentra offline.
+
+#### Push notifications
+
 Agregar push notifications no es un requerimiento pero en caso de hacerlo, seguir los siguientes lineamientos:
 
--[x] Explicar al usuario cómo y para qué serán utilizadas las notificaciones.
--[x] La UI utilizada para pedir a los usuarios que acepten las notificaciones no debe ser invasiva.
--[x] El sitio opaca todo el contenido mientras pide el permiso para las notificaciones.
--[x] Las notificaciones deben ser oportunas, precisas, relevantes.
--[x] Permitir al usuario activar y desactivar las notificaciones.
+- [x] Explicar al usuario cómo y para qué serán utilizadas las notificaciones.
+- [x] La UI utilizada para pedir a los usuarios que acepten las notificaciones no debe ser invasiva.
+- [x] El sitio opaca todo el contenido mientras pide el permiso para las notificaciones.
+- [x] Las notificaciones deben ser oportunas, precisas, relevantes.
+- [x] Permitir al usuario activar y desactivar las notificaciones.
 
 
 Para saber más, [aquí](https://developers.google.com/web/progressive-web-apps/checklist) está la checklist original con explicaciones de cómo probar y corregir cada punto.
