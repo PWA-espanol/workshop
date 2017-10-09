@@ -367,7 +367,9 @@ HTTPS
     ```js
     self.addEventListener('fetch', function(event) {
         console.log(event.request);
-        return fetch(event.request);
+        event.respondWith(
+            fetch(event.request);
+        );
     });
     ```
 
