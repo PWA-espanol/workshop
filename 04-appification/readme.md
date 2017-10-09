@@ -44,20 +44,20 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     ```
 
     > **Nota**: el manifest apunta a definir información del sitio para ser tratado como una aplicación, entre otras cosas, el nombre a mostrar, colores a utilizar, orientaciones, forma en la que se muestra, iconos, etc.
-    > - **dir**: Especifica la dirección del texto para `name`, `short_name`, y `description`. Junto con `lang`, ayuda a representar correctamente los idiomas que se escriben de derecha a izquierda. Puede tener uno de los siguentes valores: **ltr** (izquierda a derecha), **rtl** (derecha a izquierda), **auto** (indica al navegador que use el algoritmo Unicode bidirectional para hacer una estimación apropiada sobre la dirección del texto.)
+    > - **dir**: Especifica la dirección del texto para `name`, `short_name`, y `description`. Junto con `lang`, ayuda a representar correctamente los idiomas que se escriben de derecha a izquierda. Puede tener uno de los siguientes valores: **ltr** (izquierda a derecha), **rtl** (derecha a izquierda), **auto** (indica al navegador que use el algoritmo Unicode bidirectional para hacer una estimación apropiada sobre la dirección del texto.)
     > - **lang**: Especifica el idioma principal.
     > - **name**: Especifica el nombre de la aplicación para mostrarle al usuario.
     > - **short_name**: Proporciona un nombre corto para la aplicación. Está destinado para su uso cuando hay poco espacio para mostrar el nombre completo de la aplicación.
     > - **description**: Proporciona una descripción general sobre qué hace la aplicación.
     > - **start_url**: Especifica la URL que se carga cuando el usuario lanza la aplicación desde un dispositivo. 
-    > - **scope**: Define el ámbito de navegación en el contexto de la aplicación web. Esto basicamente restringe qué paginas se pueden ver cuando se aplica el manifiesto. Si el usuario navega fuera del `scope` de la aplicación, continúa como en una web normal.
+    > - **scope**: Define el ámbito de navegación en el contexto de la aplicación web. Esto básicamente restringe qué páginas se pueden ver cuando se aplica el manifiesto. Si el usuario navega fuera del `scope` de la aplicación, continúa como en una web normal.
     > - **display**: Define el modo de visualización preferido para la aplicación web.
     >
     >   | display    | Descripción                                                                                                                                                                                                                                                                                                           | fallback display |
     >   |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
     >   | fullscreen | Se utiliza toda la pantalla disponible no se muestran elementos del user agent chrome.                                                                                                                                                                                                                                | standalone       |
-    >   | standalone | La aplicación se mostrará como una app independiente. Así la aplicación puede tener su porpia ventana, su propio icono en el lanzador de aplicaciones, etc. En este modo, the user agent excluirá los elementos de interfaz para controlar la navegación, pero puede incluir otros elementos como la barra de estado. | minimal-ui       |
-    >   | minimal-ui | La aplicación se mostrará como una app independiente, pero tendrá un minimo de elementos de interfaz para controlar la navegación. Estos elementos podrán variar según navegador.                                                                                                                                     | browser          |
+    >   | standalone | La aplicación se mostrará como una app independiente. Así la aplicación puede tener su propia ventana, su propio icono en el lanzador de aplicaciones, etc. En este modo, el user agent excluirá los elementos de interfaz para controlar la navegación, pero puede incluir otros elementos como la barra de estado. | minimal-ui       |
+    >   | minimal-ui | La aplicación se mostrará como una app independiente, pero tendrá un mínimo de elementos de interfaz para controlar la navegación. Estos elementos podrán variar según navegador.                                                                                                                                     | browser          |
     >   | browser    | La aplicación se abrirá en una pestaña nueva del navegador o una ventana nueva, dependiendo del navegador y plataforma. Esto es por defecto.                                                                                                                                                                          | (ninguno)        | 
     > - **orientation**: Define la orientación por defecto. Puede ser: **any**, **natural**, **landscape**, **landscape-primary**, **landscape-secondary**, **portrait**, **portrait-primary**, **portrait-secondary**
     > - **theme_color**: Define el color por defecto para la aplicación. Esto en ocasiones afecta como se muestra por el sistema operativo (por ejemplo, en el lanzador de aplicaciones de Android, el color envuelve la aplicación).  
@@ -68,7 +68,7 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
 
 Poner screenshots de las distintas opciones de display
 
-1. Ahora, abrir el archivo `index.html` dentro de la carpeta `public` y agregar la siguient linea en el header, debajo del meta tag `theme-color`.
+1. Ahora, abrir el archivo `index.html` dentro de la carpeta `public` y agregar la siguiente línea en el header, debajo del meta tag `theme-color`.
 
     ```html
     <link rel="manifest" href="/manifest.json">
@@ -85,7 +85,7 @@ Poner screenshots de las distintas opciones de display
 
 ## Consumir datos desde el servidor
 
-Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción concida es la utilización de AJAX (Asynchronous JavaScript And XML), pero en la actualidad, aparece una nueva API del navegador llamada fetch, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asyncronico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá mas adelante.
+Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción coincida es la utilización de AJAX (Asynchronous JavaScript And XML), pero en la actualidad, aparece una nueva API del navegador llamada fetch, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
 
 ### Migrando a usar los datos con AJAX
 
@@ -125,10 +125,10 @@ Un paso importante a la hora de trabajar en aplicaciones web es consumir datos d
     }
     ```
 
-    > **Nota**: la función **apiClient** tiene cuatro parametros:
+    > **Nota**: la función **apiClient** tiene cuatro parámetros:
         - **url**: a la cual vamos a hacer el request
-        - **options**: este objeto donde tenemos el method que tendrá el request (ej. GET, POST, PUT, etc.) y el body en caso de tenerlo (para request como POST y PUT)
-        - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya parseado.
+        - **options**: este objeto donde tenemos el _method_ que tendrá el request (_ej. GET, POST, PUT, etc._) y el body en caso de tenerlo (para request como _POST_ y _PUT_)
+        - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya procesado.
         - **error**: función de callback que se llama en caso de error
     > La llamada al servidor se hace por medio del objeto `XMLHttpRequest`, configurando todos los event handlers como onload y onerror.
 
@@ -172,11 +172,11 @@ La sintaxis es la siguiente.
 new Promise( function(resolver, rechazar) { ... } );
 ```
 
-El parametro que es una función con los argumentos resolver y rechazar. Está función es ejecutada inmediatamente por la implementación de la Promesa, pasándole las funciones resolver y rechazar (el ejecutor es llamado incluso antes de que el constructor de la Promesa devuelva el objeto creado). Las funciones resolver y rechazar, al ser llamadas, resuelven o rechazan la promesa, respectivamente. Normalmente el ejecutor inicia un trabajo asíncrono, y luego, una vez que es completado, llama a la función resolver para resolver la promesa o la rechaza si ha ocurrido un error.
+El parámetro que es una función con los argumentos resolver y rechazar. Está función es ejecutada inmediatamente por la implementación de la Promesa, pasándole las funciones resolver y rechazar (el ejecutor es llamado incluso antes de que el constructor de la Promesa devuelva el objeto creado). Las funciones resolver y rechazar, al ser llamadas, resuelven o rechazan la promesa, respectivamente. Normalmente el ejecutor inicia un trabajo asíncrono, y luego, una vez que es completado, llama a la función resolver para resolver la promesa o la rechaza si ha ocurrido un error.
 Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
 
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con Promises en vez de con callbacks, remplazandola por la siguiente implementación.
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con Promises en vez de con callbacks, remplázandola por la siguiente implementación.
 
     ```js
     function apiClient(url, options) {
@@ -222,7 +222,7 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
 
 TBC explicación de fetch
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplazandola por la siguiente implementación.
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplázandola por la siguiente implementación.
 
     ```js
     function apiClient(url, options) {
@@ -231,7 +231,7 @@ TBC explicación de fetch
     }
     ```
 
-1. Dado que fetch es mas flexible que nuestra implementación anterior de la función `apiClient`, tenemos que aclarar que tipo de respuesta queremos a la hora de consumirlo. En nuestro caso queremos usar json, para lo cual antes haciamos uso de `JSON.parse`. Para esto, actualizar las funciones `getExpenses` y `getExpense` con el siguiente código.
+1. Dado que fetch es más flexible que nuestra implementación anterior de la función `apiClient`, tenemos que aclarar qué tipo de respuesta queremos a la hora de consumirlo. En nuestro caso queremos usar json, para lo cual antes hacíamos uso de `JSON.parse`. Para esto, actualizar las funciones `getExpenses` y `getExpense` con el siguiente código.
 
     ```js
     function getExpenses(cb) {
@@ -247,7 +247,7 @@ TBC explicación de fetch
     }
     ```
 
-    > **Nota**: El objeto que devuelve fetch tiene algunos métodos que nos ayudan a consumir mas simplemente los datos que pedimos, entre ellos `json()`, `text()` y `blob()`.
+    > **Nota**: El objeto que devuelve fetch tiene algunos métodos que nos ayudan a consumir más simplemente los datos que pedimos, entre ellos `json()`, `text()` y `blob()`.
 
 1. Si bien el código anda en browsers modernos, hay que tener en cuenta que no en todos está soportado fetch, por lo que tenemos que usar un fallback (polyfill) para los casos en los que no tenga soporte. Para eso remplazamos la función `apiClient` nuevamente con el siguiente código que implementa un polyfill muy básico.
 
@@ -288,11 +288,11 @@ TBC explicación de fetch
     }
     ```
 
-    > **Nota**: Para un polyfill mas completo ver [github/fetch](https://github.com/github/fetch).
+    > **Nota**: Para un polyfill más completo ver [GitHub/fetch](https://github.com/github/fetch).
 
 1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
 
-## Intro a SW
+## Introducción a Service Worker (SW)
 Qué es
 
 Cómo funciona
@@ -362,7 +362,7 @@ HTTPS
 1. Correr el sitio y ver los logs (TBC)
 
 
-1. Ahora, agregar el siguiente código para que el service worker escuche a eventos de tipo `fetch` y realize la operación agregando un log de cada pedido.
+1. Ahora, agregar el siguiente código para que el service worker escuche a eventos de tipo `fetch` y realice la operación agregando un log de cada pedido.
 
     ```js
     self.addEventListener('fetch', function(event) {
@@ -388,7 +388,7 @@ Mostrar opciones de trackeo
     "start_url": "http://localhost:3000/?utm_source=pwa&utm_medium=pwasite&utm_campaign=start",
     ```
 
-    > **Nota**: Podemos cambiar la start_url para que cuando se inice la aplicación instalada use una url especial, dando una mejor experiencia a los usuarios, así como agregar parametros para tener un mejor tracking y entender si nuestro usuarios usan la app o entran al sitio directamente.
+    > **Nota**: Podemos cambiar la start_url para que cuando se inicie la aplicación instalada use una url especial, dando una mejor experiencia a los usuarios, así como agregar parámetros para tener un mejor tracking y entender si nuestros usuarios usan la app o entran al sitio directamente.
 
 Cuántos entran desde el ícono con start_url
 beforeinstallprompt para saber si aceptó o no
