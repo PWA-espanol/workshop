@@ -44,7 +44,7 @@ Por ejemplo, puede colocar todos los estilos necesarios para imprimir dentro de 
 <link rel="stylesheet" href="print.css" media="print">
 ```
 
-Además de utilizar el atributo `media` en el tag de stylesheet como se vió el el código anterior, hay otras dos formas de aplicar media queries que se pueden utilizar en un archivo CSS: `@media` y `@import`. Por razones de rendimiento, se recomienda uno de los dos primeros métodos sobre la @import sintaxis (consulte [Evitar las importaciones de CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations)).
+Además de utilizar el atributo `media` en el tag de stylesheet como se vió en el código anterior, hay otras dos formas de aplicar media queries que se pueden utilizar en un archivo CSS: `@media` y `@import`. Por razones de rendimiento, se recomienda uno de los dos primeros métodos sobre la @import sintaxis (consulte [Evitar las importaciones de CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations)).
 
 ```css
 @media print {
@@ -64,7 +64,7 @@ Las media queries nos permiten crear una experiencia de respuesta en la que se a
 }
 ```
 
-Las consultas más comúnes son:
+Las consultas más comunes son:
 
 - `min-width`: Reglas aplicadas para cualquier ancho de navegador mayor que el valor definido en la consulta.
 - `max-width`: Reglas aplicadas para cualquier ancho de navegador menor que el valor definido en la consulta.
@@ -91,7 +91,7 @@ div {
 
 La propiedad Flexible Box, o flexbox, de CSS3 es un modo de diseño que permite colocar los elementos de una página para que se comporten de forma predecible cuando el diseño de la página debe acomodarse a diferentes tamaños de pantalla y diferentes dispositivos. Para muchas aplicaciones, el modelo "caja flexible" produce una mejora sobre el modelo "bloque" porque no utiliza la propiedad float, ni hace que los márgenes del contenedor flexible interfieran con los márgenes de sus contenidos.
 
-Muchos diseñadores verán que el modelo "caja flexible" es más sencillo de utilizar. Los elementos "hijos" de una "caja flexible" pueden colocarse en cualquier dirección y pueden tener dimensiones flexibles para adapterse al espacio visible. Posicionar los elementos "hijos" es por tanto mucho más sencillo, y los diseños complejos pueden hacerse más fácilmente y con código más limpio, ya que el orden de visualización de los elementos es independiente del orden que estos tengan en el código fuente. Esta independencia afecta intencionadamente únicamente a la representación visual, dejando el orden de locución y navegación a lo que diga el código fuente.
+Muchos diseñadores verán que el modelo "caja flexible" es más sencillo de utilizar. Los elementos "hijos" de una "caja flexible" pueden colocarse en cualquier dirección y pueden tener dimensiones flexibles para adaptarse al espacio visible. Posicionar los elementos "hijos" es por tanto mucho más sencillo, y los diseños complejos pueden hacerse más fácilmente y con código más limpio, ya que el orden de visualización de los elementos es independiente del orden que estos tengan en el código fuente. Esta independencia afecta intencionadamente únicamente a la representación visual, dejando el orden de locución y navegación a lo que diga el código fuente.
 
 
 ## Progressive enhancement
@@ -103,10 +103,10 @@ Principios:
 - Toda la funcionalidad básica debe ser accesible a todos los browsers
 - Escasos, el margen de beneficio semántico contiene todo el contenido
 - Disposición realzada es proporcionado por el CSS externamente ligado
-- Comportamiento realzado es proporcionado por Javascript discreto, externamente ligado
+- Comportamiento realzado es proporcionado por JavaScript discreto, externamente ligado
 - Las preferencias del browser del usuario final son respetadas.
 
-Un ejemplo simple para ver estos conceptos es el tag `picture`, donde en caso de no tener soporte para este tag, se cuenta con un fallback a uno mas soportado como es `img`. A su vez, si el navegador no permite mostrar imagenes o no fue posible acceder a la misma al momento de carga, va a mostrar un texto alternativo gracias al atributo `alt`.
+Un ejemplo simple para ver estos conceptos es el tag `picture`, donde en caso de no tener soporte para este tag, se cuenta con un fallback a uno más soportado como es `img`. A su vez, si el navegador no permite mostrar imágenes o no fue posible acceder a la misma al momento de carga, va a mostrar un texto alternativo gracias al atributo `alt`.
 
 ```html
 <picture>
@@ -122,7 +122,7 @@ _En este ejemplo vemos como en caso de no tener soporte para el formato webp se 
 
 
 ## Checklist PWA
-Para ayudar a los equipos a construir las mejores experiences posibles, el equipo de web de Google armó la siguiente checklist con todo lo que debe tener una PWA básica, y con todo lo que creen que se debe agregar para lograr una experiencia "ejemplar".
+Para ayudar a los equipos a construir las mejores experiencias posibles, el equipo de web de Google armó la siguiente checklist con todo lo que debe tener una PWA básica, y con todo lo que creen que se debe agregar para lograr una experiencia "ejemplar".
 
 ### PWA base
 
@@ -138,7 +138,7 @@ Para ayudar a los equipos a construir las mejores experiences posibles, el equip
 ### PWA ejemplar
 
 #### Indexability & social
-- [x] El contenido puede ser indexado por los motores de búsqueda. Intentar que el contenido de la página no dependa de la ejecución de Javascript del lado del cliente.
+- [x] El contenido puede ser indexado por los motores de búsqueda. Intentar que el contenido de la página no dependa de la ejecución de JavaScript del lado del cliente.
 - [x] Proveer metadata de [Schema.org](http://schema.org) donde corresponda.
 - [x] Proveer metadata Social donde corresponda (tags meta [OpenGraph](http://ogp.me/)).
 - [x] Indicar URLs canónicas cuando el contenido esté disponible en múltiples URLs.
@@ -147,7 +147,7 @@ Para ayudar a los equipos a construir las mejores experiences posibles, el equip
 #### User experience
 
 - [x] Evitar que el contenido se mueva mientras carga asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
-- [x] Asegurar que el botón de atás mantiene la posición del scroll en la página anterior.
+- [x] Asegurar que el botón de atrás mantiene la posición del scroll en la página anterior.
 - [x] Evitar que los inputs se oculten cuando se abre el teclado.
 - [x] El contenido es fácil de compartir en modo pantalla completa.
 - [x] El contenido se adapta a todos los tamaños de pantalla.
@@ -161,7 +161,7 @@ Para ayudar a los equipos a construir las mejores experiences posibles, el equip
 
 #### Push notifications
 
-Agregar push notifications no es un requerimiento pero en caso de hacerlo, seguir los siguientes lineamientos:
+Agregar push notifications no es un requerimiento, pero en caso de hacerlo, seguir los siguientes lineamientos:
 
 - [x] Explicar al usuario cómo y para qué serán utilizadas las notificaciones.
 - [x] La UI utilizada para pedir a los usuarios que acepten las notificaciones no debe ser invasiva.
