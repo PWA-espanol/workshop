@@ -1,5 +1,11 @@
 # 3. Conceptos básicos
 
+_Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho mas nuevas. 
+
+En este modulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionado a lo que normalmente se llama _Responsive design_ y _Progressive enhancement_. 
+
+Para finalizar veremos una checklist para tener a mano a la hora de hacer una _Progressive Web App_.
+
 ## Responsive design
 
 <!-- https://developers.google.com/web/fundamentals/design-and-ux/responsive/#responsive-web-design -->
@@ -171,3 +177,8 @@ Agregar push notifications no es un requerimiento, pero en caso de hacerlo, segu
 
 
 Para saber más, [aquí](https://developers.google.com/web/progressive-web-apps/checklist) está la checklist original con explicaciones de cómo probar y corregir cada punto.
+
+
+## Conclusiones
+
+En este módulo vimos conceptos base a la hora de armar una _Progressive Web App_. Entre ellos _responsive design_, con lo que vimos que es el _viewport_, las _media queries_ y _flex box_. Aparte de esto vimos el concepto de _progressive enhancement_. Para finalizar, vimos un checklist para tener en cuenta a la hora de crear una _Progressive Web App_.

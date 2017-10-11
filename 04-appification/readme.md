@@ -367,13 +367,16 @@ HTTPS
     ```js
     self.addEventListener('fetch', function(event) {
         console.log(event.request);
+
+        if (event.request.method != 'GET') return;
+
         event.respondWith(
             fetch(event.request);
         );
     });
     ```
 
-    > **Nota**: Este ejemplo es trivial, dado que no hace falta realizarlo a mano, pero nos permite ver que podemos estar en el medio de cada pedido a un servidor.
+    > **Nota**: Este ejemplo es trivial, dado que no hace falta realizarlo a mano, pero nos permite ver que podemos estar en el medio de cada pedido a un servidor. El `if` va a revisar que el método del request sea diferente a _GET_ (ej.: _POST_, _PUT_, etc.) y va a cortar la función para que se realice el comportamiento default.
 
 
 1. Correr el sitio y ver los logs (TBC)
@@ -394,3 +397,7 @@ Mostrar opciones de trackeo
 
 Cuántos entran desde el ícono con start_url
 beforeinstallprompt para saber si aceptó o no
+
+## Conclusiones
+
+En este módulo vimos los pasos necesarios para transformar nuestro sitio web en una aplicación, agregando el Web App Manifest y el service worker. Aparte vimos la función _fetch_ y lo que son las _Promises_ que nos permiten mejorar la forma como trabajamos asincronicamente nuestros pedidos al servidor.
