@@ -1,7 +1,9 @@
 # 11. Links
 
-https://whatwebcando.today/
-https://www.chromestatus.com/features
-https://developer.microsoft.com/en-us/microsoft-edge/platform/status/
-https://caniuse.com
-https://jakearchibald.github.io/isserviceworkerready/
+Algunos links útiles para estar al tanto de la evolución de la web:
+
+- https://whatwebcando.today/
+- https://www.chromestatus.com/features
+- https://developer.microsoft.com/en-us/microsoft-edge/platform/status/
+- https://caniuse.com
+- https://jakearchibald.github.io/isserviceworkerready/
