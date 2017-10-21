@@ -232,12 +232,12 @@ Para eso, nos valemos de la data donde recibiremos el id de la notificación y p
 ```js
 self.addEventListener('notificationclick', function(e) {
     const notification = e.notification;
-    const primaryKey = notification.data.primaryKey;
     const action = e.action;
 
     if (action === 'close') {
         notification.close();
-    } else {
+    } else if (notification.data) {
+        const primaryKey = notification.data.primaryKey;
         clients.openWindow('expense/' + primaryKey);
         notification.close();
     }
