@@ -24,8 +24,10 @@ Las páginas optimizadas para una variedad de dispositivos deben incluir una eti
 
 Para intentar proporcionar la mejor experiencia, los navegadores móviles procesan la página a un ancho de pantalla de escritorio (usualmente alrededor de 980px, aunque esto varía según los dispositivos) y, a continuación, intentan mejorar el aspecto aumentando los tamaños de fuente pantalla. Esto significa que los tamaños de las fuentes pueden parecer inconsistentes para los usuarios, que pueden tener que pulsar dos veces o hacer zoom con gestos para ver e interactuar con el contenido.
 
+En la solución vista en el módulo anterior, podemos encontrar el siguiente meta tag en los dos archivos html (_index.html_ y _expense.html_).
+
 ```html
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
 ```
 
 El uso del valor meta viewport `width=device-width` indica a la página que coincida con el ancho de la pantalla en píxeles independientes del dispositivo. Esto permite que la página refluya contenido para que coincida con diferentes tamaños de pantalla, ya sea renderizado en un teléfono móvil pequeño o en un monitor de escritorio grande.
@@ -35,6 +37,8 @@ El uso del valor meta viewport `width=device-width` indica a la página que coin
 _La imagen de la izquierda (A) no usa el meta tag viewport mientras que la imagen de la derecha (B) si._
 
 Algunos navegadores mantienen el ancho de la página constante al girar al modo horizontal, y el zoom en lugar de reflujo para llenar la pantalla. La adición del atributo `initial-scale=1` indica a los navegadores que establezcan una relación 1: 1 entre los píxeles CSS y los píxeles independientes del dispositivo independientemente de la orientación del dispositivo, y permite que la página aproveche el ancho total del paisaje.
+
+Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el minimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accessibilidad del sitio se recomiendo que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
 
 > **Nota:** Para garantizar que los navegadores antiguos puedan analizar correctamente los atributos, utilice una coma para separar los atributos.
 
@@ -91,6 +95,8 @@ div {
 }
 ```
 
+En nuestra solución, aprovechamos la libreria _Bootstrap_ como se vió anteriormente, que utiliza las media queries para poder tener un diseño que se adapta fácilmente a los diferentes tamaños de pantalla.
+
 ### Flexbox
 
 <!-- https://developer.mozilla.org/es/docs/Web/CSS/CSS_Flexible_Box_Layout/Usando_las_cajas_flexibles_CSS -->
@@ -105,6 +111,7 @@ Muchos diseñadores verán que el modelo "caja flexible" es más sencillo de uti
 Mejora progresiva (o Progressive enhancement) es una estrategia particular de diseño web que acentúa la accesibilidad, margen de beneficio semántico, y tecnologías externas del estilo y el scripting, en una manera adecuada que permite que cada uno tenga acceso al contenido y a la funcionalidad básica de una página web, usando cualquier navegador web o conexión a Internet, mientras que también permite a otros con un mayor ancho de banda o un navegador web más avanzado experimentar una versión mejorada de la página.
 
 Principios:
+
 - Todo el contenido básico debe ser accesible a todos los browsers
 - Toda la funcionalidad básica debe ser accesible a todos los browsers
 - Escasos, el margen de beneficio semántico contiene todo el contenido
