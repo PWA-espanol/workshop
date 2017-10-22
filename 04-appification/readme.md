@@ -1,12 +1,14 @@
 # 4. Construir una app desde nuestro website
 
-## Manifest
+En este módulo vamos ver y agregar el Web App Manifest y un Service Worker muy simple para poder hacer nuestro sitio instalable como si fuese una aplicación nativa.
 
-Lo primero a realizar para hacer que nuestro sitio web se comporte como una aplicación, es agregar un archivo con información llamado Web App Manifest. Este archivo está escrito en formato json con campos bien definidos.
+## El Web App Manifest
 
-1. Agregar un nuevo archivo llamado `manifest.json` dentro de la carpeta **public**.
+Lo primero a realizar para hacer que nuestro sitio web se comporte como una aplicación, es agregar un archivo con la información necesaria, llamado [Web App Manifest](https://w3c.github.io/manifest/). Este archivo está escrito en formato _json_ con campos bien definidos.
 
-1. En el archivo, agregar el siguiente contenido.
+1. Para arrancar, agregar un nuevo archivo llamado `manifest.json` dentro de la carpeta **public**.
+
+1. En el nuevo archivo, agregar el siguiente contenido.
 
     ```json
     {
@@ -66,42 +68,85 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     > - **prefer_related_applications**: Un valor booleano que especifica si sugerirle al usuario que existe una aplicación nativa disponible y recomendada sobre la experiencia web. sólo debería ser utilizado si la aplicación nativa ofrece una experiencia realmente superadora. Para la sugerencia utiliza lo especificado en `elated_applications`
     > - **icons**: Especifica un array de imágenes que pueden servir como iconos de aplicación en diferentes contextos. Por ejemplo, se pueden utilizar para representar la aplicación entre un listado de aplicaciones, o para mostrar la pantalla de Splash.
 
-Poner screenshots de las distintas opciones de display
+1. Antes de avanzar, localizar la propiedad `start_url` y actualizar el valor por el siguiente.
 
-1. Ahora, abrir el archivo `index.html` dentro de la carpeta `public` y agregar la siguiente línea en el header, debajo del meta tag `theme-color`.
+    ```json
+    "start_url": "http://localhost:3000/?utm_source=pwa&utm_medium=pwasite&utm_campaign=start",
+    ```
+
+    > **Nota**: Podemos cambiar la start_url para que cuando se inicie la aplicación instalada use una url especial, dando una mejor experiencia a los usuarios, así como agregar parámetros para tener un mejores mediciones y entender si nuestros usuarios usan la app o entran al sitio directamente.
+
+1. Ahora, abrir el archivo `index.html` dentro de la carpeta `public` y agregar la siguiente línea en el header, debajo del meta tag `viewport`.
 
     ```html
     <link rel="manifest" href="/manifest.json">
     ```
 
-1. Repetir la operación anterior en el archivo `expense.html`.
+1. Vamos a aprovechar a agregar también otro meta tag para definir el color que puede llegar a tomar el browser theme, para esto, agregar arriba del elemento recién agregado el siguiente elemento.
 
-1. Por último, agregar los assets que faltan que definimos en el manifest como iconos dentro de la carpeta `img`, para esto, copiarlos desde `TBC`.
+    ```html
+    <meta name="theme-color" content="#3A475B"/>
+    ```
 
-1. Correr la app y navegar al index.
+1. Repetir las operaciones anteriores en el archivo `expense.html`.
 
-1. Abrir las dev tools, seleccionar Applications y ver la información que figura.
+    ```html
+    <meta name="theme-color" content="#3A475B"/>
+    <link rel="manifest" href="/manifest.json">
+    ```
+
+1. Por último, agregar las imágenes que definimos en el manifest como iconos dentro de la carpeta `img`. Para esto, copiar todas las imagenes de la carpeta `assets` localizada en este módulo a la carpeta `public/img` de la solución.
+
+    ![Los assets en la carpeta img](./images/assets-en-img.png)
+
+    _Los assets en la carpeta img_
+
+1. Ejecutar la applicación con `npm start` y navegar en el browser a [http://localhost:3000](http://localhost:3000).
+
+1. Abrir las _Developer Tools_ del browser,  seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Manifest**.
+
+    ![La información del manifest que podemos ver en las developer tools](./images/dev-tools-manifest.png)
+
+    _La información del manifest que podemos ver en las developer tools_
 
 
 ## Consumir datos desde el servidor
 
-Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción coincida es la utilización de AJAX (Asynchronous JavaScript And XML), pero en la actualidad, aparece una nueva API del navegador llamada fetch, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
+Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción coincida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
 
 ### Migrando a usar los datos con AJAX
 
-1. Abrir el archivo `common.js` dentro de `public/js` y notar que la implementación actual se basa en consumir datos que están en el mismo archivo.
+1. Abrir el archivo `common.js` dentro de `public/js` y notar que la implementación actual llama en todas las operaciones a una función llamada `apiClient`.
 
     ```js
-    //codigo inicial js
+    function saveExpense(expense, cb) {
+        apiClient(`${serverUrl}api/expense/${expense.id || ''}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expense)
+        }, cb);
+    }
+
+    function deleteExpenses(cb) {
+        try {
+            apiClient(`${serverUrl}api/expense`, { method: 'DELETE' }, cb);
+        } catch (error) {
+            alert("Error deleting expenses");
+        }
+    }
+
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`, {}, cb)
+    }
+
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`, {}, cb);
+    }
     ```
 
-1.  Notar aparte que estos datos se están guardando y leyendo desde localstorage para permitir pasar de una página a otra manteniendo la información.
-
-    ```js
-    //codigo inicial js que usa local storage
-    ```
-
-1. Agregar la siguiente función al inicio del archivo que implementa una llamada AJAX genérica que nos permitirá leer y escribir los datos en el servidor
+1. La función `apiClient` localizada al inicio del archivo, implementa una llamada AJAX genérica que nos permite leer y escribir los datos en el servidor.
 
     ```js
     function apiClient(url, options, success, error) {
@@ -109,11 +154,14 @@ Un paso importante a la hora de trabajar en aplicaciones web es consumir datos d
         let request = new XMLHttpRequest();
         
         request.open(options.method || 'get', url);
+        request.setRequestHeader('Content-type', 'application/json');
 
         request.onload = () => {
-            if (request.status == 200 && request.getResponseHeader('Content-Type') == 'application/json') {
+            if (request.status == 200 && request.getResponseHeader('Content-Type').indexOf('application/json') !== -1) {
                 const responseObj = JSON.parse(request.response);
-                success(responseObj);
+                if (success) {
+                    success(responseObj);
+                }
             } else {
                 throw new TypeError();
             }
@@ -130,35 +178,14 @@ Un paso importante a la hora de trabajar en aplicaciones web es consumir datos d
         - **options**: este objeto donde tenemos el _method_ que tendrá el request (_ej. GET, POST, PUT, etc._) y el body en caso de tenerlo (para request como _POST_ y _PUT_)
         - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya procesado.
         - **error**: función de callback que se llama en caso de error
-    > La llamada al servidor se hace por medio del objeto `XMLHttpRequest`, configurando todos los event handlers como onload y onerror.
+    > La llamada al servidor se hace por medio del objeto `XMLHttpRequest`, configurando todos los event handlers como `onload` y `onerror`.
 
-1. Ahora hay que actualizar el código existente para usar esta función. Para esto, actualizar las funciones `getExpenses` y `getExpense` para leer los datos desde el servidor gracias a la nueva función `apiClient`.
+1. Ejecutar nuevamente la aplicación. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel `Network`, así como también en los logs del server en la consola como vimos anteriormente.
 
-    ```js
-    function getExpenses(cb) {
-        apiClient(`${serverUrl}api/expense`, {}, cb)
-    }
+    ![Solapa Network de las Developer tools](./images/dev-tools-network.png)
 
-    function getExpense(expenseId, cb) {
-        apiClient(`${serverUrl}api/expense/${expenseId}`, {}, cb);
-    }
-    ```
+    _Solapa Network de las Developer tools_
 
-1. Aparte de las funciones de lectura, tenemos que actualizar la función que usamos para grabar los datos para que ahora lo haga en el servidor. Para eso actualizamos la función `saveExpense` con el siguiente código.
-
-    ```js
-    function saveExpense(expense) {
-        apiClient(`${serverUrl}api/expense/${expense.id || ''}`, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(expense)
-        });
-    }
-    ```
-
-1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
 
 ### Conociendo las promesas
 
@@ -176,7 +203,7 @@ El parámetro que es una función con los argumentos resolver y rechazar. Está 
 Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
 
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con Promises en vez de con callbacks, remplázandola por la siguiente implementación.
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con _Promises_ en vez de con callbacks, remplázandola por la siguiente implementación.
 
     ```js
     function apiClient(url, options) {
@@ -185,6 +212,7 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
             let request = new XMLHttpRequest();
             
             request.open(options.method || 'get', url);
+            request.setRequestHeader('Content-type', 'application/json');
 
             request.onload = () => {
                 if (request.status == 200 && request.getResponseHeader('Content-Type') == 'application/json') {
@@ -202,9 +230,25 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
     }
     ```
 
-1. Ahora hay que actualizar el código existente nuevamente para usar esta función. Para esto, actualizar las funciones `getExpenses` y `getExpense` para leer los datos desde el servidor gracias a la nueva función `apiClient`.
+1. Ahora hay que actualizar el código existente para usar esta función. Para esto, actualizar las funciones `saveExpense`, `deleteExpenses`, `getExpenses` y `getExpense` para hacer uso de las _Promises_ en vez de usar callbacks.
 
     ```js
+    function saveExpense(expense, cb) {
+        apiClient(`${serverUrl}api/expense/${expense.id || ''}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expense)
+        }).then(cb);
+    }
+
+    function deleteExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`, { method: 'DELETE' })
+            .then(cb)
+            .catch(() => alert("Error deleting expenses"));
+    }
+
     function getExpenses(cb) {
         apiClient(`${serverUrl}api/expense`)
             .then(cb);
@@ -216,11 +260,17 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
     }
     ```
 
-1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
+1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes.
 
 ### Migrando a Fetch
 
-TBC explicación de fetch
+<!-- https://developer.mozilla.org/es/docs/Web/API/Fetch_API -->
+
+La _API Fetch_ proporciona una interfaz para recuperar recursos (incluyendo recursos remotos a través de redes). Le resultará familiar a cualquiera que haya usado `XMLHttpRequest`,` pero ésta nueva API ofrece un conjunto de características más potente y flexible.
+
+_Fetch_ ofrece una definición genérica de los objetos _Request_ y _Response_ (y otras cosas relacionados con las solicitudes de red). Esto permitirá que sean utilizados donde sea necesario en el futuro, ya sea para los operadores de servicios, _API caché_ y otras cosas similares que manipulan o modifican las solicitudes y respuestas, o cualquier tipo de caso de uso que podría requerir la generación de sus propias respuestas mediante programación.
+
+Vamos a aprovechar esta API migrando nuestro código.
 
 1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplázandola por la siguiente implementación.
 
@@ -231,9 +281,28 @@ TBC explicación de fetch
     }
     ```
 
-1. Dado que fetch es más flexible que nuestra implementación anterior de la función `apiClient`, tenemos que aclarar qué tipo de respuesta queremos a la hora de consumirlo. En nuestro caso queremos usar json, para lo cual antes hacíamos uso de `JSON.parse`. Para esto, actualizar las funciones `getExpenses` y `getExpense` con el siguiente código.
+1. Dado que fetch es más flexible que nuestra implementación anterior de la función `apiClient`, tenemos que aclarar qué tipo de respuesta queremos a la hora de consumirlo. En nuestro caso queremos usar json, para lo cual antes hacíamos uso de `JSON.parse`. Para esto, actualizar nuevamente las funciones que consumen apiClient con el siguiente código.
 
     ```js
+    function saveExpense(expense, cb) {
+        apiClient(`${serverUrl}api/expense/${expense.id || ''}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(expense)
+        })
+        .then(response => response.json())
+        .then(cb);
+    }
+
+    function deleteExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`, { method: 'DELETE' })
+            .then(response => response.json())
+            .then(cb)
+            .catch(() => alert("Error deleting expenses"));
+    }
+
     function getExpenses(cb) {
         apiClient(`${serverUrl}api/expense`)
             .then(response => response.json())
@@ -249,7 +318,7 @@ TBC explicación de fetch
 
     > **Nota**: El objeto que devuelve fetch tiene algunos métodos que nos ayudan a consumir más simplemente los datos que pedimos, entre ellos `json()`, `text()` y `blob()`.
 
-1. Si bien el código anda en browsers modernos, hay que tener en cuenta que no en todos está soportado fetch, por lo que tenemos que usar un fallback (polyfill) para los casos en los que no tenga soporte. Para eso remplazamos la función `apiClient` nuevamente con el siguiente código que implementa un polyfill muy básico.
+1. Si bien el código anda en browsers modernos, hay que tener en cuenta que no en todos está soportado _fetch_, por lo que tenemos que usar un polyfill (un fallback con la misma interfaz) para los casos en los que no tenga soporte. Para eso remplazamos la función `apiClient` nuevamente con el siguiente código que implementa un polyfill muy básico.
 
     ```js
     function apiClient(url, options) {
@@ -260,6 +329,7 @@ TBC explicación de fetch
                 let request = new XMLHttpRequest();
                 
                 request.open(options.method || 'get', url);
+                request.setRequestHeader('Content-type', 'application/json');
 
                 request.onload = () => {
                     resolve(response());
@@ -290,19 +360,23 @@ TBC explicación de fetch
 
     > **Nota**: Para un polyfill más completo ver [GitHub/fetch](https://github.com/github/fetch).
 
-1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel Network, así como también en los logs del server en la consola.
+1. Ejecutar nuevamente la aplicación y ver que funcione todo como antes.
 
 ## Introducción a Service Worker (SW)
-Qué es
 
-Cómo funciona
+<!-- https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API -->
 
-Requisitos
-HTTPS
+Los _Service workers_ son una parte clave a la hora de crear una _Progressive Web App_. Actúan esencialmente como proxy servers asentados enre las aplicaciones web, el navegador y la red (cuando está accesible). Están destinados, entre otras cosas, a permitir la creación de experiencias offline efectivas, interceptando peticiones de red y realizando la acción apropiada si la conexión de red está disponible y hay disponibles contenidos actualizados en el servidor. También permitirán el acceso a notificaciones tipo push y APIs sincronas en background.
 
-1. Lo primero a realizar es crear un archivo en el root de nuestro sitio que tendrá la lógica del Service Worker. Para esto agregamos un nuevo archivo con el nombre `service-worker.js` en la carpeta **public**.
+Es un worker manejado por eventos registrado para una fuente y una ruta. Consiste en un archivo JavaScript que controla la página web (o el sitio) con el que está asociado, interceptando y modificando la navegación y las peticiones de recursos, y cacheando los recursos de manera muy granular para ofrecer un control completo sobre cómo la aplicación debe comportarse en ciertas situaciones (la mas obvia es cuando la red no está disponible).
 
-1. Dentro de este archivo agregamos el siguiente código.
+Se ejecuta en un contexto worker, por lo tanto, no tiene acceso al DOM, y se ejecuta en un hilo distinto al JavaScript principal de la aplicación, de manera que no es bloqueante. Está diseñado para ser completamente asíncrono, por lo que APIs como el _XMLHttpRequest_ y _localStorage_ no se pueden usar dentro de un service worker.
+
+Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Modificar las peticiones de red en abierto permitiría ataques _man in the middle_ realmente peligrosos.
+
+1. Lo primero a realizar es crear un archivo en el root de nuestro sitio que tendrá la lógica del _Service Worker_. Para esto agregamos un nuevo archivo con el nombre `service-worker.js` en la carpeta **public**.
+
+1. Dentro de este archivo agregamos el siguiente código de inicialización.
 
     ```js
     (function() {
@@ -311,9 +385,9 @@ HTTPS
     })();
     ```
 
-1. Ahora, necesitamos crear un nuevo archivo para agregar la lógica para registrar el service worker en nuestro sitio. Para eso, agregamos un archivo nuevo dentro de la carpeta **public/js** llamado `sw-registration.js`.
+1. Ahora, necesitamos crear un nuevo archivo para agregar la lógica para registrar el _service worker_ en nuestro sitio. Para eso, agregamos un archivo nuevo dentro de la carpeta **public/js** llamado `sw-registration.js`.
 
-1. Dentro de `sw-registration.js` agregamos el siguiente código para registrar el service worker si es que el navegador lo soporta.
+1. Dentro de `sw-registration.js` agregamos el siguiente código para registrar el service worker solo si es que el navegador lo soporta.
 
     ```js
     if ('serviceWorker' in navigator) {
@@ -329,6 +403,24 @@ HTTPS
 
     > **Nota**: Si la propiedad `serviceWorker` existe dentro de la variable `navigator`, es porque el navegador lo soporta. 
 
+1. Abrir el archivo `index.html` y agregar el siguiente elemento al final de los scripts para que se llame el nuevo script.
+
+    ```html
+    <script src="/js/sw-registration.js"></script>
+    ```
+
+1. Repetir el paso anterior con `expense.html`.
+
+    ```html
+            <!-- ... -->
+            
+            <script src="/js/utils.js"></script>
+            <script src="/js/common.js"></script>
+            <script src="/js/home.js"></script>
+            <script src="/js/sw-registration.js"></script>
+        </body>
+    </html>
+    ```
 
 1. A la hora de entender el service worker, una de las cosas principales es su ciclo de vida.
 
@@ -337,7 +429,7 @@ HTTPS
     _Ciclo de vida del service worker_
 
 
-1. Para visualizar este ciclo de vida vamos a agregar el siguiente código para que el service worker escuche a eventos de tipo `install` y escriba en el log el evento.
+1. Para visualizar este ciclo de vida, vamos a agregar el siguiente código para que el service worker escuche a eventos de tipo `install` y escriba en el log el evento.
 
     ```js
     self.addEventListener('install', function(event) {
@@ -346,9 +438,9 @@ HTTPS
     });
     ```
 
-    > **Nota**: El evento install es muy útil para TBC
+    > **Nota**: El evento install es muy útil para preparar el service worker para usarlo cuando se dispara, por ejemplo creando una caché que utilice la API incorporada de almacenamiento, y colocando los contenidos dentro de ella para poder usarlos con la aplicación offline.
 
-1. Ahora, agregar el siguiente código para que el service worker escuche a eventos de tipo `activate` y escriba en el log el evento.
+1. Ahora, agregar el siguiente código para que el _service worker_ escuche a eventos de tipo `activate` y escriba en el log el evento.
 
     ```js
     self.addEventListener('activate', function(event) {
@@ -357,46 +449,68 @@ HTTPS
     });
     ```
 
-    > **Nota**: El evento install es muy útil para TBC
-
-1. Correr el sitio y ver los logs (TBC)
-
+    > **Nota**: El momento en el que este evento se activa es, en general, un bueno momento para limpiar viejas cachés y demás cosas asociadas con la versión previa de tu service worker.
 
 1. Ahora, agregar el siguiente código para que el service worker escuche a eventos de tipo `fetch` y realice la operación agregando un log de cada pedido.
 
     ```js
     self.addEventListener('fetch', function(event) {
+        console.log('On fetch');
         console.log(event.request);
 
         if (event.request.method != 'GET') return;
 
-        event.respondWith(
-            fetch(event.request);
-        );
+        event.respondWith(fetch(event.request));
     });
     ```
 
-    > **Nota**: Este ejemplo es trivial, dado que no hace falta realizarlo a mano, pero nos permite ver que podemos estar en el medio de cada pedido a un servidor. El `if` va a revisar que el método del request sea diferente a _GET_ (ej.: _POST_, _PUT_, etc.) y va a cortar la función para que se realice el comportamiento default.
+    > **Nota**: Este ejemplo es trivial, dado que no hace falta realizarlo a mano, pero nos permite ver que podemos estar en el medio de cada pedido a un servidor. El `if` va a revisar que el método del request sea diferente a _GET_ (ej.: _POST_, _PUT_, etc.) y va a cortar la función para que se realice el comportamiento default. Esto nuevamente es a modo ilustrativo, para poder ver que podemos acceder al tipo de método de cada request.
 
 
-1. Correr el sitio y ver los logs (TBC)
+1. Correr el sitio nuevamente y ver los logs en la consola de las _Developers Tools_. Realizar un refresh del sitio y ver como se muestran todos los pedidos de los archvios.
 
+    ![Log de llamadas a los eventos registrados enel service worker](./images/service-worker-events.png)
+
+    _Log de llamadas a los eventos registrados enel service worker_
 
 ## Instalando nuestro sitio como app
 
-Probar en devtools. Click en add to homescreen
-Mostrar opciones de trackeo
+Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un service worker básico), podemos probar de instalar nuestro sitio web como una aplicación.
 
-1. Abrir el `manifest.json`, localizar la propiedad `start_url` y actualizar el valor por el siguiente.
+1. Abrir nuevamente el sitio y las _Developer Tools_.
 
-    ```json
-    "start_url": "http://localhost:3000/?utm_source=pwa&utm_medium=pwasite&utm_campaign=start",
-    ```
+1. En las _Developer Tools_ del browser, seleccionar la solapa **Application** e ir a la categoría **Manifest**.
 
-    > **Nota**: Podemos cambiar la start_url para que cuando se inicie la aplicación instalada use una url especial, dando una mejor experiencia a los usuarios, así como agregar parámetros para tener un mejor tracking y entender si nuestros usuarios usan la app o entran al sitio directamente.
+    ![Categoría Manifest dentro de Application en las Developer Tools](./images/dev-tools-manifest.png)
 
-Cuántos entran desde el ícono con start_url
-beforeinstallprompt para saber si aceptó o no
+    _Categoría Manifest dentro de Application en las Developer Tools_
+
+1. Hacer click en **Add to homescreen** para instalar el sitio como una aplicación. Esto levantará una notificación en la parte superior del sitio cuando tenga el foco.
+
+    ![Instalando nuestro sitio](./images/installing-the-site.png)
+
+    _Instalando nuestro sitio_
+
+
+1. Hacer click en el botón de **Add** para instalar la aplicación. Esto muestra un nuevo dialogo donde se ve el icono que se va a usar y el nombre que se puede cambiar. Para terminar la instalación hacer click en **Add**.
+
+    ![Dialogo con la información de nuestra aplicación listo para agregar](./images/add-to-applications.png)
+
+    _Dialogo con la información de nuestra aplicación listo para agregar_
+
+1. Luego de dar click en **Add**, veremos la aplicación instalada en nuestro sistema operativo.
+
+> **Nota**: Chrome tiene la posibilidad de escuchar al evento que se dispara cuando se instala una aplicación, permitiendonos saber si los usuarios instalaron o no la web app.
+> 
+> ```js
+> window.addEventListener("beforeinstallprompt", function(e) { 
+>   // log the platforms provided as options in an install prompt 
+>   console.log(e.platforms); // e.g., ["web", "android", "windows"] 
+>   e.userChoice.then(function(outcome) { 
+>     console.log(outcome); // either "installed", "dismissed", etc. 
+>   }, handleError); 
+> });
+> ```
 
 ## Conclusiones
 
