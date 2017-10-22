@@ -76,6 +76,6 @@ function getTotal(expenses) {
 }
 
 function share(title) {
-    const url = window.location.href;
-    window.open("http://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), '_blank');
+    const url = window.location.href;    
+    window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(url), '_blank');
 }
