@@ -20,12 +20,12 @@ Ahora, vamos a arrancar a revisar el proyecto mirando el código.
 
 1. Notar que en la el nodo `scripts`, está configurado el llamado _start_ ejecutando el archivo _index.js_.
 
-  ```json
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  ```
+    ```json
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    ```
 
 1. Ahora, abrir el archivo _index.js_. Éste contiene el código del servidor donde se configura el uso de _express_ así como también las rutas de nuestra API.
 
