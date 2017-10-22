@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v2" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v2" />
+
+    <title>Expense - Progressive expenses</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/custom.css" rel="stylesheet">
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Progressive Expenses</a>
+      <span class="share" onclick="share('Te invito a compartir este gasto conmigo en Progressive Expenses')">Compartir gasto</span>
+    </nav>
+
+    <div class="main-container">
+      <div class="jumbotron jumbotron-fluid">
+        <form class="container">
+          <div class="form-row">
+            <div class="col">
+              <input type="text" id="expense-name" class="form-control form-control-lg" value="name" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col col-sm-10">
+            <ul id="expenses-list" class="list-group">
+              <li class="list-group-item total-row">Total <span class="total"></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-4 pb-4">
+          <div class="col col-sm-10">
+            <button id="add" class="btn btn-outline-primary btn-block">Agregar fila</button>
+          </div>
+        </div>
+      </div><!-- /.container -->
+    </div>
+
+    <footer class="footer bg-dark">
+      <div class="container py-4">
+        <span class="text-muted">Progressive expenses</span>
+      </div>
+    </footer>
+
+    <script src="/js/utils.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/expenses.js"></script>
+  </body>
+</html>
+
