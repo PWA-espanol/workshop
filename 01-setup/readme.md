@@ -54,3 +54,7 @@ Hoy en día existen muchas herramientas para el desarrollo web que aprovechan [n
 Con este tipo de herramientas se puede desarrollar desde cualquier plataforma (Windows, Mac o Linux) sin ningún problema, permitiendo una mayor flexibilidad.
 
 Ahora que el entorno de desarrollo esta listo, no queda otra cosa que empezar a desarrollar las aplicaciones.
+
+
+## Próximo modulo
+Avanzar al [módulo 2](../02-proyecto)
