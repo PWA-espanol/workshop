@@ -253,21 +253,25 @@ A la hora de implementar estrategias de caching, tenemos multiples opciones que 
 
 1. Volver al modo online y refrescar el sitio para comprobar que ande todo como antes.
 
-1. Solo falta traer los datos relacionados a las llamadas de las APIs de la caché cuando no haya conexión. Para esto, abrir el archivo `common.js` dentro de la carpeta `public/js` y actualizar la función `apiClient`, agregando al final, la llamada al cache en caso de error del fetch.
+1. Solo falta traer los datos relacionados a las llamadas de tipo GET de las APIs de la caché cuando no haya conexión. Para esto, abrir el archivo `common.js` dentro de la carpeta `public/js` y actualizar las funciones `getExpenses` y `getExpense`, agregando un catch a la llamada de `apiClient` donde buscamos en el cache el valor en caso de error del fetch.
 
     ```js
-    function apiClient(url, options) {
-        options = options || {};
-        if (!('fetch' in window)) {
-            // ...
-        }
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`)
+            .catch(() => caches.match(`${serverUrl}api/expense`))
+            .then(response => response.json())
+            .then(cb);
+    }
 
-        return fetch(url, options)
-                .catch(() => caches.match(url));
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`)
+            .catch(() => caches.match(`${serverUrl}api/expense/${expenseId}`))
+            .then(response => response.json())
+            .then(cb);
     }
     ```
 
-    > **Nota**: Estamos agregando solo el catch de la promise que devuelve fetch y buscando en la cache la url que se pidió (`.catch(() => caches.match(url));`). Si se cacheó se va a poder tener información para mostrar.
+    > **Nota**: Estamos agregando solo el catch de la promise que devuelve fetch y buscando en la cache la url que se pidió (`.catch(() => caches.match(url));`). Si se cacheó se va a poder tener información para mostrar, caso contrario va a fallar como antes.
 
 1. Volver a probar el sitio en modo offline para comprobar que podemos acceder a los datos si es que alguna vez accedimos.
 

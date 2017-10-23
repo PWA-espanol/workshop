@@ -32,8 +32,7 @@ function apiClient(url, options) {
         });
     }
 
-    return fetch(url, options)
-            .catch(() => caches.match(url));
+    return fetch(url, options);
 }
 
 function saveExpense(expense, cb) {
@@ -57,12 +56,14 @@ function deleteExpenses(cb) {
 
 function getExpenses(cb) {
     apiClient(`${serverUrl}api/expense`)
+        .catch(() => caches.match(`${serverUrl}api/expense`))
         .then(response => response.json())
         .then(cb);
 }
 
 function getExpense(expenseId, cb) {
     apiClient(`${serverUrl}api/expense/${expenseId}`)
+        .catch(() => caches.match(`${serverUrl}api/expense/${expenseId}`))
         .then(response => response.json())
         .then(cb);
 }
