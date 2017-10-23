@@ -9,7 +9,7 @@ A continuación se explica como instalar alguna de ellas.
 
 ## Instalar Chrome última versión
 
-El workshop se basa en estándares web que para el momendo de creación del mismo no estaban cop completamente implementadas en todos los browsers. Por eso, mas la posibilidad de tener la misma experiencia en todos los sistemas operativos, agregamos como prerequisito tener la última versión de Chrome instalada. Hay que aclarar que esto no implica que sea el único donde funciona lo que se verá.
+El workshop se basa en estándares web que para el momento de creación del mismo no estaban completamente implementadas en todos los browsers. Por eso, más la posibilidad de tener la misma experiencia en todos los sistemas operativos, agregamos como prerequisito tener la última versión de Chrome instalada. Hay que aclarar que nada de lo que hagamos no impedirá que el sitio funcione en los browsers que no tengan soporte para alguna funcionalidad.
 
 1. Navegar a [https://www.google.com/chrome/](https://www.google.com/chrome/) y descargar la versión correspondiente para tu plataforma.
 
@@ -21,7 +21,7 @@ El workshop se basa en estándares web que para el momendo de creación del mism
 
 ## IDE / Editor. Ejemplo Visual Studio Code
 
-Para editar el código, se va a aprovechar _Visual Studio Code_, en especial porque permite trabajar en todas las plataformas y es gratuito. Igualmente, se puede usar su editor de texto preferido.
+Para editar el código, se va a aprovechar _Visual Studio Code_, en especial porque permite trabajar en todas las plataformas y es gratuito. Igualmente, se puede usar su editor de texto o IDE preferido.
 
 1. Navegar a [https://code.visualstudio.com](https://code.visualstudio.com) y descargar la versión correspondiente para tu plataforma.
 
@@ -34,7 +34,7 @@ Para editar el código, se va a aprovechar _Visual Studio Code_, en especial por
 
 ## Node.js & npm
 
-Hoy en día existen muchas herramientas para el desarrollo web que aprovechan [node.js](https://nodejs.org) y [npm](https://www.npmjs.com). Por mas que no es requerido para el desarrollo de una PWA, nosotros usaremos algunas de estas herramientas y por eso es un requerimiento de este workshop. El primero sirve para poder correr las herramientas necesarias. El segundo, se necesita dado que es la forma en la se distribuye los paquetes que utilizaremos.
+Hoy en día existen muchas herramientas para el desarrollo web que aprovechan [node.js](https://nodejs.org) y [npm](https://www.npmjs.com). Por mas que no es requerido para el desarrollo de una PWA, nosotros usaremos algunas de estas herramientas y por eso es un requerimiento de este workshop. El primero sirve para poder correr las herramientas necesarias. El segundo, se necesita dado que es la forma en la que se distribuyen los paquetes que utilizaremos.
 
 > **Nota**: Verificar que está instalada al menos la versión _4.x.x_ de _node.js_ y la versión _3.x.x_ de _npm_ corriendo `node -v` y `npm -v` en la terminal/consola.
 
@@ -53,7 +53,7 @@ Hoy en día existen muchas herramientas para el desarrollo web que aprovechan [n
 
 Con este tipo de herramientas se puede desarrollar desde cualquier plataforma (Windows, Mac o Linux) sin ningún problema, permitiendo una mayor flexibilidad.
 
-Ahora que el entorno de desarrollo esta listo, no queda otra cosa que empezar a desarrollar las aplicaciones.
+Ahora que el entorno de desarrollo está listo, no queda otra cosa que empezar a desarrollar la aplicación.
 
 
 ## Próximo modulo
