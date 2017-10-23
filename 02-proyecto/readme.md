@@ -1,6 +1,6 @@
 # 2. Entendiendo el proyecto
 
-Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizandola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de que se trata, como también que tecnologías utiliza.
+Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizándola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de que se trata, como también que tecnologías utiliza.
 
 ## Estructura del proyecto
 
@@ -52,7 +52,7 @@ Ahora, vamos a arrancar a revisar el proyecto mirando el código.
     
     - _css_: Las hojas de estilos que son usados en el cliente. Estos incluyen [Bootstrap v4](http://getbootstrap.com) y algunos estilos propios.
     - _img_: Algunas imagenes que son usadas por el sitio.
-    - _js_: Un archivo de js por cada página (_expenses.js_ y _home.js_) con la lógica propia de cada una. Aparte existe un archivo _common.js_ con todas las funciones compartidas por ambas páginas y donde se realizan las llamas al servidor. Por último un archivo _utils.js_ con algunas funciones que se usarán después.
+    - _js_: Un archivo de js por cada página (_expenses.js_ y _home.js_) con la lógica propia de cada una. Aparte existe un archivo _common.js_ con todas las funciones compartidas por ambas páginas y donde se realizan las llamadas al servidor. Por último un archivo _utils.js_ con algunas funciones que se usarán después.
     - _index.html_ y _expenses.html_: los archivos correspondientes a cada una de las vistas con el html básico de cada una. Idealmente en un proyecto se usaría algun engine de templates en el servidor para no duplicar el código (ejemplo: [pug](https://pugjs.org/)). Para mas información: [Using Template Engines](https://expressjs.com/en/guide/using-template-engines.html).
 
 1. Antes de pasar a la siguiente tarea, recorrer un poco los archivos para ver que hay en cada uno a la hora de comenzar.
@@ -108,7 +108,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
     _Salida del servidor después de agregar un nuevo gasto_
 
-1. Hacer click en el nuevo nombre del item **Nombre** para ir al detalle del mismo.
+1. Hacer click en el nombre del nuevo item **Nombre** para ir al detalle del mismo.
 
     ![Detalle del nuevo gasto](./images/new-expense-details.png)
 
@@ -128,7 +128,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
     > **Nota**: Esta forma de actualizar un titulo caracter por caracter, no es recomendada y solo se hace para simplificar la solución.
 
-1. Agregar un nueva nueva fila haciendo click en el botón **Nueva fila**, modificar el nombre y la cantidad.
+1. Agregar un nueva nueva fila haciendo click en el botón **Agregar fila**, modificar el nombre y la cantidad.
 
     ![Resultado luego de agregar una nueva fila y modificarla](./images/expense-view.png)
 
@@ -141,7 +141,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
     _Salida del servidor después de agregar y modificar la nueva fila_
 
-1. Ahora, volver a la pantalla inicial haciendo click en el titulo de la aplicación arriba a la izquierda.
+1. Ahora, volver a la pantalla inicial haciendo click en el título de la aplicación arriba a la izquierda.
 
     ![Pantalla inicial con los nuevos valores](./images/home-with-new-item.png)
 
@@ -161,7 +161,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
 1. Por último, vamos a parar el servidor. Para esto, volver a la consola y parar el proceso con **Control+C**.
 
-1. Refrescar el sitio para ver que no anda. Durante el workshop, vamos a hacer que el sitio siga andando por mas que el servidor no responda.
+1. Refrescar el sitio para ver que no anda. Durante el workshop, vamos a hacer que el sitio siga funcionando aunque que el servidor no responda.
 
     ![Sitio offline](./images/offline.png)
 
@@ -177,7 +177,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
 ## Conclusiones
 
-En este módulo exploramos la aplicación que vamos a usar en el transcurso de todo el workshop. Es una aplicación web muy simple pero que nos permite ver las carácteristicas básicas de una progressive web app. Hay que notar que hay varias cosas, como por ejemplo el repositorio de datos en el servidor, que son simplificaciones de una aplicación real para no distraer del real objetivo del workshop.
+En este módulo exploramos la aplicación que vamos a usar en el transcurso de todo el workshop. Es una aplicación web muy simple pero que nos permite explorar las características básicas de una progressive web app. Hay que notar que hay varias cosas, como por ejemplo el repositorio de datos en el servidor, que son simplificaciones de una aplicación real para no distraer del real objetivo del workshop.
 
 ## Próximo modulo
 Avanzar al [módulo 3](../03-conceptos)
