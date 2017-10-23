@@ -2,7 +2,7 @@
 
 _Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho mas nuevas. 
 
-En este modulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionado a lo que normalmente se llama _Responsive design_ y _Progressive enhancement_. 
+En este módulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionados a lo que normalmente se llama _Responsive design_ y _Progressive enhancement_. 
 
 Para finalizar veremos una checklist para tener a mano a la hora de hacer una _Progressive Web App_.
 
@@ -10,9 +10,9 @@ Para finalizar veremos una checklist para tener a mano a la hora de hacer una _P
 
 <!-- https://developers.google.com/web/fundamentals/design-and-ux/responsive/#responsive-web-design -->
 
-El uso de dispositivos móviles para navegar por Internet está creciendo a un ritmo astronómico, pero desafortunadamente gran parte de la web no está optimizada para esos dispositivos móviles. Los dispositivos móviles a menudo están restringidos por el tamaño de la pantalla y requieren un enfoque diferente de cómo se presenta el contenido en la pantalla.
+El uso de dispositivos móviles para navegar por Internet está creciendo a un ritmo astronómico, pero desafortunadamente gran parte de la web no está optimizada para ellos. Los dispositivos móviles a menudo están restringidos por el tamaño de la pantalla y requieren un enfoque diferente de cómo se presenta el contenido en la misma.
 
-Una multitud de tamaños de pantalla diferentes existen en los teléfonos, "phablets", tabletas, escritorios, consolas de juegos, televisores e incluso wearables. Los tamaños de la pantalla siempre están cambiando, por lo que es importante que su sitio pueda adaptarse a cualquier tamaño de pantalla, hoy o en el futuro.
+Una multitud de tamaños de pantalla diferentes existen en los teléfonos, "phablets", tabletas, escritorios, consolas de juegos, televisores e incluso wearables. Los tamaños de la pantalla siempre están cambiando, por lo que es importante que su sitio pueda adaptarse a cualquiera de ellos, hoy o en el futuro.
 
 Responsive diseño web, originalmente definido por [Ethan Marcotte en A List Apart](http://alistapart.com/article/responsive-web-design/), responde a las necesidades de los usuarios y los dispositivos que están utilizando. El diseño cambia según el tamaño y las capacidades del dispositivo. Por ejemplo, en un teléfono los usuarios verían el contenido mostrado en una sola vista de columna; una tableta puede mostrar el mismo contenido en dos columnas.
 
@@ -38,9 +38,9 @@ _La imagen de la izquierda (A) no usa el meta tag viewport mientras que la image
 
 Algunos navegadores mantienen el ancho de la página constante al girar al modo horizontal, y el zoom en lugar de reflujo para llenar la pantalla. La adición del atributo `initial-scale=1` indica a los navegadores que establezcan una relación 1: 1 entre los píxeles CSS y los píxeles independientes del dispositivo independientemente de la orientación del dispositivo, y permite que la página aproveche el ancho total del paisaje.
 
-Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el minimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accessibilidad del sitio se recomiendo que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
+Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el mínimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accessibilidad del sitio se recomienda que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
 
-> **Nota:** Para garantizar que los navegadores antiguos puedan analizar correctamente los atributos, utilice una coma para separar los atributos.
+> **Nota:** Para garantizar que los navegadores antiguos puedan analizar correctamente los atributos, utilice una coma para separarlos.
 
 ### Media queries
 
@@ -54,7 +54,7 @@ Por ejemplo, puede colocar todos los estilos necesarios para imprimir dentro de 
 <link rel="stylesheet" href="print.css" media="print">
 ```
 
-Además de utilizar el atributo `media` en el tag de stylesheet como se vió en el código anterior, hay otras dos formas de aplicar media queries que se pueden utilizar en un archivo CSS: `@media` y `@import`. Por razones de rendimiento, se recomienda uno de los dos primeros métodos sobre la @import sintaxis (consulte [Evitar las importaciones de CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations)).
+Además de utilizar el atributo `media` en el tag de stylesheet como se vió en el código anterior, hay otras dos formas de aplicar media queries que se pueden utilizar en un archivo CSS: `@media` y `@import`. Por razones de rendimiento, se recomienda uno de los dos primeros métodos sobre la sintaxis `@import`(consulte [Evitar las importaciones de CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations)).
 
 ```css
 @media print {
@@ -64,7 +64,7 @@ Además de utilizar el atributo `media` en el tag de stylesheet como se vió en 
 @import url(print.css) print;
 ```
 
-La lógica que se aplica a las media queries no es mutuamente excluyente y se aplicará todos los bloques de css donde el criterio de la media query sea válido. filtro donde aplique el criterio del bloque CSS resultante se aplica utilizando las reglas de precedencia estándar en CSS.
+La lógica que se aplica a las media queries no es mutuamente excluyente y se aplicará todos los bloques de css donde el criterio de la media query sea válido.
 
 Las media queries nos permiten crear una experiencia de respuesta en la que se aplican estilos específicos a pantallas pequeñas, pantallas grandes y en cualquier otro lugar. La sintaxis de la media query permite la creación de reglas que se pueden aplicar dependiendo de las características del dispositivo.
 
@@ -76,12 +76,12 @@ Las media queries nos permiten crear una experiencia de respuesta en la que se a
 
 Las consultas más comunes son:
 
-- `min-width`: Reglas aplicadas para cualquier ancho de navegador mayor que el valor definido en la consulta.
-- `max-width`: Reglas aplicadas para cualquier ancho de navegador menor que el valor definido en la consulta.
-- `min-height`: Reglas aplicadas para cualquier altura del navegador mayor que el valor definido en la consulta.
-- `max-height`: Reglas aplicadas para cualquier altura del navegador menor que el valor definido en la consulta.
-- `orientation=portrait`: Reglas aplicadas a cualquier navegador donde la altura sea mayor o igual que el ancho.
-- `orientation=landscape`: Reglas para cualquier navegador donde el ancho sea mayor que la altura.
+- `min-width`: Reglas aplicadas para cualquier **ancho** de navegador **mayor** que el **valor definido** en la query.
+- `max-width`: Reglas aplicadas para cualquier **ancho** de navegador **menor** que el **valor definido** en la query.
+- `min-height`: Reglas aplicadas para cualquier **altura** del navegador **mayor** que el **valor definido** en la query.
+- `max-height`: Reglas aplicadas para cualquier **altura** del navegador **menor** que el **valor definido** en la query.
+- `orientation=portrait`: Reglas aplicadas a cualquier navegador donde la **altura** sea **mayor o igual** que el **ancho**.
+- `orientation=landscape`: Reglas para cualquier navegador donde el **ancho** sea **mayor** que la **altura**.
 
 ```css
 div {
@@ -108,18 +108,18 @@ Muchos diseñadores verán que el modelo "caja flexible" es más sencillo de uti
 
 ## Progressive enhancement
 
-Mejora progresiva (o Progressive enhancement) es una estrategia particular de diseño web que acentúa la accesibilidad, margen de beneficio semántico, y tecnologías externas del estilo y el scripting, en una manera adecuada que permite que cada uno tenga acceso al contenido y a la funcionalidad básica de una página web, usando cualquier navegador web o conexión a Internet, mientras que también permite a otros con un mayor ancho de banda o un navegador web más avanzado experimentar una versión mejorada de la página.
+Mejora progresiva (o _Progressive enhancement_) es una estrategia particular de diseño web que acentúa la accesibilidad, código semántico, y tecnologías externas del estilo y el scripting, en una manera adecuada que permite que cada uno tenga acceso al contenido y a la funcionalidad básica de una página web, usando cualquier navegador web o conexión a Internet, mientras que también permite a otros con un mayor ancho de banda o un navegador web más avanzado experimentar una versión mejorada de la página.
 
 Principios:
 
-- Todo el contenido básico debe ser accesible a todos los browsers
-- Toda la funcionalidad básica debe ser accesible a todos los browsers
-- Escasos, el margen de beneficio semántico contiene todo el contenido
-- Disposición realzada es proporcionado por el CSS externamente ligado
-- Comportamiento realzado es proporcionado por JavaScript discreto, externamente ligado
+- Todo el contenido básico debe ser accesible a todos los browsers.
+- Toda la funcionalidad básica debe ser accesible a todos los browsers.
+- El código semántico contiene todo el contenido.
+- Las mejoras en la disposición de los elementos son proporcionadas por el CSS linkeado externamente.
+- Las mejoras en el comportamiento son proporcionadas por JavaScript linkeado externamente.
 - Las preferencias del browser del usuario final son respetadas.
 
-Un ejemplo simple para ver estos conceptos es el tag `picture`, donde en caso de no tener soporte para este tag, se cuenta con un fallback a uno más soportado como es `img`. A su vez, si el navegador no permite mostrar imágenes o no fue posible acceder a la misma al momento de carga, va a mostrar un texto alternativo gracias al atributo `alt`.
+Un ejemplo simple para ver estos conceptos es el tag `picture` donde, en caso de no tener soporte para este tag, se cuenta con un fallback a uno más soportado como es `img`. A su vez, si el navegador no permite mostrar imágenes o no fue posible acceder a la misma al momento de carga, va a mostrar un texto alternativo gracias al atributo `alt`.
 
 ```html
 <picture>
@@ -142,7 +142,7 @@ Para ayudar a los equipos a construir las mejores experiencias posibles, el equi
 - [x] El sitio se sirve sobre HTTPS.
 - [x] Las páginas se adaptan a todas las resoluciones y tamaños de pantalla de dispositivos móviles.
 - [x] Todas las URLs cargan sin conexión.
-- [x] Se provee Metadata para ser usada al agregar el acceso directo al sitio.
+- [x] Se provee Metadata para ser usada al agregar un acceso directo al sitio.
 - [x] La primera carga es rápida inclusive en 3G.
 - [x] El sitio funciona en todos los navegadores.
 - [x] Las transiciones se sienten fluidas.
@@ -155,26 +155,26 @@ Para ayudar a los equipos a construir las mejores experiencias posibles, el equi
 - [x] Proveer metadata de [Schema.org](http://schema.org) donde corresponda.
 - [x] Proveer metadata Social donde corresponda (tags meta [OpenGraph](http://ogp.me/)).
 - [x] Indicar URLs canónicas cuando el contenido esté disponible en múltiples URLs.
-- [x] Usar la History API y evitar las URLs con hashes (https://example.com/#!user/26601).
+- [x] Usar la History API y evitar las URLs con hashes (Evitar urls del tipo: https://example.com/#!user/26601).
 
 #### User experience
 
-- [x] Evitar que el contenido se mueva mientras carga asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
+- [x] Evitar que el contenido se mueva mientras carga, asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
 - [x] Asegurar que el botón de atrás mantiene la posición del scroll en la página anterior.
 - [x] Evitar que los inputs se oculten cuando se abre el teclado.
-- [x] El contenido es fácil de compartir en modo pantalla completa.
-- [x] El contenido se adapta a todos los tamaños de pantalla.
-- [x] Interceptar el pedido de agregar acceso directo usando el evento `beforeinstallprompt` para lanzarlo en el mejor momento para el usuario.
+- [x] Asegurar que el contenido sea fácil de compartir en modo pantalla completa.
+- [x] Asegurar que el contenido se adapta a todos los tamaños de pantalla.
+- [x] Interceptar el pedido de agregar un acceso directo usando el evento `beforeinstallprompt` para lanzarlo en el mejor momento para el usuario.
 
 
 #### Cache
 
-- [x] Intentar siempre que se pueda, traer datos de cache antes de ir a la red.
+- [x] Intentar, siempre que se pueda, traer datos de cache antes de ir a la red.
 - [x] Informar al usuario cuando se encuentra offline.
 
 #### Push notifications
 
-Agregar push notifications no es un requerimiento, pero en caso de hacerlo, seguir los siguientes lineamientos:
+Agregar push notifications no es un requerimiento pero, en caso de hacerlo, seguir los siguientes lineamientos:
 
 - [x] Explicar al usuario cómo y para qué serán utilizadas las notificaciones.
 - [x] La UI utilizada para pedir a los usuarios que acepten las notificaciones no debe ser invasiva.
@@ -188,7 +188,7 @@ Para saber más, [aquí](https://developers.google.com/web/progressive-web-apps/
 
 ## Conclusiones
 
-En este módulo vimos conceptos base a la hora de armar una _Progressive Web App_. Entre ellos _responsive design_, con lo que vimos que es el _viewport_, las _media queries_ y _flex box_. Aparte de esto vimos el concepto de _progressive enhancement_. Para finalizar, vimos un checklist para tener en cuenta a la hora de crear una _Progressive Web App_.
+En este módulo vimos conceptos base a la hora de armar una _Progressive Web App_. Entre ellos _responsive design_, con lo que vimos qué es el _viewport_, las _media queries_ y _flex box_. Aparte de esto vimos el concepto de _progressive enhancement_ y, para finalizar, vimos un checklist para tener en cuenta a la hora de crear una _Progressive Web App_.
 
 ## Próximo modulo
 Avanzar al [módulo 4](../04-appification)
