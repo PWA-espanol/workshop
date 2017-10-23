@@ -1,4 +1,4 @@
-# Configurando el ambiente
+# 1. Configurando el ambiente
 
 Antes de arrancar, se necesitan tener las herramientas instaladas. No hay restricciones con respecto al sistema operativo (_Windows, Linux o Mac_) y al browser (_Microsoft Edge, Chrome, Safari, Firefox, etc._), aunque se instalará Chrome para asegurar tener la misma experiencia en el transcurso del workshop sin depender del sistema operativo. 
 
