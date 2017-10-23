@@ -154,3 +154,6 @@ Resulta muy interesante también leer los puntos que están pasando la auditorí
 A este punto seguramente ya estarás familiarizado con las herramientas para desarrolladores de Chrome pero nunca está de más investigar algún panel poco usado o descubrir alguna opción oculta.
 
 Para esto te recomendamos la [documentación oficial](https://developers.google.com/web/tools/chrome-devtools/?hl=es) en español.
+
+## Próximo modulo
+Avanzar al [módulo 10](../10-optimization)

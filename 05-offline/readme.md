@@ -164,3 +164,6 @@ TBC Explicar diferentes extrategias. En este caso implementaremos una estrategia
 ## Conclusiones
 
 En este módulo vimos como trabajar con el service worker, los eventos de `install` y `fetch` y la Cache API para tener soporte offline de nuestra web app, dando una mejor experiencia a nuestros usuarios.
+
+## Próximo modulo
+Avanzar al [módulo 6](../06-share)

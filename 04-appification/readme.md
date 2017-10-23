@@ -515,3 +515,6 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 ## Conclusiones
 
 En este módulo vimos los pasos necesarios para transformar nuestro sitio web en una aplicación, agregando el Web App Manifest y el service worker. Aparte vimos la función _fetch_ y lo que son las _Promises_ que nos permiten mejorar la forma como trabajamos asincronicamente nuestros pedidos al servidor.
+
+## Próximo modulo
+Avanzar al [módulo 5](../05-offline)

@@ -48,4 +48,7 @@ Vamos a darle a los usuarios la posibilidad de compartir en dos puntos distintos
 
 ## Para ver más
 - [link a la especificación](https://wicg.github.io/web-share/)
-- [link a introducción en Google Developers](https://developers.google.com/web/updates/2016/09/navigator-share) 
+- [link a introducción en Google Developers](https://developers.google.com/web/updates/2016/09/navigator-share)
+
+## Próximo modulo
+Avanzar al [módulo 7](../07-notifications) 

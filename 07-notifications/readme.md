@@ -270,3 +270,5 @@ Si te interesa profundizar más, te dejamos algunas ideas para agregar:
     - Usar el atributo tag de las notificaciones para reemplazar una por otra más nueva sin haber leído ni cancelado la primera.
 
 
+## Próximo modulo
+Avanzar al [módulo 8](../08-background)

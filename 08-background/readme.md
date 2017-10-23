@@ -269,3 +269,6 @@ Algunas ideas para profundizar más sobre background sync:
 
 - Introducción traducida de: https://developers.google.com/web/updates/2015/12/background-sync
 - Especificación: https://github.com/WICG/BackgroundSync/blob/master/explainer.md
+
+## Próximo modulo
+Avanzar al [módulo 9](../09-tooling)

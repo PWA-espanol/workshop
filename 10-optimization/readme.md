@@ -62,3 +62,6 @@ Te sugerimos seguir [este tutorial](http://ivanjov.com/running-express-koa-and-h
 
 ## ¿Mejoramos?
 Te recomendamos volver a correr Lighthouse con todas las mejoras que hayas podido sumar y ver el nuevo puntaje.
+
+## Próximo modulo
+Avanzar al [módulo 11](../11-links)
