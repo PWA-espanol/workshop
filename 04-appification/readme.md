@@ -101,7 +101,7 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
 
     _Los assets en la carpeta img_
 
-1. Ejecutar la applicación con `npm start` y navegar en el browser a [http://localhost:3000](http://localhost:3000).
+1. Iniciar el servidor con `npm start` y navegar en el browser a [http://localhost:3000](http://localhost:3000).
 
 1. Abrir las _Developer Tools_ del browser,  seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Manifest**.
 
