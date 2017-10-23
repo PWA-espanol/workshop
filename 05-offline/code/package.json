@@ -1,0 +1,28 @@
+{
+  "name": "progressive-expenses",
+  "version": "1.0.0",
+  "description": "This is a sample app for the PWA workshop",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PWA-espanol/progressive-expenses.git"
+  },
+  "keywords": [
+    "pwa"
+  ],
+  "author": "PWA-Espanol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PWA-espanol/progressive-expenses/issues"
+  },
+  "homepage": "https://github.com/PWA-espanol/progressive-expenses#readme"
+}
