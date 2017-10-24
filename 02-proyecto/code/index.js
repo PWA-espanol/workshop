@@ -6,7 +6,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-
 app.get('/api/expense', function (req, res) {
   console.log(`---- GET ('/api/expense/')`);
 
@@ -24,7 +23,7 @@ app.delete('/api/expense', function (req, res) {
     console.log(`---- DELETE ('/api/expense')`);
     Repository.deleteExpenses();
     return res.json(Repository.getExpenses());
-});
+  });
 
 app.post('/api/expense/:id', function (req, res) {
   console.log(`---- POST ('/api/expense/${req.params.id}')
@@ -59,7 +58,6 @@ app.get('/expense/:id', function (req, res) {
   res.sendFile(__dirname + '/public/expense.html');
 });
 
-
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+  console.log('Example app listening on port 3000!');
 });
