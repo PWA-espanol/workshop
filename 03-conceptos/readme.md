@@ -1,6 +1,6 @@
 # 3. Conceptos básicos
 
-_Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho mas nuevas. 
+_Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho más nuevas. 
 
 En este módulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionados a lo que normalmente se llama _Responsive design_ y _Progressive enhancement_. 
 
@@ -38,7 +38,7 @@ _La imagen de la izquierda (A) no usa el meta tag viewport mientras que la image
 
 Algunos navegadores mantienen el ancho de la página constante al girar al modo horizontal, y el zoom en lugar de reflujo para llenar la pantalla. La adición del atributo `initial-scale=1` indica a los navegadores que establezcan una relación 1: 1 entre los píxeles CSS y los píxeles independientes del dispositivo independientemente de la orientación del dispositivo, y permite que la página aproveche el ancho total del paisaje.
 
-Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el mínimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accessibilidad del sitio se recomienda que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
+Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el mínimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accesibilidad del sitio se recomienda que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
 
 > **Nota:** Para garantizar que los navegadores antiguos puedan analizar correctamente los atributos, utilice una coma para separarlos.
 
@@ -95,7 +95,7 @@ div {
 }
 ```
 
-En nuestra solución, aprovechamos la libreria _Bootstrap_ como se vió anteriormente, que utiliza las media queries para poder tener un diseño que se adapta fácilmente a los diferentes tamaños de pantalla.
+En nuestra solución, aprovechamos la librería _Bootstrap_ como se vió anteriormente, que utiliza las media queries para poder tener un diseño que se adapta fácilmente a los diferentes tamaños de pantalla.
 
 ### Flexbox
 
