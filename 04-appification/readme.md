@@ -45,11 +45,11 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     }
     ```
 
-    > **Nota**: el manifest apunta a definir información del sitio para ser tratado como una aplicación, entre otras cosas, el nombre a mostrar, colores a utilizar, orientaciones, forma en la que se muestra, iconos, etc.
+    > **Nota**: el manifest apunta a definir información del sitio para ser tratado como una aplicación, entre otras cosas, el nombre a mostrar, colores a utilizar, orientación de pantalla, forma en la que se muestra, íconos, etc.
     > - **dir**: Especifica la dirección del texto para `name`, `short_name`, y `description`. Junto con `lang`, ayuda a representar correctamente los idiomas que se escriben de derecha a izquierda. Puede tener uno de los siguientes valores: **ltr** (izquierda a derecha), **rtl** (derecha a izquierda), **auto** (indica al navegador que use el algoritmo Unicode bidirectional para hacer una estimación apropiada sobre la dirección del texto.)
     > - **lang**: Especifica el idioma principal.
     > - **name**: Especifica el nombre de la aplicación para mostrarle al usuario.
-    > - **short_name**: Proporciona un nombre corto para la aplicación. Está destinado para su uso cuando hay poco espacio para mostrar el nombre completo de la aplicación.
+    > - **short_name**: Proporciona un nombre corto para la aplicación. Está pensado para ser usado cuando hay poco espacio para mostrar el nombre completo de la aplicación.
     > - **description**: Proporciona una descripción general sobre qué hace la aplicación.
     > - **start_url**: Especifica la URL que se carga cuando el usuario lanza la aplicación desde un dispositivo. 
     > - **scope**: Define el ámbito de navegación en el contexto de la aplicación web. Esto básicamente restringe qué páginas se pueden ver cuando se aplica el manifiesto. Si el usuario navega fuera del `scope` de la aplicación, continúa como en una web normal.
@@ -57,16 +57,16 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     >
     >   | display    | Descripción                                                                                                                                                                                                                                                                                                           | fallback display |
     >   |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------|
-    >   | fullscreen | Se utiliza toda la pantalla disponible no se muestran elementos del user agent chrome.                                                                                                                                                                                                                                | standalone       |
-    >   | standalone | La aplicación se mostrará como una app independiente. Así la aplicación puede tener su propia ventana, su propio icono en el lanzador de aplicaciones, etc. En este modo, el user agent excluirá los elementos de interfaz para controlar la navegación, pero puede incluir otros elementos como la barra de estado. | minimal-ui       |
+    >   | fullscreen | Se utiliza toda la pantalla disponible, no se muestran elementos del user agent.                                                                                                                                                                                                                               | standalone       |
+    >   | standalone | La aplicación se mostrará como una app independiente. Así la aplicación puede tener su propia ventana, su propio icono en el lanzador de aplicaciones, etc. En este modo, el user agent excluirá los elementos de interfaz para controlar la navegación, pero puede incluir otros elementos como la barra de estado.  | minimal-ui       |
     >   | minimal-ui | La aplicación se mostrará como una app independiente, pero tendrá un mínimo de elementos de interfaz para controlar la navegación. Estos elementos podrán variar según navegador.                                                                                                                                     | browser          |
     >   | browser    | La aplicación se abrirá en una pestaña nueva del navegador o una ventana nueva, dependiendo del navegador y plataforma. Esto es por defecto.                                                                                                                                                                          | (ninguno)        | 
     > - **orientation**: Define la orientación por defecto. Puede ser: **any**, **natural**, **landscape**, **landscape-primary**, **landscape-secondary**, **portrait**, **portrait-primary**, **portrait-secondary**
     > - **theme_color**: Define el color por defecto para la aplicación. Esto en ocasiones afecta como se muestra por el sistema operativo (por ejemplo, en el lanzador de aplicaciones de Android, el color envuelve la aplicación).  
     > - **background_color**: Define el color de fondo deseado para la aplicación. Este valor repite lo definido en la hoja de estilos de la aplicación, pero puede ser utilizado por los navegadores para pintar el color de fondo de una app si el manifiesto está disponible antes de que la hoja de estilos se haya cargado. Esto suaviza la transición entre lanzar una aplicación y cargar el contenido de la misma.
-    > - **related_applications**: Un array especificando las aplicaciones nativas disponibles.
-    > - **prefer_related_applications**: Un valor booleano que especifica si sugerirle al usuario que existe una aplicación nativa disponible y recomendada sobre la experiencia web. sólo debería ser utilizado si la aplicación nativa ofrece una experiencia realmente superadora. Para la sugerencia utiliza lo especificado en `elated_applications`
-    > - **icons**: Especifica un array de imágenes que pueden servir como iconos de aplicación en diferentes contextos. Por ejemplo, se pueden utilizar para representar la aplicación entre un listado de aplicaciones, o para mostrar la pantalla de Splash.
+    > - **related_applications**: Un array especificando las aplicaciones nativas relacionadas disponibles.
+    > - **prefer_related_applications**: Un valor booleano que especifica si sugerirle al usuario que existe una aplicación nativa disponible y recomendada sobre la experiencia web. Sólo debería ser utilizado si la aplicación nativa ofrece una experiencia realmente superadora. Para la sugerencia utiliza lo especificado en `related_applications`
+    > - **icons**: Especifica un array de imágenes que pueden servir como íconos de la aplicación en diferentes contextos. Por ejemplo, se pueden utilizar para representar la aplicación entre un listado de aplicaciones, o para mostrar la pantalla de Splash.
 
 1. Antes de avanzar, localizar la propiedad `start_url` y actualizar el valor por el siguiente.
 
@@ -112,7 +112,7 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
 
 ## Consumir datos desde el servidor
 
-Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción coincida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
+Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción conocida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
 
 ### Migrando a usar los datos con AJAX
 
@@ -174,10 +174,11 @@ Un paso importante a la hora de trabajar en aplicaciones web es consumir datos d
     ```
 
     > **Nota**: la función **apiClient** tiene cuatro parámetros:
-        - **url**: a la cual vamos a hacer el request
-        - **options**: este objeto donde tenemos el _method_ que tendrá el request (_ej. GET, POST, PUT, etc._) y el body en caso de tenerlo (para request como _POST_ y _PUT_)
-        - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya procesado.
-        - **error**: función de callback que se llama en caso de error
+    > - **url**: a la cual vamos a hacer el request.
+    > - **options**: este objeto donde tenemos el _method_ que tendrá el request (_ej. GET, POST, PUT, etc._) y el body en caso de tenerlo (para request como _POST_ y _PUT_).
+    > - **success**: función de callback que se llama en caso de que termine bien la llamada, que recibe el objeto ya procesado.
+    > - **error**: función de callback que se llama en caso de error.
+    >
     > La llamada al servidor se hace por medio del objeto `XMLHttpRequest`, configurando todos los event handlers como `onload` y `onerror`.
 
 1. Ejecutar nuevamente la aplicación. Si abrimos las dev tools podremos ver que estamos accediendo al server en el panel `Network`, así como también en los logs del server en la consola como vimos anteriormente.
@@ -199,7 +200,7 @@ La sintaxis es la siguiente.
 new Promise( function(resolver, rechazar) { ... } );
 ```
 
-El parámetro que es una función con los argumentos resolver y rechazar. Está función es ejecutada inmediatamente por la implementación de la Promesa, pasándole las funciones resolver y rechazar (el ejecutor es llamado incluso antes de que el constructor de la Promesa devuelva el objeto creado). Las funciones resolver y rechazar, al ser llamadas, resuelven o rechazan la promesa, respectivamente. Normalmente el ejecutor inicia un trabajo asíncrono, y luego, una vez que es completado, llama a la función resolver para resolver la promesa o la rechaza si ha ocurrido un error.
+El parámetro que es una función con los argumentos resolver y rechazar. Esta función es ejecutada inmediatamente por la implementación de la Promesa, pasándole las funciones resolver y rechazar (el ejecutor es llamado incluso antes de que el constructor de la Promesa devuelva el objeto creado). Las funciones resolver y rechazar, al ser llamadas, resuelven o rechazan la promesa, respectivamente. Normalmente el ejecutor inicia un trabajo asíncrono, y luego, una vez que es completado, llama a la función resolver para resolver la promesa o la rechaza si ha ocurrido un error.
 Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
 
 
@@ -215,7 +216,7 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
             request.setRequestHeader('Content-type', 'application/json');
 
             request.onload = () => {
-                if (request.status == 200 && request.getResponseHeader('Content-Type') == 'application/json') {
+                if (request.status === 200 && request.getResponseHeader('Content-Type').indexOf('application/json') !== -1 ) {
                     const responseObj = JSON.parse(request.response);
                     resolve(responseObj);
                 } else {
@@ -266,9 +267,9 @@ Si un error es lanzado en la función ejecutor, la promesa es rechazada y el val
 
 <!-- https://developer.mozilla.org/es/docs/Web/API/Fetch_API -->
 
-La _API Fetch_ proporciona una interfaz para recuperar recursos (incluyendo recursos remotos a través de redes). Le resultará familiar a cualquiera que haya usado `XMLHttpRequest`,` pero ésta nueva API ofrece un conjunto de características más potente y flexible.
+La _API Fetch_ proporciona una interfaz para recuperar recursos (incluyendo recursos remotos a través de redes). Le resultará familiar a cualquiera que haya usado `XMLHttpRequest`, pero esta nueva API ofrece un conjunto de características más potente y flexible.
 
-_Fetch_ ofrece una definición genérica de los objetos _Request_ y _Response_ (y otras cosas relacionados con las solicitudes de red). Esto permitirá que sean utilizados donde sea necesario en el futuro, ya sea para los operadores de servicios, _API caché_ y otras cosas similares que manipulan o modifican las solicitudes y respuestas, o cualquier tipo de caso de uso que podría requerir la generación de sus propias respuestas mediante programación.
+_Fetch_ ofrece una definición genérica de los objetos _Request_ y _Response_ (y otras cosas relacionados con las solicitudes de red). Esto permitirá que sean utilizados donde sea necesario en el futuro, ya sea para los service workers, _cache API_ y otros lugares similares que manipulan o modifican las solicitudes y respuestas. O en general, en cualquier tipo de caso de uso que podría requerir la generación de sus propias respuestas mediante programación.
 
 Vamos a aprovechar esta API migrando nuestro código.
 
@@ -366,13 +367,13 @@ Vamos a aprovechar esta API migrando nuestro código.
 
 <!-- https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API -->
 
-Los _Service workers_ son una parte clave a la hora de crear una _Progressive Web App_. Actúan esencialmente como proxy servers asentados enre las aplicaciones web, el navegador y la red (cuando está accesible). Están destinados, entre otras cosas, a permitir la creación de experiencias offline efectivas, interceptando peticiones de red y realizando la acción apropiada si la conexión de red está disponible y hay disponibles contenidos actualizados en el servidor. También permitirán el acceso a notificaciones tipo push y APIs sincronas en background.
+Los _Service workers_ son una parte clave a la hora de crear una _Progressive Web App_. Actúan esencialmente como proxy servers ubicados entre las aplicaciones web, el navegador y la red (cuando está accesible). Están destinados, entre otras cosas, a permitir la creación de experiencias offline efectivas, interceptando peticiones de red y realizando la acción apropiada si la conexión de red está disponible y hay disponibles contenidos actualizados en el servidor. También permitirán el acceso a notificaciones tipo push y a la API de background sync.
 
-Es un worker manejado por eventos registrado para una fuente y una ruta. Consiste en un archivo JavaScript que controla la página web (o el sitio) con el que está asociado, interceptando y modificando la navegación y las peticiones de recursos, y cacheando los recursos de manera muy granular para ofrecer un control completo sobre cómo la aplicación debe comportarse en ciertas situaciones (la mas obvia es cuando la red no está disponible).
+Es un worker manejado por eventos registrado para un origen y una ruta. Consiste en un archivo JavaScript que controla la página web (o el sitio) con el que está asociado, interceptando y modificando la navegación y las peticiones de recursos, y cacheando los recursos de manera muy granular para ofrecer un control completo sobre cómo la aplicación debe comportarse en ciertas situaciones (la mas obvia es cuando la red no está disponible).
 
 Se ejecuta en un contexto worker, por lo tanto, no tiene acceso al DOM, y se ejecuta en un hilo distinto al JavaScript principal de la aplicación, de manera que no es bloqueante. Está diseñado para ser completamente asíncrono, por lo que APIs como el _XMLHttpRequest_ y _localStorage_ no se pueden usar dentro de un service worker.
 
-Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Modificar las peticiones de red en abierto permitiría ataques _man in the middle_ realmente peligrosos.
+Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar que se modifiquen las peticiones de red libremente permitiría ataques _man in the middle_ realmente peligrosos.
 
 1. Lo primero a realizar es crear un archivo en el root de nuestro sitio que tendrá la lógica del _Service Worker_. Para esto agregamos un nuevo archivo con el nombre `service-worker.js` en la carpeta **public**.
 
@@ -416,13 +417,13 @@ Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Modifi
             
             <script src="/js/utils.js"></script>
             <script src="/js/common.js"></script>
-            <script src="/js/home.js"></script>
+            <script src="/js/expenses.js"></script>
             <script src="/js/sw-registration.js"></script>
         </body>
     </html>
     ```
 
-1. A la hora de entender el service worker, una de las cosas principales es su ciclo de vida.
+1. A la hora de entender el service worker, uno de los puntos principales es su ciclo de vida.
 
     ![Ciclo de vida del service worker](./images/sw-lifecycle.png "Ciclo de vida del service worker")
 
@@ -514,7 +515,7 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 
 ## Conclusiones
 
-En este módulo vimos los pasos necesarios para transformar nuestro sitio web en una aplicación, agregando el Web App Manifest y el service worker. Aparte vimos la función _fetch_ y lo que son las _Promises_ que nos permiten mejorar la forma como trabajamos asincronicamente nuestros pedidos al servidor.
+En este módulo vimos los pasos necesarios para transformar nuestro sitio web en una aplicación, agregando el Web App Manifest y el service worker. Aparte vimos la función _fetch_ y lo que son las _Promises_ que nos permiten mejorar la forma en la que trabajamos asincrónicamente nuestros pedidos al servidor.
 
 ## Próximo modulo
 Avanzar al [módulo 5](../05-offline)
