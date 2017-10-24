@@ -24,7 +24,7 @@ Vamos a darle a los usuarios la posibilidad de compartir en dos puntos distintos
     <span class="share" onclick="share('Te invito a probar Progressive Expenses')">Compartir</span>
     ```
 
-1. Abrir el archivo `common.js` y buscar la función `share`. Notar que solo abre una nueva ventana para compartir por twitter.
+1. Abrir el archivo `common.js` y buscar la función `share`. Notar que solo abre una nueva ventana para compartir por Twitter.
 
     ```js
     function share(title) {
@@ -51,7 +51,7 @@ Vamos a darle a los usuarios la posibilidad de compartir en dos puntos distintos
     }
     ```
     
-    > **Nota**: Como se puede observar, estamos agregando elemento que, al ser clickeado comprueba la disponibilidad de la API. Si ésta se encuentra disponible la usa y sino abre una nueva ventana para compartir en Facebook.
+    > **Nota**: Como se puede observar, estamos comprobando la disponibilidad de la API. Si ésta se encuentra disponible la usamos y si no, abrimos la misma ventana que antes para compartir en Twitter.
     >
     > Con esto nos aseguramos que nuestra experiencia funcione en todas las plataformas y aprovechamos aquellas funcionalidades que nos brindan algunas plataformas más evolucionadas.
 
@@ -66,6 +66,13 @@ Vamos a darle a los usuarios la posibilidad de compartir en dos puntos distintos
 
     La función `share` que definimos en el paso anterior es suficiente para implementar la funcionalidad en esta página.
     Las URLs bien definidas nos brindan la posibilidad de compartir contenido muy fácilmente.
+
+
+## Probarla
+
+Es normal que en la computadora sigas viendo la ventana de Twitter.
+
+Como dijimos antes, la API solo se encuentra disponible en Chrome para Android así que la única manera de probarla será entrando a nuestro sitio por un teléfono compatible.
 
 ## Para ver más
 
