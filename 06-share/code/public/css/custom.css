@@ -1,0 +1,41 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    padding-bottom: 72px;
+    position: relative;
+}
+
+.total-container {
+    position: relative;
+}
+
+.list-group-item.total-row {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb
+}
+
+.total {
+    position: absolute;
+    right: 0;
+    padding: 0 2rem;
+}
+
+.form-control.cost {
+    text-align: right;
+}
+
+.share {
+    color: #FFF;
+    cursor: pointer;
+}
+
+.footer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}

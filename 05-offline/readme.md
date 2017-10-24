@@ -1,16 +1,16 @@
 # 5. Soporte offline
 
-Una de las caracteristicas principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por mas que no tenga internet. En el caso de las Progressive Web Apps esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_.
+Una de las caracteristicas principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por mas que no tenga internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver como trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
 
-## Mostrar un mensaje cuando no hay conexión
+## Mostrando un mensaje cuando no hay conexión
 
-Lo primero a realizar, es poder hacer que se muestre algo que le muestre al usuario que nuestra PWA funciona pero el problema por el que no tiene la experiencia completa es porque no tiene internet. Para esto, primero mostraremos un mensaje en caso de no contar con conexión.
+El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber que no tiene conexión por mas que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
 
-
-1. Abrir el archivo `service-worker.js` y actualizar el event listener de fetch con la siguiente implementación.
+1. Abrir el archivo `service-worker.js` y actualizar el event listener de _fetch_ con la siguiente implementación.
 
     ```js
     self.addEventListener('fetch', function(event) {
+        console.log('On fetch');
         console.log(event.request);
 
         if (event.request.method != 'GET') return;
@@ -23,29 +23,40 @@ Lo primero a realizar, es poder hacer que se muestre algo que le muestre al usua
     });
     ```
 
-    > **Nota**: Lo que estamos haciendo en este código, es agregar la llamada al método `catch` de la promise que devuelve `fetch`. Con esto, ante un error en el pedido, podemos hacer alguna operación. En nuestro caso estamos creando una nueva respuesta, pasando el texto que queremos mostrar.
+    > **Nota**: Lo que estamos haciendo en este código, es agregar la llamada al método `catch` de la promise que devuelve `fetch` y devolviendo en la misma una nueva respuesta con el mensaje que queremos mostrar.
+    > Con esta técnica, ante un error en el pedido, podemos hacer alguna operación. En nuestro caso estamos creando una nueva respuesta, pasando el texto que queremos mostrar, pero podríamos hacer operaciones mas complejas como haremos mas adelante.
 
-1. Abrir el sitio.
+1. Iniciar el servidor con `npm start` y navegar en el browser a [http://localhost:3000](http://localhost:3000).
 
-1. Ir a devTools, Applications, Service Worker.
+1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
-    > Screenshot
+    ![Estado del service worker en las developer tools](./images/sw-activated-running.png)
 
-1. pasar a modo offline.
+    _Estado del service worker en las developer tools_
 
-    > Screenshot
+1. En la misma ventana de las _Developer Tools_, pasar a modo offline selecionando la opción _offline_.
 
-1. refrescar el sitio.
+    ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
 
-    > Screenshot
+    _Cambiando a offline con las developer tools_
+
+1. Refrescar el sitio y comprobar que se muestra el mensaje dado que no tiene acceso a internet.
+
+    ![Mensaje en modo offline](./images/offline-msg.png)
+
+    _Mensaje en modo offline_
 
 1. Volver al modo online y refrescar el sitio para comprobar que ande todo como antes.
 
-## Intro a Cache API y mostrar un html de offline
+## Mostrando un html offline con Cache API
 
-El siguiente paso para mejorar la experiencia de usuario es poder mostrarle un sitio con formato que básicamente diga el mismo mensaje, pero tenga el mismo estilo que nuestro sitio. Para esto vamos a utilizar la Cache API que nos permitirá guardar las respuestas a requests localmente. Esto implica que podemos pedir los archivos que requerimos en esos casos y guardarlos localmente para tenerlos listos ante una eventualidad.
+El siguiente paso para mejorar la experiencia de nuestros usuarios es poder mostrarle una página que básicamente diga el mismo mensaje, pero tenga el mismo estilo que nuestro sitio. Para esto vamos a utilizar la _Cache API_ que nos permitirá guardar las respuestas a requests localmente. Esto implica que podemos pedir los archivos que requerimos en esos casos y guardarlos localmente para tenerlos listos ante una eventualidad.
 
-TBC Explicar Cache api.
+La _Cache API_ proporciona un mecanismo de almacenamiento para pares de objetos _Request/Response_ que se almacenan en caché, por ejemplo, como parte del ciclo de vida de un _Service Worker_. Es importante tener en cuenta que la _Cache API_ está expuesta tanto en la ventana como en los workers, por lo que no hace falta usarla únicamente en un _Service Worker_.
+
+Para un mismo origen, pueden existir múltiples objectos de cache con diferentes nombres. El desarrollador es el responsable de implementar como se manejan las actualizaciones de la Cache, esto es porque los elementos dentro de la caché no se actualizan, como tampoco caducan, a menos que se solicite explícitamente. Es por esto que también es responsable de purgar periódicamente las entradas de caché. 
+
+Cada navegador tiene un límite estricto en la cantidad de almacenamiento en caché que puede usar un origen determinado. Las estimaciones de uso de la cuota de caché están disponibles a través de la _StorageEstimateAPI_. El navegador hace todo lo posible para administrar el espacio en disco, pero puede eliminar el almacenamiento en caché para un origen. En caso de no tener memoria, el navegador generalmente eliminará todos los datos de un origen o ninguno de los datos de un origen.
 
 1. Abrir el archivo `service-worker.js` y agregar las siguientes constantes al inicio del archivo.
 
@@ -62,7 +73,7 @@ TBC Explicar Cache api.
     ```
 
 
-1. Ahora, abajo de las constantes recién agregadas agregar el siguiente código para iniciar la cache con el nombre definido en la constante `CACHE_NAME` y agregar las urls definidas en constante `urlsToCache`.
+1. Ahora, actualizar el handler del evento `install` con el siguiente código para iniciar la cache con el nombre definido en la constante `CACHE_NAME` y agregar las urls definidas en constante `urlsToCache`.
 
     ```js
     self.addEventListener('install', (event) => {
@@ -75,26 +86,85 @@ TBC Explicar Cache api.
     });
     ```
 
-    > **Nota**: En este código estamos agregando un event listener al evento install del service worker. Este evento se ejecuta la primer vez que corre el service worker, que es un escenario donde tiene internet. Luego, usamos el método `waitUntil` que bloquea hasta que termine de procesar la función pasada por parametro. Esta función abre el caché y luego agrega todas las urls que le pasamos en `urlsToCache`. En nuestro caso es solo el archivo `offline.html`.
+    > **Nota**: En este código estamos usando el event listener del evento `install` del service worker visto en el módulo anterior. Este evento se ejecuta la primer vez que corre el service worker, que es un escenario donde tiene internet. Luego, usamos el método `waitUntil` que bloquea hasta que termine de procesar la función pasada por parametro. Esta función abre el caché y luego agrega todas las urls que le pasamos en `urlsToCache`. En nuestro caso es solo el archivo `offline.html`.
 
-1. Abrir el sitio.
+1. Luego, actualizaremos el event listener de `fetch` para que muestre el archivo de `offline.html` desde la caché en vez de devolver el mensaje como antes. Para esto, actualizar la implementación con la siguiente versión.
 
-1. Ir nuevamente a devTools, Applications, Service Worker, pasar a modo offline y refrescar el sitio
+    ```js
+    self.addEventListener('fetch', function(event) {
+        console.log('On fetch');
+        console.log(event.request);
 
-    > Screenshot
+        if (event.request.method != 'GET') return;
+
+        event.respondWith(
+            fetch(event.request).catch(() => {
+                return caches.match('/offline.html');
+            })
+        );
+    });
+    ```
+
+    > **Nota**: En este código estamos reemplazando la creación de una respuesta por la busqueda en el caché de la página `offline.html` mediante el método `match`.
+
+1. Por último, agregar el archivo `offline.html` que se encuentra en la carpeta `assets` de este módulo a la carpeta `public`.
+
+1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo paró antes).
+
+1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
+
+    ![Estado del service worker en las developer tools](./images/sw-activated-running.png)
+
+    _Estado del service worker en las developer tools_
+
+1. En la misma ventana de las _Developer Tools_, ir a la categoría **Cache Storage** y expandirla para ver la entrada correspondiente a `static-cache` que estamos agregando en el evento `install` así como también la entrada a offline.
+
+    ![Viendo la cache en las developer tools](./images/cache-storage-view.png)
+
+    _Viendo la cache en las developer tools_
+
+    > **Nota**: Si no se ven cambios, deshabilitar el modo offline y refrescar el sitio. Se puede forzar a que se refresque el service worker con la opción `Update on reload`.
+
+1. Volver a la categoría **Service Worker** y pasar a modo offline selecionando la opción _offline_.
+
+    ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
+
+    _Cambiando a offline con las developer tools_
+
+1. Refrescar el sitio y comprobar que se muestra la página `offline.html` en vez del mensaje que se mostraba anteriormente.
+
+    ![Página offline.html en modo offline](./images/offline-page.png)
+
+    _Página offline.html en modo offline_
 
 1. Volver al modo online y refrescar el sitio para comprobar que ande todo como antes.
 
+1. Antes de terminar esta tarea, hay que tener en cuenta que tenemos que limpiar la caché de los elementos que ya no necesitamos, para eso vamos a usar el evento `activate`, reemplazando la implementación con la siguiente que eliminará todas las entradas que no coincidan.
 
-Actualizar el html de offline para mostrar el remove de cache
+    ```js
+    self.addEventListener('activate', event => {
+        var keepList = [CACHE_NAME];
+    
+        event.waitUntil(
+            caches.keys().then(cacheNameList => {
+                return Promise.all(cacheNameList.map(cacheName => { 
+                    if (keepList.indexOf(cacheName) === -1) {
+                        return caches.delete(cacheName);
+                    }
+                }));
+            })
+        );
+    });
+    ```
 
-## Sitio completo offline
+    > **Nota**: Se puede volver a probar que todo siga andando como corresponde e incluso cambiar el nombre de la caché cambiando el valor de `CACHE_NAME` viendo que cuando se active se borra la caché anterior.
 
-Lo que nos falta para tener la mejor experiencia de usuario y que no parezca un sitio web, sino una aplicación, es poder acceder a todo el contenido de forma offline. Para esto vamos a tener que optar por una nueva estrategia de caching, apuntando a tener todo el contenido almacenado una vez que se accedió al menos una vez.
 
-TBC: Explicar problemas
+## Sitio completo de forma offline
 
-TBC Explicar diferentes extrategias. En este caso implementaremos una estrategia simple de cache first, haciendo que primero se busque en el cache y luego, en caso de no encontrarse se realice el request al servidor guardando el resultado en la cache.
+Lo que nos falta para tener la mejor experiencia de usuario y que no parezca un sitio web sino una aplicación, es poder acceder a todo el contenido de forma offline. Para esto vamos a tener que optar por una nueva estrategia de caching, apuntando a tener todo el contenido almacenado una vez que se accedió al menos una vez.
+
+A la hora de implementar estrategias de caching, tenemos multiples opciones que dependen de las caracteristicas de nuestro sitio y su contenido. En este caso implementaremos una estrategia simple de cache first, haciendo que primero se busque en el cache y luego, en caso de no encontrarse se realice el request al servidor guardando el resultado en la cache.
 
 1. Abrir el archivo `service-worker.js` y actualizar la constantes `urlsToCache` al inicio del archivo, con el siguiente contenido.
 
@@ -136,34 +206,81 @@ TBC Explicar diferentes extrategias. En este caso implementaremos una estrategia
 1. Luego, actualizaremos el handler del evento _fetch_ con la siguiente implementación. Esta implementación que buscará primero en el cache y luego, en caso de no encontrar la respuesta, hará el pedido y actualizará el cache local.
 
     ```js
-    self.addEventListener('fetch', function(event) {
+    self.addEventListener('fetch', event => {
         console.log(event.request.url);
 
-        if (event.request.method != 'GET') return;
-        if (event.request.url.indexOf('/api/') !== -1) return;
-
-        event.respondWith(
-            caches.match(event.request)
-            .then((response) => {
-                return response || fetchAndCache(event.request);
-            })
-        );
+        if (event.request.url.indexOf('/api/') !== -1) {
+            event.respondWith(fetchAndCache(event.request));
+        } else {
+            event.respondWith(
+                caches.match(event.request).then(response => {
+                    return response || fetchAndCache(event.request);
+                })
+            );
+        }
     });
     ```
 
-    > **Nota**: En el segundo `if`, estamos viendo que no llamemos a la API (`event.request.url.indexOf('/api/') !== -1`), dado que al usar este tipo de estregia, nunca podremos tener los valores actuales dado que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir que estrategia de caching vamos a utilizar.
+    > **Nota**: En el `if`, estamos viendo que no llamemos a la API (`event.request.url.indexOf('/api/') !== -1`), dado que al usar este tipo de estregia, nunca podremos tener los valores actuales dado que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir que estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
 
-1. Nuevamente, abrir el sitio.
+1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo paró antes).
 
-1. Ir nuevamente a devTools, Applications, Service Worker, pasar a modo offline y refrescar el sitio
+1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
-    > Screenshot
+    ![Estado del service worker en las developer tools](./images/sw-activated-running.png)
+
+    _Estado del service worker en las developer tools_
+
+1. En la misma ventana de las _Developer Tools_, ir a la categoría **Cache Storage** y expandirla para ver la entrada correspondiente a `static-cache` que estamos agregando en el evento `install` así como también la entrada a offline.
+
+    ![Viendo la cache en las developer tools](./images/cache-storage-view-full.png)
+
+    _Viendo la cache en las developer tools_
+
+    > **Nota**: Si no se ven cambios, deshabilitar el modo offline y refrescar el sitio. Se puede forzar a que se refresque el service worker con la opción `Update on reload`.
+
+1. Volver a la categoría **Service Worker** y pasar a modo offline selecionando la opción _offline_.
+
+    ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
+
+    _Cambiando a offline con las developer tools_
+
+1. Refrescar el sitio y comprobar que se muestra el sitio entero pero no los datos.
+
+    ![Modo offline sin datos](./images/offline-mode-no-data.png)
+
+    _Modo offline sin datos_
 
 1. Volver al modo online y refrescar el sitio para comprobar que ande todo como antes.
 
+1. Solo falta traer los datos relacionados a las llamadas de tipo GET de las APIs de la caché cuando no haya conexión. Para esto, abrir el archivo `common.js` dentro de la carpeta `public/js` y actualizar las funciones `getExpenses` y `getExpense`, agregando un catch a la llamada de `apiClient` donde buscamos en el cache el valor en caso de error del fetch.
+
+    ```js
+    function getExpenses(cb) {
+        apiClient(`${serverUrl}api/expense`)
+            .catch(() => caches.match(`${serverUrl}api/expense`))
+            .then(response => response.json())
+            .then(cb);
+    }
+
+    function getExpense(expenseId, cb) {
+        apiClient(`${serverUrl}api/expense/${expenseId}`)
+            .catch(() => caches.match(`${serverUrl}api/expense/${expenseId}`))
+            .then(response => response.json())
+            .then(cb);
+    }
+    ```
+
+    > **Nota**: Estamos agregando solo el catch de la promise que devuelve fetch y buscando en la cache la url que se pidió (`.catch(() => caches.match(url));`). Si se cacheó se va a poder tener información para mostrar, caso contrario va a fallar como antes.
+
+1. Volver a probar el sitio en modo offline para comprobar que podemos acceder a los datos si es que alguna vez accedimos.
+
+    > **Nota**: Para una experiencia ideal, deberíamos manejar algunos otros escenarios como el de las páginas de detalle y deshabilitar los botones para agregar items dentro del catch que agregamos en el paso anterior.
+
 ## Conclusiones
 
-En este módulo vimos como trabajar con el service worker, los eventos de `install` y `fetch` y la Cache API para tener soporte offline de nuestra web app, dando una mejor experiencia a nuestros usuarios.
+En este módulo vimos como trabajar con el _service worker_, los eventos de `install`, `activate` y `fetch`, en conjunto con la _Cache API_ para tener soporte offline de nuestra web app, dando una mejor experiencia a nuestros usuarios.
 
 ## Próximo modulo
+
 Avanzar al [módulo 6](../06-share)
