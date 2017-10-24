@@ -1,6 +1,6 @@
 # 7. Trabajando con notificaciones
 
-En esta sección vamos a recorrer los pasos necesarios para enviar, recibir, y mostrar notificaciones push.
+En esta sección vamos a recorrer los pasos necesarios para enviar, recibir y mostrar notificaciones push.
 
 En primer lugar debemos distinguir las notificaciones de las notificaciones push.
 
@@ -24,66 +24,59 @@ El sistema de notificaciones en chrome está construído encima de la API de Ser
 
 ## Implementar una notificación
 
-Vamos a agregar un botón que muestre una notificación.
-En este caso, la funcionalidad no es de gran utilidad sino puramente ilustrativa. 
+Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
 
-1. Abrir el archivo `index.html` y agregar el siguiente código a continuación del botón de `agregar gasto`:
-
-    ```html
-    <div class="col col-sm-2">
-        <button onclick="displayNotification()" class="btn btn-primary btn-block">Notificar</button>
-    </div>
-    ```
-    
-2. Abrir el archivo `home.js` y agregar el siguiente código:
+1. Abrir el archivo `common.js` y agregar la siguiente función:
 
     ```js
-    let swRegistration = null;
-    const notifyBtn = document.getElementById('notify');
-    
-    function displayNotification() {
-        navigator.serviceWorker.getRegistration().then(function(reg) {
-            swRegistration = reg;
-            swRegistration.pushManager.getSubscription()
-                .then(function (subscription) {
-                    if (Notification.permission === 'granted') {
-                        createNotification();
-                    } else {
-                        if (Notification.permission !== 'denied') {
-                            subscribeUser().then(function (subscription) {
-                                if (Notification.permission === "granted") {
-                                    createNotification();
-                                }
-                            })
+    let swRegistration;
+
+    function displayNotification(title, body) {
+        if ('serviceWorker' in navigator && 'PushManager' in window) {
+            navigator.serviceWorker.getRegistration().then(function(reg) {
+               swRegistration = reg;
+               swRegistration.pushManager.getSubscription()
+                   .then(function (subscription) {
+                        if (Notification.permission === 'granted') {
+                           createNotification(title, body);
+                        } else {
+                           if (Notification.permission !== 'denied') {
+                               subscribeUser().then(function (subscription) {
+                                   if (Notification.permission === "granted") {
+                                       createNotification(title, body);
+                                   }
+                               })
+                           }
                         }
-                    }
-                });
-        });
+                   });
+            });
+        }
     }
     ```
     
-    La función `displayNotification` es la que será invocada al clickear en el botón que hemos agregado,
-    dentro de ella lo que hacemos es:
+    La función `displayNotification` es la que será invocada al crear el nuevo gasto, dentro de ella lo que hacemos es:
     
-        - Obtener la registración del service worker
-        - Revisar el permiso para mostrar notificaciones:
-            - Si tenemos permiso, mostramos la notificación.
-            - Si no:
-                - Si ya nos denegaron el permiso, no hacemos nada.
-                - De lo contrario, probablemente el usuario nunca haya contestado al respecto
-                 entonces le pedimos el permiso y, si acepta, le mostramos la notificación.
-            
-            
-3. Agregar al mismo archivo la función que crea la notificación:
+    - Obtener la registración del service worker y guardarla para un posterior uso.
+    - Revisar el permiso para mostrar notificaciones:
+        - Si tenemos permiso, mostramos la notificación.
+        - Si no:
+            - Si ya nos denegaron el permiso, no hacemos nada.
+            - De lo contrario, probablemente el usuario nunca haya contestado al respecto
+             entonces le pedimos el permiso y, si acepta, le mostramos la notificación.
+             
+    > **Nota:** Lo primero que hacemos es verificar que el dispositivo sea compatible. En caso contrario la función no tiene efecto.
+
+
+2. Agregar al mismo archivo la función que crea la notificación:
 
     ```js
-    function createNotification() {
+    function createNotification(title, body) {
         const options = {
-            body: 'Esto es una notificación',
+            body: body,
             icon: 'img/logo-512.png',
             vibrate: [100, 50, 100]
         };
-        swRegistration.showNotification('¡Notificación!', options);
+        swRegistration.showNotification(title, options);
     }
     ``` 
 
@@ -98,7 +91,7 @@ En este caso, la funcionalidad no es de gran utilidad sino puramente ilustrativa
     >   - **icon**: URL de la imagen para ser usada como ícono. 
     >   - **image**: URL de una imagen para ser mostrada en la notificación.
     >   - **badge**: URL de la imagen para ser mostrada en caso de no haber lugar suficiente para mostrar la notificación en sí.
-    >   - **vibrate**: [Patrón de vibración](https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API#Vibration_patterns) para reproducir con la notificación 
+    >   - **vibrate**: [Patrón de vibración](https://developer.mozilla.org/en-US/docs/Web/API/Vibration_API#Vibration_patterns) para reproducir con la notificación. 
     >   - **sound**: URL del audio a reproducir.
     >   - **dir**: Dirección del texto. Por defecto es `auto` que lo ajusta al idioma seleccionado en el browser. La mayoría de los navegadores ignoran esta opción.
     > - Opciones de comportamiento:
@@ -109,35 +102,24 @@ En este caso, la funcionalidad no es de gran utilidad sino puramente ilustrativa
     >   - **silent**: Un Boolean indicando si la notificación debe ser silenciosa (sin sonido ni vibración). Por defecto es `false` (no sileciosa).
     >   - **sticky**: Un Boolean indicando si la notificación debe ser 'sticky' (no fácilmente eliminable). Por defecto es `false`.
     > - Opciones visuales y de comportamiento
-    >   - **actions**: Un array de NotificationActions formadas por `action`, `title` y `icon` y que representan las acciones que pueden ser tomadas desde la notificación misma. El nombre de la acción se envía al Service Worker para permitir tomar la acción correspondiente.
+    >   - **actions**: Un array de NotificationActions formadas por `action`, `title` y `icon` y que representan las acciones que pueden ser tomadas desde la notificación misma. El nombre de la acción elegida se envía al Service Worker para permitir tomar la acción correspondiente.
     > - Opciones informativas sin efectos visuales:
     >   - **timestamp**: Puede representar la fecha de creación o una fecha arbitraria que se quiera asociar con la notificación.
         
 
-
-4. Siguiendo con el archivo `home.js` agregar el siguiente código:
-
-    Lo que vamos a hacer es evaluar si el dispositivo es compatible y sólo en ese caso almacenamos el registro del SW para un posterior uso y habilitamos el botón para disparar la notificación.
+3. Abrir el archivo `home.js` y modificar el event listener del click en el botón de agregar para que muestre la notificación luego de actualizar la vista:
 
     ```js
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-        console.log('Service Worker and Push is supported');
-    
-        navigator.serviceWorker.getRegistration()
-            .then(function(swReg) {
-                swRegistration = swReg;
-                notifyBtn.disabled = false;
-            })
-            .catch(function(error) {
-                console.error('Service Worker Error', error);
-            });
-    } else {
-        console.warn('Push messaging is not supported');
-    }
+    addBtn.addEventListener('mousedown', () => {
+        const newExpense = createNewExpense();
+        saveExpense(newExpense, () => {
+            updateHomeView();
+            displayNotification("Nuevo gasto!", "Tu nuevo gasto fue guardado con éxito!");
+        });
+    });
     ```
 
-
-5. Generar las keys necesarias para identificar nuestro servidor:
+4. Generar las keys necesarias para identificar nuestro servidor:
 
     Para Chrome, una opción es crear una cuenta de [Firebase](https://firebase.google.com/). Si queremos evitar ese paso podemos utilizar [VAPID](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/).
     Para esto, debemos ejecutar los siguientes comandos:
@@ -146,11 +128,11 @@ En este caso, la funcionalidad no es de gran utilidad sino puramente ilustrativa
     
     Guardar el valor de la Public Key para el próximo paso.
 
-6. Suscribir al usuario.
+5. Suscribir al usuario.
     
     Previamente usamos la función que hace la suscripción pero no la implementamos. Esa función es la que sigue a continuación.
     
-    Debemos reemplazar el valor de la constante `VAPID_VALID_PUBLIC_KEY` por el generado en el paso anterior.
+    Debemos reemplazar el valor de la constante `VAPID_VALID_PUBLIC_KEY` por el generado en el paso anterior y agregar este código al archivo `common.js`.
 
     ```js
     const VAPID_VALID_PUBLIC_KEY = "Reemplazar por la public key del paso anterior";
@@ -160,26 +142,13 @@ En este caso, la funcionalidad no es de gran utilidad sino puramente ilustrativa
             applicationServerKey: urlB64ToUint8Array(VAPID_VALID_PUBLIC_KEY)
         })
     }
-    
-    function urlB64ToUint8Array(base64String) {
-        const padding = '='.repeat((4 - base64String.length % 4) % 4);
-        const base64 = (base64String + padding)
-            .replace(/\-/g, '+')
-            .replace(/_/g, '/');
-    
-        const rawData = window.atob(base64);
-        let outputArray = new Uint8Array(rawData.length);
-    
-        for (let i = 0; i < rawData.length; ++i) {
-            outputArray[i] = rawData.charCodeAt(i);
-        }
-        return outputArray;
-    }
     ```
+    
+    > **Nota**: La función `urlB64ToUint8Array` ya está implementada e incluida en el archivo `utils.js`.
 
-7. Probar.
+6. Probar.
 
-    Haciendo click en el botón "notificar" que agregamos al inicio, ya deberíamos poder ver la notificación.
+    Haciendo click en el botón "Agregar gasto" ya deberíamos poder ver la notificación.
     
     Si esto no fuera así, revisar todos los pasos antes de seguir con la siguiente sección.
 
@@ -264,10 +233,8 @@ Si todo salió bien, deberíamos ver la notificación y al clickear sobre ella, 
 
 Si te interesa profundizar más, te dejamos algunas ideas para agregar:
 
-    - Implementar el envío de las notificaciones desde nuestro servidor node.
-        Para esto, te recomendamos revisar el paquete de npm [web-push](https://www.npmjs.com/package/web-push) que implementa el protocolo de web push y 
-        es compatible también con otras tecnologías anteriores.
-    - Usar el atributo tag de las notificaciones para reemplazar una por otra más nueva sin haber leído ni cancelado la primera.
+- Implementar el envío de las notificaciones desde nuestro servidor node. Para esto, te recomendamos revisar el paquete de npm [web-push](https://www.npmjs.com/package/web-push) que implementa el protocolo de web push y es compatible también con otras tecnologías anteriores.
+- Usar el atributo tag de las notificaciones para reemplazar una por otra más nueva sin haber leído ni cancelado la primera.
 
 
 ## Próximo modulo
