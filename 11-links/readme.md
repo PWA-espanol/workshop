@@ -9,6 +9,6 @@ Algunos links útiles para estar al tanto de la evolución de la web:
 - https://jakearchibald.github.io/isserviceworkerready/
 
 ## Encuesta
-Agradeceremos completar la [encuesta](#TBC) para poder mejorar el workshop.
+Agradeceremos completar la [encuesta](https://goo.gl/forms/B9Dp88OR9mUkiz5f2) para poder mejorar el workshop.
 
 También estamos abiertos a recibir issues con errores o propuestas de mejora y pull requests.

@@ -33,7 +33,7 @@ El workshop cuenta con los siguientes módulos:
 
 ## Feedback
 
-Una vez terminado el workshop, se agradece completar la [encuesta](#TBC) para poder mejorarlo. También se aceptan [issues](https://github.com/PWA-espanol/workshop/issues/new) y [pull requests](https://github.com/PWA-espanol/workshop#fork-destination-box).
+Una vez terminado el workshop, se agradece completar la [encuesta](https://goo.gl/forms/B9Dp88OR9mUkiz5f2) para poder mejorarlo. También se aceptan [issues](https://github.com/PWA-espanol/workshop/issues/new) y [pull requests](https://github.com/PWA-espanol/workshop#fork-destination-box).
 
 ## Sobre los autores
 
