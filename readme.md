@@ -12,7 +12,7 @@ El workshop cuenta con los siguientes módulos:
 
 1. [Explorando el proyecto inicial](./02-proyecto): En este módulo se verá la aplicación inicial para entender el contexto en el cual estamos trabajando.
 
-1. [Conceptos principales](./03-conceptos): En este módulo se verán algunos de los conceptos principales que están atras de una PWA.
+1. [Conceptos principales](./03-conceptos): En este módulo se verán algunos de los conceptos principales que están detrás de una PWA.
 
 1. [Appificación de nuestro sitio web](./04-appification): En este módulo se verán los primeros pasos a la hora de convertir nuestro sitio web en una app aprovechando el [Web App Manifest](https://www.w3.org/TR/appmanifest/).
 
