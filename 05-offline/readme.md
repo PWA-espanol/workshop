@@ -6,6 +6,8 @@ Una de las características principales que separa a un sitio web de una aplicac
 
 El primer paso para mejorar la experiencia de nuestros usuarios es hacerle saber que no tiene conexión por más que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
 
+1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo anterior, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
+
 1. Abrir el archivo `service-worker.js` y actualizar el event listener de _fetch_ con la siguiente implementación.
 
     ```js

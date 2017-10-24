@@ -26,6 +26,8 @@ El sistema de notificaciones en chrome está construído encima de la API de Ser
 
 Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
 
+1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo anterior, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
+
 1. Abrir el archivo `common.js` y agregar la siguiente función:
 
     ```js

@@ -6,6 +6,8 @@ En este módulo vamos ver y agregar el Web App Manifest y un Service Worker muy 
 
 Lo primero a realizar para hacer que nuestro sitio web se comporte como una aplicación, es agregar un archivo con la información necesaria, llamado [Web App Manifest](https://w3c.github.io/manifest/). Este archivo está escrito en formato _json_ con campos bien definidos.
 
+1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo 2, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
+
 1. Para arrancar, agregar un nuevo archivo llamado `manifest.json` dentro de la carpeta **public**.
 
 1. En el nuevo archivo, agregar el siguiente contenido.

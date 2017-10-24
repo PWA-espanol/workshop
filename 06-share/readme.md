@@ -18,6 +18,8 @@ Vamos a darle a los usuarios la posibilidad de compartir en dos puntos distintos
 
 ### Compartir la web completa
 
+1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo anterior, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
+
 1. Abrir el archivo `index.html` y ver el siguiente código en la navbar.
 
     ```html
