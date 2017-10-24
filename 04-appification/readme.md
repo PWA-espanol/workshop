@@ -95,7 +95,7 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     <link rel="manifest" href="/manifest.json">
     ```
 
-1. Por último, agregar las imágenes que definimos en el manifest como iconos dentro de la carpeta `img`. Para esto, copiar todas las imagenes de la carpeta `assets` localizada en este módulo a la carpeta `public/img` de la solución.
+1. Por último, agregar las imágenes que definimos en el manifest como iconos dentro de la carpeta `img`. Para esto, copiar todas las imágenes de la carpeta `assets` localizada en este módulo a la carpeta `public/img` de la solución.
 
     ![Los assets en la carpeta img](./images/assets-en-img.png)
 
@@ -112,7 +112,7 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
 
 ## Consumir datos desde el servidor
 
-Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que querramos hacer un cambio. Para esto, una opción conocida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
+Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que queremos hacer un cambio. Para esto, una opción conocida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
 
 ### Migrando a usar los datos con AJAX
 
@@ -204,7 +204,7 @@ El parámetro que es una función con los argumentos resolver y rechazar. Esta f
 Si un error es lanzado en la función ejecutor, la promesa es rechazada y el valor de retorno del ejecutor es rechazado.
 
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con _Promises_ en vez de con callbacks, remplázandola por la siguiente implementación.
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que funcione con _Promises_ en vez de con callbacks, remplazándola por la siguiente implementación.
 
     ```js
     function apiClient(url, options) {
@@ -273,7 +273,7 @@ _Fetch_ ofrece una definición genérica de los objetos _Request_ y _Response_ (
 
 Vamos a aprovechar esta API migrando nuestro código.
 
-1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplázandola por la siguiente implementación.
+1. Abrir el archivo `common.js`. Actualizar la implementación de la función `apiClient` para que use `fetch`, remplazándola por la siguiente implementación.
 
     ```js
     function apiClient(url, options) {
@@ -369,7 +369,7 @@ Vamos a aprovechar esta API migrando nuestro código.
 
 Los _Service workers_ son una parte clave a la hora de crear una _Progressive Web App_. Actúan esencialmente como proxy servers ubicados entre las aplicaciones web, el navegador y la red (cuando está accesible). Están destinados, entre otras cosas, a permitir la creación de experiencias offline efectivas, interceptando peticiones de red y realizando la acción apropiada si la conexión de red está disponible y hay disponibles contenidos actualizados en el servidor. También permitirán el acceso a notificaciones tipo push y a la API de background sync.
 
-Es un worker manejado por eventos registrado para un origen y una ruta. Consiste en un archivo JavaScript que controla la página web (o el sitio) con el que está asociado, interceptando y modificando la navegación y las peticiones de recursos, y cacheando los recursos de manera muy granular para ofrecer un control completo sobre cómo la aplicación debe comportarse en ciertas situaciones (la mas obvia es cuando la red no está disponible).
+Es un worker manejado por eventos registrado para un origen y una ruta. Consiste en un archivo JavaScript que controla la página web (o el sitio) con el que está asociado, interceptando y modificando la navegación y las peticiones de recursos, y cacheando los recursos de manera muy granular para ofrecer un control completo sobre cómo la aplicación debe comportarse en ciertas situaciones (la más obvia es cuando la red no está disponible).
 
 Se ejecuta en un contexto worker, por lo tanto, no tiene acceso al DOM, y se ejecuta en un hilo distinto al JavaScript principal de la aplicación, de manera que no es bloqueante. Está diseñado para ser completamente asíncrono, por lo que APIs como el _XMLHttpRequest_ y _localStorage_ no se pueden usar dentro de un service worker.
 
@@ -468,11 +468,11 @@ Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar 
     > **Nota**: Este ejemplo es trivial, dado que no hace falta realizarlo a mano, pero nos permite ver que podemos estar en el medio de cada pedido a un servidor. El `if` va a revisar que el método del request sea diferente a _GET_ (ej.: _POST_, _PUT_, etc.) y va a cortar la función para que se realice el comportamiento default. Esto nuevamente es a modo ilustrativo, para poder ver que podemos acceder al tipo de método de cada request.
 
 
-1. Correr el sitio nuevamente y ver los logs en la consola de las _Developers Tools_. Realizar un refresh del sitio y ver como se muestran todos los pedidos de los archvios.
+1. Correr el sitio nuevamente y ver los logs en la consola de las _Developers Tools_. Realizar un refresh del sitio y ver como se muestran todos los pedidos de los archivos.
 
-    ![Log de llamadas a los eventos registrados enel service worker](./images/service-worker-events.png)
+    ![Log de llamadas a los eventos registrados en el service worker](./images/service-worker-events.png)
 
-    _Log de llamadas a los eventos registrados enel service worker_
+    _Log de llamadas a los eventos registrados en el service worker_
 
 ## Instalando nuestro sitio como app
 
@@ -501,7 +501,7 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 
 1. Luego de dar click en **Add**, veremos la aplicación instalada en nuestro sistema operativo.
 
-> **Nota**: Chrome tiene la posibilidad de escuchar al evento que se dispara cuando se instala una aplicación, permitiendonos saber si los usuarios instalaron o no la web app.
+> **Nota**: Chrome tiene la posibilidad de escuchar al evento que se dispara cuando se instala una aplicación, permitiéndonos saber si los usuarios instalaron o no la web app.
 > 
 > ```js
 > window.addEventListener("beforeinstallprompt", function(e) { 
