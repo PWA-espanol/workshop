@@ -1,6 +1,6 @@
 # 2. Entendiendo el proyecto
 
-Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizándola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de que se trata, como también que tecnologías utiliza.
+Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizándola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de qué se trata, como también que tecnologías utiliza.
 
 ## Estructura del proyecto
 
@@ -16,9 +16,9 @@ Ahora, vamos a arrancar a revisar el proyecto mirando el código.
 
     _Estructura de la carpeta del proyecto_
 
-1. Para recorrer el proyecto, vamos a arrancar abriendo el archivo _package.json_. Éste archvio es típico de un proyecto hecho en _node.js_ y contiene las dependencias e información del mismo.
+1. Para recorrer el proyecto, vamos a arrancar abriendo el archivo _package.json_. Éste archivo es típico de un proyecto hecho en _node.js_ y contiene las dependencias e información del mismo.
 
-1. Notar que en la el nodo `scripts`, está configurado el llamado _start_ ejecutando el archivo _index.js_.
+1. Notar que en el nodo `scripts`, está configurado el llamado _start_ ejecutando el archivo _index.js_.
 
     ```json
     "scripts": {
@@ -45,15 +45,15 @@ Ahora, vamos a arrancar a revisar el proyecto mirando el código.
 
 1. Abrir ahora el archivo _repository.js_. Este archivo contiene una implementación de un repositorio no persistente (los datos quedan en memoria mientras que el servidor esté corriendo).
 
-    > **Nota**: Esta implementación está hecha solo para simplificar el workshop. Los datos se perderan cada vez que se apague el servidor.
+    > **Nota**: Esta implementación está hecha solo para simplificar el workshop. Los datos se perderán cada vez que se apague el servidor.
 
 
 1. En la carpeta public podemos encontrar las siguientes cosas:
     
     - _css_: Las hojas de estilos que son usados en el cliente. Estos incluyen [Bootstrap v4](http://getbootstrap.com) y algunos estilos propios.
-    - _img_: Algunas imagenes que son usadas por el sitio.
+    - _img_: Algunas imágenes que son usadas por el sitio.
     - _js_: Un archivo de js por cada página (_expenses.js_ y _home.js_) con la lógica propia de cada una. Aparte existe un archivo _common.js_ con todas las funciones compartidas por ambas páginas y donde se realizan las llamadas al servidor. Por último un archivo _utils.js_ con algunas funciones que se usarán después.
-    - _index.html_ y _expenses.html_: los archivos correspondientes a cada una de las vistas con el html básico de cada una. Idealmente en un proyecto se usaría algun engine de templates en el servidor para no duplicar el código (ejemplo: [pug](https://pugjs.org/)). Para mas información: [Using Template Engines](https://expressjs.com/en/guide/using-template-engines.html).
+    - _index.html_ y _expenses.html_: los archivos correspondientes a cada una de las vistas con el html básico de cada una. Idealmente en un proyecto se usaría algún engine de templates en el servidor para no duplicar el código (ejemplo: [pug](https://pugjs.org/)). Para mas información: [Using Template Engines](https://expressjs.com/en/guide/using-template-engines.html).
 
 1. Antes de pasar a la siguiente tarea, recorrer un poco los archivos para ver que hay en cada uno a la hora de comenzar.
 
@@ -108,7 +108,7 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
     _Salida del servidor después de agregar un nuevo gasto_
 
-1. Hacer click en el nombre del nuevo item **Nombre** para ir al detalle del mismo.
+1. Hacer click en el nombre del nuevo ítem **Nombre** para ir al detalle del mismo.
 
     ![Detalle del nuevo gasto](./images/new-expense-details.png)
 
@@ -126,9 +126,9 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 
     _Salida del servidor después de modificar el titulo_
 
-    > **Nota**: Esta forma de actualizar un titulo caracter por caracter, no es recomendada y solo se hace para simplificar la solución.
+    > **Nota**: Esta forma de actualizar un título caracter por caracter, no es recomendada y solo se hace para simplificar la solución.
 
-1. Agregar un nueva nueva fila haciendo click en el botón **Agregar fila**, modificar el nombre y la cantidad.
+1. Agregar una nueva fila haciendo click en el botón **Agregar fila**, modificar el nombre y la cantidad.
 
     ![Resultado luego de agregar una nueva fila y modificarla](./images/expense-view.png)
 
