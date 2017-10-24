@@ -209,6 +209,8 @@ A la hora de implementar estrategias de caching, tenemos múltiples opciones que
     self.addEventListener('fetch', event => {
         console.log(event.request.url);
 
+        if (event.request.method !== "GET") return;
+
         if (event.request.url.indexOf('/api/') !== -1) {
             event.respondWith(fetchAndCache(event.request));
         } else {
@@ -221,7 +223,9 @@ A la hora de implementar estrategias de caching, tenemos múltiples opciones que
     });
     ```
 
-    > **Nota**: En el `if`, estamos viendo evitando buscar en cache las llamadas a la API (`event.request.url.indexOf('/api/') !== -1`) dado que, al usar este tipo de estregia, nunca podremos tener los valores actuales sino que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir qué estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
+    > **Nota**: Solo vamos a cachear request de tipo `GET`, no podemos almacenar en cache request con otro método.
+    >
+    > Por otro lado, en el `if`, estamos viendo evitando buscar en cache las llamadas a la API (`event.request.url.indexOf('/api/') !== -1`) dado que, al usar este tipo de estregia, nunca podremos tener los valores actuales sino que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir qué estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
 
 1. Nuevamente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
 

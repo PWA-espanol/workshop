@@ -38,6 +38,8 @@
     self.addEventListener('fetch', event => {
         console.log(event.request.url);
 
+        if (event.request.method !== "GET") return;
+
         if (event.request.url.indexOf('/api/') !== -1) {
             event.respondWith(fetchAndCache(event.request));
         } else {

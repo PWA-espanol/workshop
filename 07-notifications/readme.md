@@ -216,12 +216,11 @@ self.addEventListener('notificationclick', function(e) {
 ### A probarlo!
 
 Para simular la llegada de la push hacer:
-
-    - Botón derecho.
-    - Inspect.
-    - Elegir la sección Application o Aplicación.
-    - En el menú izquierdo: Service Workers.
-    - Y hacer click en Push.
+- Botón derecho.
+- Inspect.
+- Elegir la sección Application o Aplicación.
+- En el menú izquierdo: Service Workers.
+- Y hacer click en Push.
 
 ![Simular llegada de push](./images/push.png)
 _Simular llegada de push desde las dev tools de chrome._
