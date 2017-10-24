@@ -1,10 +1,10 @@
 # 5. Soporte offline
 
-Una de las caracteristicas principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por aunque que no tengamos internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver como trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
+Una de las características principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por aunque que no tengamos internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver cómo trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
 
 ## Mostrando un mensaje cuando no hay conexión
 
-El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber que no tiene conexión por más que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
+El primer paso para mejorar la experiencia de nuestros usuarios es hacerle saber que no tiene conexión por más que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
 
 1. Abrir el archivo `service-worker.js` y actualizar el event listener de _fetch_ con la siguiente implementación.
 
@@ -34,7 +34,7 @@ El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber 
 
     _Estado del service worker en las developer tools_
 
-1. En la misma ventana de las _Developer Tools_, pasar a modo offline selecionando la opción _offline_.
+1. En la misma ventana de las _Developer Tools_, pasar a modo offline seleccionando la opción _offline_.
 
     ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
 
@@ -86,7 +86,7 @@ Cada navegador tiene un límite estricto en la cantidad de almacenamiento en cac
     });
     ```
 
-    > **Nota**: En este código estamos usando el event listener del evento `install` del service worker visto en el módulo anterior. Este evento se ejecuta la primer vez que corre el service worker, que es un escenario donde tiene internet. Luego, usamos el método `waitUntil` que bloquea hasta que termine de procesar la función pasada por parametro. Esta función abre el caché y luego agrega todas las urls que le pasamos en `urlsToCache`. En nuestro caso es solo el archivo `offline.html`.
+    > **Nota**: En este código estamos usando el event listener del evento `install` del service worker visto en el módulo anterior. Este evento se ejecuta la primera vez que corre el service worker, que es un escenario donde tiene internet. Luego, usamos el método `waitUntil` que bloquea hasta que termine de procesar la función pasada por parámetro. Esta función abre el caché y luego agrega todas las urls que le pasamos en `urlsToCache`. En nuestro caso es solo el archivo `offline.html`.
 
 1. Luego, actualizaremos el event listener de `fetch` para que muestre el archivo de `offline.html` desde la caché en vez de devolver el mensaje como antes. Para esto, actualizar la implementación con la siguiente versión.
 
@@ -109,7 +109,7 @@ Cada navegador tiene un límite estricto en la cantidad de almacenamiento en cac
 
 1. Por último, agregar el archivo `offline.html` que se encuentra en la carpeta `assets` de este módulo a la carpeta `public`.
 
-1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
+1. Nuevamente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
 
 1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
@@ -125,7 +125,7 @@ Cada navegador tiene un límite estricto en la cantidad de almacenamiento en cac
 
     > **Nota**: Si no se ven cambios, deshabilitar el modo offline y refrescar el sitio. Se puede forzar a que se refresque el service worker con la opción `Update on reload`.
 
-1. Volver a la categoría **Service Worker** y pasar a modo offline selecionando la opción _offline_.
+1. Volver a la categoría **Service Worker** y pasar a modo offline seleccionando la opción _offline_.
 
     ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
 
@@ -225,7 +225,7 @@ A la hora de implementar estrategias de caching, tenemos múltiples opciones que
 
     > **Nota**: Solo vamos a cachear request de tipo `GET`, no podemos almacenar en cache request con otro método.
     >
-    > Por otro lado, en el `if`, estamos viendo evitando buscar en cache las llamadas a la API (`event.request.url.indexOf('/api/') !== -1`) dado que, al usar este tipo de estregia, nunca podremos tener los valores actuales sino que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir qué estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
+    > Por otro lado, en el `if`, estamos viendo evitando buscar en cache las llamadas a la API (`event.request.url.indexOf('/api/') !== -1`) dado que, al usar este tipo de estrategia, nunca podremos tener los valores actuales sino que siempre se traerán los cacheados. Esto es importante para tener en cuenta a la hora de decidir qué estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
 
 1. Nuevamente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
 
@@ -243,7 +243,7 @@ A la hora de implementar estrategias de caching, tenemos múltiples opciones que
 
     > **Nota**: Si no se ven cambios, deshabilitar el modo offline y refrescar el sitio. Se puede forzar a que se refresque el service worker con la opción `Update on reload`.
 
-1. Volver a la categoría **Service Worker** y pasar a modo offline selecionando la opción _offline_.
+1. Volver a la categoría **Service Worker** y pasar a modo offline seleccionando la opción _offline_.
 
     ![Cambiando a offline con las developer tools](./images/sw-set-offline.png)
 
@@ -283,7 +283,7 @@ A la hora de implementar estrategias de caching, tenemos múltiples opciones que
 
 ## Conclusiones
 
-En este módulo vimos como trabajar con el _service worker_, los eventos de `install`, `activate` y `fetch`, en conjunto con la _Cache API_ para tener soporte offline de nuestra web app, dando una mejor experiencia a nuestros usuarios.
+En este módulo vimos cómo trabajar con el _service worker_, los eventos de `install`, `activate` y `fetch`, en conjunto con la _Cache API_ para tener soporte offline de nuestra web app, dando una mejor experiencia a nuestros usuarios.
 
 ## Próximo modulo
 
