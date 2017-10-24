@@ -2,7 +2,7 @@
 
 La _Web Share API_ es una API propuesta para compartir texto, links y otros contenidos en algún destino arbitrario elegido por el usuario.
 
-Antes de esta API, compartir en redes sociales (por ejemplo) obligaba a usar extrañas urls con parámetros poco documentados y a llenar nuestra web de botones con todas las posibilidades. Ahora, con esta nueva API, con un solo botón podremos lanzar la interaz nativa del sistema operativo para compartir **en cualquiera de las aplicaciones** que el usuario tenga instalada.
+Antes de esta API, compartir en redes sociales (por ejemplo) obligaba a usar extrañas urls con parámetros poco documentados y a llenar nuestra web de botones con todas las posibilidades. Ahora, con esta nueva API, con un solo botón podremos lanzar la interfaz nativa del sistema operativo para compartir **en cualquiera de las aplicaciones** que el usuario tenga instalada.
 
 A partir de chrome 61 para Android ya puede ser utilizada a través de `navigator.share()`. El único método de la API basado en promesas. En este módulo vamos a implementar esta funcionalidad en nuestra app.
 
