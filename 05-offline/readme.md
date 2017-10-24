@@ -1,10 +1,10 @@
 # 5. Soporte offline
 
-Una de las caracteristicas principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por mas que no tenga internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver como trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
+Una de las caracteristicas principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por aunque que no tengamos internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver como trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
 
 ## Mostrando un mensaje cuando no hay conexión
 
-El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber que no tiene conexión por mas que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
+El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber que no tiene conexión por más que está entrando a nuestra PWA. Para esto lo primero que haremos es mostrar un simple mensaje que le avise que no tiene la experiencia completa de nuestra web app porque no tiene acceso a internet.
 
 1. Abrir el archivo `service-worker.js` y actualizar el event listener de _fetch_ con la siguiente implementación.
 
@@ -24,7 +24,7 @@ El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber 
     ```
 
     > **Nota**: Lo que estamos haciendo en este código, es agregar la llamada al método `catch` de la promise que devuelve `fetch` y devolviendo en la misma una nueva respuesta con el mensaje que queremos mostrar.
-    > Con esta técnica, ante un error en el pedido, podemos hacer alguna operación. En nuestro caso estamos creando una nueva respuesta, pasando el texto que queremos mostrar, pero podríamos hacer operaciones mas complejas como haremos mas adelante.
+    > Con esta técnica, ante un error en el pedido, podemos hacer alguna operación. En nuestro caso estamos creando una nueva respuesta, pasando el texto que queremos mostrar, pero podríamos hacer operaciones más complejas como haremos más adelante.
 
 1. Iniciar el servidor con `npm start` y navegar en el browser a [http://localhost:3000](http://localhost:3000).
 
@@ -52,11 +52,11 @@ El primer paso para mejorar la experiencia de nuestros usuarios es hacele saber 
 
 El siguiente paso para mejorar la experiencia de nuestros usuarios es poder mostrarle una página que básicamente diga el mismo mensaje, pero tenga el mismo estilo que nuestro sitio. Para esto vamos a utilizar la _Cache API_ que nos permitirá guardar las respuestas a requests localmente. Esto implica que podemos pedir los archivos que requerimos en esos casos y guardarlos localmente para tenerlos listos ante una eventualidad.
 
-La _Cache API_ proporciona un mecanismo de almacenamiento para pares de objetos _Request/Response_ que se almacenan en caché, por ejemplo, como parte del ciclo de vida de un _Service Worker_. Es importante tener en cuenta que la _Cache API_ está expuesta tanto en la ventana como en los workers, por lo que no hace falta usarla únicamente en un _Service Worker_.
+La _Cache API_ proporciona un mecanismo de almacenamiento para pares de objetos _Request/Response_ que se almacenan en caché, por ejemplo, como parte del ciclo de vida de un _Service Worker_. Es importante tener en cuenta que la _Cache API_ está expuesta tanto en `window` como en los workers, por lo que no hace falta usarla únicamente en un _Service Worker_.
 
 Para un mismo origen, pueden existir múltiples objectos de cache con diferentes nombres. El desarrollador es el responsable de implementar como se manejan las actualizaciones de la Cache, esto es porque los elementos dentro de la caché no se actualizan, como tampoco caducan, a menos que se solicite explícitamente. Es por esto que también es responsable de purgar periódicamente las entradas de caché. 
 
-Cada navegador tiene un límite estricto en la cantidad de almacenamiento en caché que puede usar un origen determinado. Las estimaciones de uso de la cuota de caché están disponibles a través de la _StorageEstimateAPI_. El navegador hace todo lo posible para administrar el espacio en disco, pero puede eliminar el almacenamiento en caché para un origen. En caso de no tener memoria, el navegador generalmente eliminará todos los datos de un origen o ninguno de los datos de un origen.
+Cada navegador tiene un límite estricto en la cantidad de almacenamiento en caché que puede usar un origen determinado. Las estimaciones de uso de la cuota de caché están disponibles a través de la _StorageEstimateAPI_. El navegador hace todo lo posible para administrar el espacio en disco, pero puede eliminar el almacenamiento en caché para un origen. En caso de no tener memoria, el navegador generalmente eliminará todos los datos de un origen.
 
 1. Abrir el archivo `service-worker.js` y agregar las siguientes constantes al inicio del archivo.
 
@@ -105,11 +105,11 @@ Cada navegador tiene un límite estricto en la cantidad de almacenamiento en cac
     });
     ```
 
-    > **Nota**: En este código estamos reemplazando la creación de una respuesta por la busqueda en el caché de la página `offline.html` mediante el método `match`.
+    > **Nota**: En este código estamos reemplazando la creación de una respuesta por la búsqueda en el caché de la página `offline.html` mediante el método `match`.
 
 1. Por último, agregar el archivo `offline.html` que se encuentra en la carpeta `assets` de este módulo a la carpeta `public`.
 
-1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo paró antes).
+1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
 
 1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
@@ -162,9 +162,9 @@ Cada navegador tiene un límite estricto en la cantidad de almacenamiento en cac
 
 ## Sitio completo de forma offline
 
-Lo que nos falta para tener la mejor experiencia de usuario y que no parezca un sitio web sino una aplicación, es poder acceder a todo el contenido de forma offline. Para esto vamos a tener que optar por una nueva estrategia de caching, apuntando a tener todo el contenido almacenado una vez que se accedió al menos una vez.
+Lo que nos falta para tener la mejor experiencia de usuario y que no parezca un sitio web sino una aplicación, es poder acceder a todo el contenido de forma offline. Para esto vamos a tener que optar por una nueva estrategia de caching, apuntando a tener todo el contenido almacenado una vez que se haya accedido al mismo al menos una vez.
 
-A la hora de implementar estrategias de caching, tenemos multiples opciones que dependen de las caracteristicas de nuestro sitio y su contenido. En este caso implementaremos una estrategia simple de cache first, haciendo que primero se busque en el cache y luego, en caso de no encontrarse se realice el request al servidor guardando el resultado en la cache.
+A la hora de implementar estrategias de caching, tenemos múltiples opciones que dependen de las características de nuestro sitio y su contenido. En este caso implementaremos una estrategia simple de cache first, haciendo que primero se busque en el cache y luego, en caso de no encontrarse, se realice el request al servidor guardando el resultado en la cache.
 
 1. Abrir el archivo `service-worker.js` y actualizar la constantes `urlsToCache` al inicio del archivo, con el siguiente contenido.
 
@@ -221,9 +221,9 @@ A la hora de implementar estrategias de caching, tenemos multiples opciones que 
     });
     ```
 
-    > **Nota**: En el `if`, estamos viendo que no llamemos a la API (`event.request.url.indexOf('/api/') !== -1`), dado que al usar este tipo de estregia, nunca podremos tener los valores actuales dado que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir que estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
+    > **Nota**: En el `if`, estamos viendo evitando buscar en cache las llamadas a la API (`event.request.url.indexOf('/api/') !== -1`) dado que, al usar este tipo de estregia, nunca podremos tener los valores actuales sino que siempre se traeran los cacheados. Esto es importante para tener en cuenta a la hora de decidir qué estrategia de caching vamos a utilizar. En este caso, solo estamos guardando los resultados de las llamadas a la api en la caché, pero todavía no los estamos consumiendo.
 
-1. Nuevemente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo paró antes).
+1. Nuevamente navegar en el browser a [http://localhost:3000](http://localhost:3000) (iniciar el servidor con `npm start` si es que se lo detuvo antes).
 
 1. Abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
