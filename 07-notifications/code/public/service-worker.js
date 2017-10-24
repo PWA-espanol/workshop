@@ -52,8 +52,7 @@
 	    }
 	});
 
-	self.addEventListener('push', function(e) {
-
+	self.addEventListener('push', e => {
 	    const options = {
 	        body: 'Revisa el nuevo gasto del viaje',
 	        icon: 'img/logo-512.png',
@@ -75,7 +74,7 @@
 	});
 
 
-	self.addEventListener('notificationclick', function(e) {
+	self.addEventListener('notificationclick', e => {
 	    const notification = e.notification;
 	    const action = e.action;
 

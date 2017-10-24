@@ -1,14 +1,14 @@
 # 7. Trabajando con notificaciones
 
-En esta sección vamos a recorrer los pasos necesarios para enviar, recibir y mostrar notificaciones push.
+En este módulo vamos a recorrer los pasos necesarios para enviar, recibir y mostrar _notificaciones push_.
 
-En primer lugar debemos distinguir las notificaciones de las notificaciones push.
+En primer lugar debemos distinguir las _notificaciones_ de las _notificaciones push_.
 
-- Las notificaciones son mensajes que son mostrados en el dispositivo del usuario, fuera del contexto del navegador o una aplicación.
+- Las _notificaciones_ son mensajes que son mostrados en el dispositivo del usuario, fuera del contexto del navegador o una aplicación.
 
-- Las notificaciones push son notificaciones creadas como respuesta a un mesaje enviado desde un servidor y que funcionan inclusive cuando el usuario no está usando activamente nuestra aplicación.
+- Las _notificaciones push_ son notificaciones creadas como respuesta a un mesaje enviado desde un servidor y que funcionan inclusive cuando el usuario no está usando activamente nuestra aplicación.
 
-El sistema de notificaciones en chrome está construído encima de la API de Service Worker, que recibe los mensajes push en segundo plano y los transmite a nuestra aplicación.
+El sistema de notificaciones en chrome está construído encima de la API de _Service Worker_, que recibe los mensajes push en segundo plano y los transmite a nuestra aplicación.
 
 
 ## Lo que vamos a hacer
@@ -17,9 +17,9 @@ El sistema de notificaciones en chrome está construído encima de la API de Ser
 - Aprender a usar la API de Web Push para recibir una notificación push.
 
 
-## Lo que no vamos a hacer
+## Lo que **NO** vamos a hacer
 
-- Implementar el envío de una notificación desde un servidor propio. (Lo vamos a simular para evitar todo el código de backend)
+- Implementar el envío de una notificación desde un servidor propio. (Lo vamos a simular para evitar todo el código de backend que no es parte del objetivo de este workshop)
 
 
 ## Implementar una notificación
@@ -28,7 +28,7 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
 
 1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo anterior, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
 
-1. Abrir el archivo `common.js` y agregar la siguiente función:
+1. Abrir el archivo `common.js` y agregar la siguiente función.
 
     ```js
     let swRegistration;
@@ -58,18 +58,17 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
     
     La función `displayNotification` es la que será invocada al crear el nuevo gasto, dentro de ella lo que hacemos es:
     
-    - Obtener la registración del service worker y guardarla para un posterior uso.
-    - Revisar el permiso para mostrar notificaciones:
+    - Obtener la registración del service worker (con la función `getRegistration`) y guardarla para un posterior uso.
+    - Revisar el permiso para mostrar notificaciones (con `Notification.permission`):
         - Si tenemos permiso, mostramos la notificación.
         - Si no:
             - Si ya nos denegaron el permiso, no hacemos nada.
             - De lo contrario, probablemente el usuario nunca haya contestado al respecto
              entonces le pedimos el permiso y, si acepta, le mostramos la notificación.
              
-    > **Nota:** Lo primero que hacemos es verificar que el dispositivo sea compatible. En caso contrario la función no tiene efecto.
+    > **Nota:** Lo primero que hacemos es verificar que el dispositivo sea compatible. En caso contrario, la función no tiene efecto. Para esto, se usan las validaciones `'serviceWorker' in navigator && 'PushManager' in window`.
 
-
-2. Agregar al mismo archivo la función que crea la notificación:
+1. Agregar al mismo archivo la función que crea la notificación.
 
     ```js
     function createNotification(title, body) {
@@ -78,14 +77,12 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
             icon: 'img/logo-512.png',
             vibrate: [100, 50, 100]
         };
+
         swRegistration.showNotification(title, options);
     }
     ``` 
 
-    Lo que hacemos acá es mostrar la notificación a través del service worker.
-    
-    Podríamos hacerlo directamente con la api de notificaciones haciendo: `new Notification("Esto es una notificación", options)`.
-    Pero eso nos limita la cantidad de opciones que podemos utilizar.
+    Lo que hacemos acá es mostrar la notificación a través del service worker (por eso se usa `swRegistration.showNotification(title, options);`, siendo la variable `swRegistration` el registro del service worker que obtuvimos en el punto anterior). Podríamos hacerlo directamente con la api de notificaciones haciendo: `new Notification("Esto es una notificación", options)`, pero eso nos limita la cantidad de opciones que podemos utilizar.
     
     > **Nota**: Las notificaciones tienen una gran cantidad de opciones de configuración:
     > - Opciones visuales:
@@ -109,7 +106,7 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
     >   - **timestamp**: Puede representar la fecha de creación o una fecha arbitraria que se quiera asociar con la notificación.
         
 
-3. Abrir el archivo `home.js` y modificar el event listener del click en el botón de agregar para que muestre la notificación luego de actualizar la vista:
+1. Abrir el archivo `home.js` y modificar el event listener del click en el botón de agregar para que muestre la notificación luego de actualizar la vista.
 
     ```js
     addBtn.addEventListener('mousedown', () => {
@@ -121,23 +118,22 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
     });
     ```
 
-4. Generar las keys necesarias para identificar nuestro servidor:
+1. Generar las keys necesarias para identificar nuestro servidor. Para Chrome, una opción es crear una cuenta de [Firebase](https://firebase.google.com/). Si queremos evitar ese paso podemos utilizar [VAPID](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/). Para esto, debemos ejecutar los siguientes comandos.
 
-    Para Chrome, una opción es crear una cuenta de [Firebase](https://firebase.google.com/). Si queremos evitar ese paso podemos utilizar [VAPID](https://blog.mozilla.org/services/2016/04/04/using-vapid-with-webpush/).
-    Para esto, debemos ejecutar los siguientes comandos:
     - `npm i -g web-push`
     - `web-push generate-vapid-keys [--json]`
     
-    Guardar el valor de la Public Key para el próximo paso.
+1. Guardar el valor de la **Public Key** para el próximo paso.
 
-5. Suscribir al usuario.
-    
-    Previamente usamos la función que hace la suscripción pero no la implementamos. Esa función es la que sigue a continuación.
-    
-    Debemos reemplazar el valor de la constante `VAPID_VALID_PUBLIC_KEY` por el generado en el paso anterior y agregar este código al archivo `common.js`.
+    ![Generando las keys](./images/web-push-keys.png)
+
+    _Generando las keys_
+
+1. Ahora, necesitamos suscribir al usuario. Para esto agregar el siguiente código en el archivo `common.js` que implementa la función `subscribeUser` que usamos previamente, reemplazando el valor de la constante `VAPID_VALID_PUBLIC_KEY` por el generado en el paso anterior
 
     ```js
     const VAPID_VALID_PUBLIC_KEY = "Reemplazar por la public key del paso anterior";
+
     function subscribeUser() {
         return swRegistration.pushManager.subscribe({
             userVisibleOnly: true,
@@ -148,87 +144,81 @@ Vamos a mostrar una notificación cuando se haya guardado un nuevo gasto.
     
     > **Nota**: La función `urlB64ToUint8Array` ya está implementada e incluida en el archivo `utils.js`.
 
-6. Probar.
+1. No queda mas que probar la notificación. Para esto, hacer click en el botón "Agregar gasto".
 
-    Haciendo click en el botón "Agregar gasto" ya deberíamos poder ver la notificación.
-    
-    Si esto no fuera así, revisar todos los pasos antes de seguir con la siguiente sección.
+    ![Probando la notificación](./images/showing-notification.png)
+
+    _Probando la notificación_
+
+> **Nota**: Si no se llegó a ver la notificación, revisar todos los pasos antes de seguir con la siguiente sección ya que depende de que esta parte funcione correctamente.
 
 
 ## Recibir una notificación push
-Ahora que ya manejamos los permisos y podemos mostrar notificaciones, vamos a simular la llegada de una notificación push.
 
-Para esto debemos hacer que nuestro service worker sepa reaccionar a los mensajes push que pueden llegar en cualquier momento. Inclusive cuando el usuario no esté visitando nuestro sitio.
+Ahora que ya manejamos los permisos y podemos mostrar notificaciones, vamos a simular la llegada de una _notificación push_.
+
+Para esto debemos hacer que nuestro service worker sepa reaccionar a los mensajes _push_ que pueden llegar en cualquier momento, inclusive cuando el usuario no esté visitando nuestro sitio.
+
+Imaginemos la siguiente situación, _Nuestra app es colaborativa y queremos que, al cargar un nuevo gasto, se envíe una notificación a todos los usuarios de ese grupo._. Vamos a agregar esta funcionalidad en nuestro código.
+
+1. Lo primero es poder reaccionar ante la llegada de la _notificación push_. Para esto, en nuestro `service-worker.js` debemos suscribirnos a un nuevo evento, el de `push`. Allí, lo que haremos es mostrar una notificación similar a las anteriores, con 2 acciones y algo de información cada vez que un amigo agregue un nuevo gasto. Agregar el siguiente código en el archivo `service-worker.js`.
+
+    ```js
+    self.addEventListener('push', e => {
+        const options = {
+            body: 'Revisa el nuevo gasto del viaje',
+            icon: 'img/logo-512.png',
+            vibrate: [100, 50, 100],
+            data: {
+                primaryKey: 2
+            },
+            actions: [
+                {action: 'explore', title: 'Ir al sitio',
+                    icon: 'img/check.png'},
+                {action: 'close', title: 'Cerrar la notificación',
+                    icon: 'img/xmark.png'}
+            ]
+        };
+
+        e.waitUntil(
+            self.registration.showNotification('Push Notification', options)
+        );
+    });
+    ```
+
+1. Ahora, para una buena experiencia de usuario, no solo necesitamos mostrarle la notificación al usuario sino que debemos reaccionar ante las acciones de la misma. Por ejemplo, cuando llegue la notificación y hagamos click en ella, dependiendo de la acción elegida, lo que queremos será cerrarla o ir al sitio a ver el gasto en cuestión. Para eso, nos valemos de la información donde recibiremos el id de la notificación y podemos abrir una nueva ventana llevando a la url correspondiente. Agregar el siguiente código  para realizar estas tareas.
+
+    ```js
+    self.addEventListener('notificationclick', e => {
+        const notification = e.notification;
+        const action = e.action;
+
+        if (action === 'close') {
+            notification.close();
+        } else if (notification.data) {
+            const primaryKey = notification.data.primaryKey;
+            clients.openWindow('expense/' + primaryKey);
+            notification.close();
+        }
+    });
+    ```
 
 
-### Reaccionar a la llegada de la push
+1. Nuevamente solo nos queda probar nuestras notificaciones, primero abrir las _Developer Tools_ del browser, seleccionar la solapa **Application** y ver la información que figura en la misma dentro de la categoría **Service Worker**. Asegurarse que figure como _Activated and is running_ (refrescar el sitio en caso contrario).
 
-Imaginemos la siguiente situación:
-> Nuestra app es colaborativa y queremos que, al cargar un nuevo gasto, se envíe una notificación a todos los usuarios de ese grupo.
+1. Para simular la llegada de la notificación push, hacer click en **Push**
 
-En nuestro `service-worker.js` debemos suscribirnos a un nuevo evento, el de `push`.
+    ![Simular llegada de push](./images/push.png)
 
-Allí, lo que haremos es mostrar una notificación similar a las anteriores, con 2 acciones y algo de data cada vez que un amigo agregue un nuevo gasto.
+    _Simular llegada de push desde las dev tools de chrome_
 
-```js
-self.addEventListener('push', function(e) {
+1. Si todo salió bien, deberíamos ver la notificación y al clickear sobre ella, se debería abrir una nueva ventana mostrando los gastos del viaje.
 
-    const options = {
-        body: 'Revisa el nuevo gasto del viaje',
-        icon: 'img/logo-512.png',
-        vibrate: [100, 50, 100],
-        data: {
-            primaryKey: 2
-        },
-        actions: [
-            {action: 'explore', title: 'Ir al sitio',
-                icon: 'img/check.png'},
-            {action: 'close', title: 'Cerrar la notificación',
-                icon: 'img/xmark.png'}
-        ]
-    };
+    ![Clickeando en la push notification](./images/push-notification-flow.png)
 
-    e.waitUntil(
-        self.registration.showNotification('Push Notification', options)
-    );
-});
-```
+    _Clickeando en la push notification_
 
 
-### Reaccionar a las acciones de la notificación
-Cuando llegue al notificación y hagamos click en ella, dependiendo de la acción elegida, lo que querremos será cerrarla o ir al sitio a ver el gasto en cuestión.
-
-Para eso, nos valemos de la data donde recibiremos el id de la notificación y podemos abrir una nueva ventana llevando a la url correspondiente.
-
-```js
-self.addEventListener('notificationclick', function(e) {
-    const notification = e.notification;
-    const action = e.action;
-
-    if (action === 'close') {
-        notification.close();
-    } else if (notification.data) {
-        const primaryKey = notification.data.primaryKey;
-        clients.openWindow('expense/' + primaryKey);
-        notification.close();
-    }
-});
-```
-
-### A probarlo!
-
-Para simular la llegada de la push hacer:
-- Botón derecho.
-- Inspect.
-- Elegir la sección Application o Aplicación.
-- En el menú izquierdo: Service Workers.
-- Y hacer click en Push.
-
-![Simular llegada de push](./images/push.png)
-_Simular llegada de push desde las dev tools de chrome._
-
-Si todo salió bien, deberíamos ver la notificación y al clickear sobre ella, se debería abrir una nueva ventana mostrando los gastos del viaje.
-    
 
 ## Extras
 
@@ -239,4 +229,5 @@ Si te interesa profundizar más, te dejamos algunas ideas para agregar:
 
 
 ## Próximo modulo
+
 Avanzar al [módulo 8](../08-background)
