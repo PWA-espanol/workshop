@@ -10,12 +10,12 @@ Workbox es una colección de librerías y herramientas que simplifica el almacen
 - Hacer que tu sitio funcione offline.
 - Mejorar la performance en visitas repetidas de usuarios. Incluso si no quisieras funcionar 100% offline, puedes usar Workbox para almacenar y servir archivos comunes localmente, en lugar de hacerlo desde la red.
 
-Workbox se integra con webpack, gulp y npm scripts.
+Workbox se integra con _webpack_, _gulp_ y _npm scripts_.
 
 Como ya venimos usando npm scripts (para iniciar nuestro servidor) vamos a seguir por ese camino.
 
 ### Generar SW
-Workbox nos provee un cliente para generar el primer service worker. No lo usaremos en este caso porque lo que haremos será integrarlo con nuestro service worker que ya hemos contruído.
+Workbox nos provee un cliente para generar el primer service worker con un asistente de consola. No lo usaremos en este caso porque lo que haremos será integrarlo con el service worker que ya hemos construido.
 
 Para eso, workbox también nos provee el módulo `workbox-build`.
 
@@ -29,14 +29,14 @@ Para eso, workbox también nos provee el módulo `workbox-build`.
     - `fetchAndCache`
 
 
-2. Agregar a nuestro service worker:
+1. Agregar a nuestro service worker:
     - Donde comienza el archivo:
         ```js
         importScripts('./js/lib/workbox-sw.prod.v2.1.0.js');
         ```
         Para importar la librería. 
 
-    - Luego del `'use strict'`:
+    - Y luego del `'use strict'`:
         ```js
         const workboxSW = new self.WorkboxSW();
         workboxSW.precache([]);
@@ -44,7 +44,7 @@ Para eso, workbox también nos provee el módulo `workbox-build`.
         Para indicarle a workbox que inyecte ahí el cache de estáticos que eliminamos antes
 
 
-3. Crear un archivo llamado `service-worker-workbox-config.js` en la raíz del proyecto con la configuración que utilizaremos para modificar nuestro service worker:
+1. Crear un archivo llamado `service-worker-workbox-config.js` en la raíz del proyecto con la configuración que utilizaremos para modificar nuestro service worker:
     ```js
     const workboxBuild = require('workbox-build');
     
@@ -62,7 +62,7 @@ Para eso, workbox también nos provee el módulo `workbox-build`.
     Lo que le estamos diciendo es que inyecte en nuestro `swSrc`, los archivos que cumplan la regla `globPatterns` de la carpeta `globDirectory` y genere un nuevo archivo en `swDest`.
 
 
-4. Agregar el script que general el nuevo service worker al archivo `package.json`, dentro del objeto con clave `scripts`:
+4. Agregar el script que genera el nuevo service worker al archivo `package.json`, dentro del objeto con clave `scripts`:
     ```js
     "build": "node service-worker-workbox-config.js"
     ```
@@ -110,7 +110,7 @@ Workbox tiene muchos otros paquetes. Te invitamos a probar alguno de ellos:
 
 [Lighthouse](https://github.com/GoogleChrome/lighthouse) es una herramienta automatizada de código abierto diseñada para mejorar la calidad de tus apps web. Puedes ejecutarla como una extensión de Chrome, desde las herramientas de desarrollo de Chrome o desde la línea de comandos.
 
-Le proporcionas a Lighthouse una URL que quieres auditar, Lighthouse ejecuta una serie de pruebas contra la página, y luego genera un informe sobre el rendimiento de la página. A partir de aquí, puedes usar las pruebas desaprobadas como indicadores de lo que puedes hacer para mejorar tu app.
+Le proporcionas a Lighthouse una URL que quieras auditar, Lighthouse ejecuta una serie de pruebas contra la página, y luego genera un informe sobre el rendimiento de la página. A partir de aquí, puedes usar las pruebas desaprobadas como indicadores de lo que puedes hacer para mejorar tu app.
 
 > Lighthouse actualmente tiene un gran enfoque sobre las funciones de las Progressive Web Apps, como Add to homescreen y soporte sin conexión. Sin embargo, el objetivo general del proyecto es ofrecer una auditoría de extremo a extremo de todos los aspectos de la calidad de la app web.
 
@@ -134,11 +134,11 @@ Cuando terminen las auditorías, Lighthouse mostrará un informe en los resultad
 ### Analizar resultados
 Para el estado actual de nuestra aplicación, los puntos fallando la auditoría son:
 
-- El sitio no redirecciona el tráfico HTTP a HTTPS. HTTPS es obligatorio para muchas de las funcionalidades que implementamos. Localmente no es necesario pero obviamente es algo a tener en cuenta al subir nuestro sitio a la web.
+- El sitio no redirecciona el tráfico HTTP a HTTPS. HTTPS es obligatorio para muchas de las funcionalidades que implementamos. Localmente no es necesario pero obviamente es algo a tener en cuenta al subir nuestro sitio a un servidor.
 
 - El sitio usa recursos que bloquean el renderizado. Las hojas de estilo que estamos cargando en el `<head>` de nuestro sitio bloquean el renderizado de la página.
 
-- Comprimir respuestas con gzip. Tanto para los archivos estáticos como para el html.
+- No se comprimen las respuestas con gzip. Tanto para los archivos estáticos como para el html.
 
 - Algunos elementos no tienen el contraste necesario entre el color de fondo y el color del texto.
 

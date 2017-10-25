@@ -102,7 +102,9 @@ Con esta herramienta un sitio de noticias podría, por ejemplo, pedir sincroniza
 
 Vamos a agregar la posibilidad de eliminar todos los gastos estando sin conexión. Para eso vamos a modificar el botón existente haciendo que dispare la eliminación en backgroud. En caso de presionarlo estando offline, los gastos se borrarán cuando recuperemos la conexión.
 
-1. Lo primero que tenemos que hacer es modificar el comportamiento al botón. En el archivo home.js cambiar el listener del click en el botón de eliminar para que dispare el pedido de sincronización.
+1. Abrir una terminal en la carpeta en donde tengas el código. Si todavía no copiaste el código o no hiciste el módulo anterior, copiar la carpeta **code** localizada dentro de ese módulo a algún lugar cómodo para poder trabajar (ejemplo: el escritorio o la carpeta de usuario).
+
+1. Lo primero que tenemos que hacer es modificar el comportamiento al botón. En el archivo `home.js` cambiar el listener del click en el botón de eliminar para que dispare el pedido de sincronización.
 
     ```js
     const deleteBtn = document.querySelector('#delete');
