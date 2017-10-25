@@ -2,14 +2,14 @@
 
 Son muchas las técnicas existentes para mejorar la performance de los sitios web en general.
 
-En el módulo anterior, Lighthouse nos sugirió algunos puntos flojos. Aquí vemos distintas opciones para mejorarlos y agregamos algunas otas optimizacione posibles.   
+En el módulo anterior, Lighthouse nos sugirió algunos puntos flojos. Aquí vemos distintas opciones para mejorarlos y agregamos algunas otras optimizaciones posibles.   
 
 ## Minificar estáticos
 Una opción sencilla sería utilizar [gulp-minifier](https://www.npmjs.com/package/gulp-minifier) para minificar html, css y js.
 
 ## Inlinear CSS crítico
 Solo una parte del css es necesario para mostrar el contenido principal de nuestra web. Ese css podría ser colocado inline y el resto del css cargarse diferidamente para evitar el bloqueo del renderizado.
-Una herramienta para automatizar esto es [critical](https://github.com/addyosmani/critical)
+Una herramienta para automatizar esto es [critical](https://github.com/addyosmani/critical).
 
 ## Optimizar imágenes
 Siguiendo en la línea de herramientas de gulp, [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin) puede ayudarnos a automatizar la optimización de todas las imágenes de nuestro sitio. Reduciendo así su tamaño.
@@ -35,7 +35,7 @@ Lighthouse nos sugería comprimir las respuestas de archivos estáticos y html.
 
 Esas respuestas son enviadas por nuestro servidor de node y afortunadamente para nosotros, express nos brinda la posibilidad de hacerlo.
 
-Debemos instalar el módulo [compression](https://www.npmjs.com/package/compression)
+Debemos instalar el módulo [compression](https://www.npmjs.com/package/compression).
 
 Y agregar el middleware en nuestro index.js:
 ```js
@@ -55,7 +55,7 @@ HTTP/2 es la última versión del protocolo HTTP. Está desarrollado a partir de
 
 HTTP/2 tiene muchas ventajas. Usa una única conexión TCP para servir múltiples archivos. También comprime los headers de HTTP y los envía en formato binario (mucho mejor que el texto plano de HTTP/1).
 
-Otra diferencia de HTTP/2 es que permite hacer Server Push. Le da al servidor la posibilidad de enviar archivos al clientes antes de que éste los necesite.
+Otra diferencia de HTTP/2 es que permite hacer Server Push. Le da al servidor la posibilidad de enviar archivos al cliente antes de que éste los necesite.
 
 Te sugerimos seguir [este tutorial](http://ivanjov.com/running-express-koa-and-hapi-on-http-2/) para implementar HTTP/2 en nuestra app.
 
