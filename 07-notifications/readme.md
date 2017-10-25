@@ -159,7 +159,7 @@ Ahora que ya manejamos los permisos y podemos mostrar notificaciones, vamos a si
 
 Para esto debemos hacer que nuestro service worker sepa reaccionar a los mensajes _push_ que pueden llegar en cualquier momento, inclusive cuando el usuario no esté visitando nuestro sitio.
 
-Imaginemos la siguiente situación, _Nuestra app es colaborativa y queremos que, al cargar un nuevo gasto, se envíe una notificación a todos los usuarios de ese grupo._. Vamos a agregar esta funcionalidad en nuestro código.
+Imaginemos la siguiente situación, _Nuestra app es colaborativa y queremos que, al cargar un nuevo gasto, se envíe una notificación a todos los usuarios de ese grupo_. Vamos a agregar esta funcionalidad en nuestro código.
 
 1. Lo primero es poder reaccionar ante la llegada de la _notificación push_. Para esto, en nuestro `service-worker.js` debemos suscribirnos a un nuevo evento, el de `push`. Allí, lo que haremos es mostrar una notificación similar a las anteriores, con 2 acciones y algo de información cada vez que un amigo agregue un nuevo gasto. Agregar el siguiente código en el archivo `service-worker.js`.
 
