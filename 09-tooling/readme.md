@@ -1,4 +1,4 @@
-# 9. Herramientas
+# 9. Herramientas 🛠️
 Existen varias herramientas que pueden ayudarnos a construir, probar y optimizar nuestra PWA.
 
 ## Automatizar SW con workbox
@@ -156,4 +156,4 @@ A este punto seguramente ya estarás familiarizado con las herramientas para des
 Para esto te recomendamos la [documentación oficial](https://developers.google.com/web/tools/chrome-devtools/?hl=es) en español.
 
 ## Próximo modulo
-Avanzar al [módulo 10](../10-optimization)
+Avanzar al [módulo 10 - Optimizando nuestro sitio web 🔩](../10-optimization)
