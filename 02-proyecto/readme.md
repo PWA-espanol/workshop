@@ -1,4 +1,4 @@
-# 2. Entendiendo el proyecto
+# 2. Explorando el proyecto inicial 🔎
 
 Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizándola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de qué se trata, como también que tecnologías utiliza.
 
@@ -180,4 +180,4 @@ Ahora que ya vimos los archivos que contiene nuestra solución, las tecnologías
 En este módulo exploramos la aplicación que vamos a usar en el transcurso de todo el workshop. Es una aplicación web muy simple pero que nos permite explorar las características básicas de una progressive web app. Hay que notar que hay varias cosas, como por ejemplo el repositorio de datos en el servidor, que son simplificaciones de una aplicación real para no distraer del real objetivo del workshop.
 
 ## Próximo modulo
-Avanzar al [módulo 3](../03-conceptos)
+Avanzar al [módulo 3 - Conceptos principales 📜](../03-conceptos)
