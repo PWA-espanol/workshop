@@ -1,4 +1,4 @@
-# 10. Optimizaciones
+# 10. Optimizaciones 🔩
 
 Son muchas las técnicas existentes para mejorar la performance de los sitios web en general.
 
@@ -64,4 +64,4 @@ Te sugerimos seguir [este tutorial](http://ivanjov.com/running-express-koa-and-h
 Te recomendamos volver a correr Lighthouse con todas las mejoras que hayas podido sumar y ver el nuevo puntaje.
 
 ## Próximo modulo
-Avanzar al [módulo 11](../11-links)
+Avanzar al [módulo 11 - Como seguir 🤔](../11-links)
