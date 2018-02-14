@@ -1,4 +1,4 @@
-# 7. Trabajando con notificaciones
+# 7. Trabajando con notificaciones 🔔
 
 En este módulo vamos a recorrer los pasos necesarios para enviar, recibir y mostrar _notificaciones push_.
 
@@ -230,4 +230,4 @@ Si te interesa profundizar más, te dejamos algunas ideas para agregar:
 
 ## Próximo modulo
 
-Avanzar al [módulo 8](../08-background)
+Avanzar al [módulo 8 - Agregando soporte para Background Sync ♻️](../08-background)
