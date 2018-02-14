@@ -1,4 +1,4 @@
-# 8. Background Sync
+# 8. Background Sync ♻️
 
 ## Introducción
 
@@ -244,4 +244,4 @@ Algunas ideas para profundizar más sobre background sync:
 - Especificación: https://github.com/WICG/BackgroundSync/blob/master/explainer.md
 
 ## Próximo modulo
-Avanzar al [módulo 9](../09-tooling)
+Avanzar al [módulo 9 - Herramientas para desarrollo 🛠️](../09-tooling)
