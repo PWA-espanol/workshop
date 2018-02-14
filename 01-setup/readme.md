@@ -1,4 +1,4 @@
-# 1. Configurando el ambiente
+# 1. Configurando el ambiente ⚙️
 
 Antes de arrancar, se necesitan tener las herramientas instaladas. No hay restricciones con respecto al sistema operativo (_Windows, Linux o Mac_) y al browser (_Microsoft Edge, Chrome, Safari, Firefox, etc._), aunque se instalará Chrome para asegurar tener la misma experiencia en el transcurso del workshop sin depender del sistema operativo. 
 
@@ -57,4 +57,4 @@ Ahora que el entorno de desarrollo está listo, no queda otra cosa que empezar a
 
 
 ## Próximo modulo
-Avanzar al [módulo 2](../02-proyecto)
+Avanzar al [módulo 2 - Explorando el proyecto inicial 🔎](../02-proyecto)
