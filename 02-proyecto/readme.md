@@ -1,4 +1,4 @@
-# 2. Explorando el proyecto inicial 🔎
+# 2. Entendiendo el proyecto 🔎
 
 Durante todo el workshop vamos a trabajar sobre un sitio web existente que sirve para registrar gastos, agregando funcionalidad y actualizándola para convertirla en una Progressive Web App. En este módulo, vamos a recorrer la solución inicial para entender de qué se trata, como también que tecnologías utiliza.
 
