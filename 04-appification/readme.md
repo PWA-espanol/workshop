@@ -1,4 +1,4 @@
-# 4. Construir una app desde nuestro website
+# 4. Construir una app desde nuestro website 🏠
 
 En este módulo vamos ver y agregar el Web App Manifest y un Service Worker muy simple para poder hacer nuestro sitio instalable como si fuese una aplicación nativa.
 
@@ -520,4 +520,4 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 En este módulo vimos los pasos necesarios para transformar nuestro sitio web en una aplicación, agregando el Web App Manifest y el service worker. Aparte vimos la función _fetch_ y lo que son las _Promises_ que nos permiten mejorar la forma en la que trabajamos asincrónicamente nuestros pedidos al servidor.
 
 ## Próximo modulo
-Avanzar al [módulo 5](../05-offline)
+Avanzar al [módulo 5 - Haciendo que el sitio funcione de forma offline 🔌](../05-offline)
