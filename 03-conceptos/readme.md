@@ -1,4 +1,4 @@
-# 3. Conceptos básicos
+# 3. Conceptos básicos 📜
 
 _Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho más nuevas. 
 
@@ -191,4 +191,4 @@ Para saber más, [aquí](https://developers.google.com/web/progressive-web-apps/
 En este módulo vimos conceptos base a la hora de armar una _Progressive Web App_. Entre ellos _responsive design_, con lo que vimos qué es el _viewport_, las _media queries_ y _flex box_. Aparte de esto vimos el concepto de _progressive enhancement_ y, para finalizar, vimos un checklist para tener en cuenta a la hora de crear una _Progressive Web App_.
 
 ## Próximo modulo
-Avanzar al [módulo 4](../04-appification)
+Avanzar al [módulo 4 - Appificación de nuestro sitio web 🏠](../04-appification)
