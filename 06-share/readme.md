@@ -1,4 +1,4 @@
-# 6. Web share API
+# 6. Web share API 🏗️
 
 La _Web Share API_ es una API propuesta para compartir texto, links y otros contenidos en algún destino arbitrario elegido por el usuario.
 
@@ -84,4 +84,4 @@ Como dijimos antes, la API solo se encuentra disponible en Chrome para Android a
 
 ## Próximo modulo
 
-Avanzar al [módulo 7](../07-notifications) 
+Avanzar al [módulo 7 - Trabajando con notificaciones 🔔](../07-notifications) 

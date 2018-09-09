@@ -1,4 +1,4 @@
-# 5. Soporte offline
+# 5. Soporte offline 🔌
 
 Una de las características principales que separa a un sitio web de una aplicación nativa, es la posibilidad de abrir la aplicación por aunque que no tengamos internet. En el caso de las _Progressive Web Apps_ esto podemos hacerlo gracias a un conjunto de herramientas, entre las que se destaca el _service worker_ y la _Cache API_. En este módulo vamos a ver cómo trabajar con estas dos herramientas para agregar soporte offline a nuestra Web App.
 
@@ -289,4 +289,4 @@ En este módulo vimos cómo trabajar con el _service worker_, los eventos de `in
 
 ## Próximo modulo
 
-Avanzar al [módulo 6](../06-share)
+Avanzar al [módulo 6 - Agregando soporte para compartir de forma nativa 🏗️](../06-share)
