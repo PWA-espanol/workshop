@@ -377,7 +377,11 @@ Se ejecuta en un contexto worker, por lo tanto, no tiene acceso al DOM, y se eje
 
 Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar que se modifiquen las peticiones de red libremente permitiría ataques _man in the middle_ realmente peligrosos.
 
-1. Lo primero a realizar es crear un archivo en el root de nuestro sitio que tendrá la lógica del _Service Worker_. Para esto agregamos un nuevo archivo con el nombre `service-worker.js` en la carpeta **public**.
+1. Lo primero a realizar es crear un archivo en la raíz de nuestro sitio que tendrá la lógica del _Service Worker_. Para esto agregamos un nuevo archivo con el nombre `service-worker.js` en la carpeta **public**.
+
+    > **Nota**: El archivo debe estar en la raíz del sitio porque el service worker puede interceptar solo las peticiones de red realizadas desde su ubicación hacia ubicaciones más específicas.
+    > Por ejemplo, si nuestro service worker se encontrara en `/foo/`, **no** podría interceptar peticiones de red a `/bar/` pero **sí** peticiones de red a `/foo/bar/`.
+    > Dejarlo en la raíz es la mejor manera de asegurarnos de que podamos interceptar todas las peticiones de red que hagamos.
 
 1. Dentro de este archivo agregamos el siguiente código de inicialización.
 
