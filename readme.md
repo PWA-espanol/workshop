@@ -54,7 +54,7 @@ En este módulo recorreremos algunas mejores prácticas y optimizaciones posible
 ### 11. [Como seguir 🤔](./11-links)
 En este módulo compartiremos algunos links para estar al tanto de las últimas características y funcionalidades de la web.
 
-[Ir a arriba 🚁](#módulos)
+[Ir a arriba 🚁](#módulos-)
 
 ## Feedback 🗣️
 
