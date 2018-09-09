@@ -432,7 +432,7 @@ Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar 
     _Ciclo de vida del service worker_
 
 
-1. Para visualizar este ciclo de vida, vamos a agregar el siguiente código para que el service worker escuche a eventos de tipo `install` y escriba en el log el evento.
+1. Para visualizar este ciclo de vida, vamos a agregar el siguiente código en el archivo `service-worker.js` creado anteriormente para que el service worker escuche a eventos de tipo `install` y escriba en el log el evento.
 
     ```js
     self.addEventListener('install', function(event) {
@@ -443,7 +443,7 @@ Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar 
 
     > **Nota**: El evento install es muy útil para preparar el service worker para usarlo cuando se dispara, por ejemplo creando una caché que utilice la API incorporada de almacenamiento, y colocando los contenidos dentro de ella para poder usarlos con la aplicación offline.
 
-1. Ahora, agregar el siguiente código para que el _service worker_ escuche a eventos de tipo `activate` y escriba en el log el evento.
+1. Ahora, agregar el siguiente código en el archivo `service-worker.js` para que el _service worker_ escuche a eventos de tipo `activate` y escriba en el log el evento.
 
     ```js
     self.addEventListener('activate', function(event) {
@@ -454,7 +454,7 @@ Los service workers solo funcionan sobre HTTPS, por razones de seguridad. Dejar 
 
     > **Nota**: El momento en el que este evento se activa es, en general, un bueno momento para limpiar viejas cachés y demás cosas asociadas con la versión previa de tu service worker.
 
-1. Ahora, agregar el siguiente código para que el service worker escuche a eventos de tipo `fetch` y realice la operación agregando un log de cada pedido.
+1. Ahora, agregar el siguiente código en el archivo `service-worker.js` para que el service worker escuche a eventos de tipo `fetch` y realice la operación agregando un log de cada pedido.
 
     ```js
     self.addEventListener('fetch', function(event) {
