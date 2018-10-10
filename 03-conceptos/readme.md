@@ -30,13 +30,13 @@ En la solución vista en el módulo anterior, podemos encontrar el siguiente met
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
 ```
 
-El uso del valor meta viewport `width=device-width` indica a la página que coincida con el ancho de la pantalla en píxeles independientes del dispositivo. Esto permite que la página refluya contenido para que coincida con diferentes tamaños de pantalla, ya sea renderizado en un teléfono móvil pequeño o en un monitor de escritorio grande.
+El uso del valor meta viewport `width=device-width` indica a la página que coincida con el ancho de la pantalla en píxeles independientes del dispositivo. Esto permite que la página ajuste el contenido para que coincida con diferentes tamaños de pantalla, ya sea renderizado en un teléfono móvil pequeño o en un monitor de escritorio grande.
 
 ![Comparando el uso o no del viewport en un celular](./images/viewport.jpg)
 
 _La imagen de la izquierda (A) no usa el meta tag viewport mientras que la imagen de la derecha (B) si._
 
-Algunos navegadores mantienen el ancho de la página constante al girar al modo horizontal, y el zoom en lugar de reflujo para llenar la pantalla. La adición del atributo `initial-scale=1` indica a los navegadores que establezcan una relación 1: 1 entre los píxeles CSS y los píxeles independientes del dispositivo independientemente de la orientación del dispositivo, y permite que la página aproveche el ancho total del paisaje.
+Algunos navegadores mantienen el ancho de la página constante al girar al modo horizontal, y el zoom en lugar de reflujo para llenar la pantalla. La adición del atributo `initial-scale=1` indica a los navegadores que establezcan una relación 1: 1 entre los píxeles CSS y los píxeles independientes del dispositivo independientemente de la orientación del dispositivo, y permite que la página aproveche el ancho total de la pantalla.
 
 Por último, los atributos `minimum-scale=1.0` y `maximum-scale=5.0` definen el mínimo y máximo de zoom que se le puede hacer en el sitio. Para mejorar la accesibilidad del sitio se recomienda que el máximo no sea menor a 5 veces, como está puesto en el código de la solución.
 
