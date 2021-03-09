@@ -1,32 +1,31 @@
-const Repository = require('./repository');
-const bodyParser = require('body-parser');
-const express = require('express');
+const Repository = require("./repository");
+const bodyParser = require("body-parser");
+const express = require("express");
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static("public"));
 
-
-app.get('/api/expense', (req, res) => {
+app.get("/api/expense", (req, res) => {
   console.log(`---- GET ('/api/expense/')`);
 
   res.json(Repository.getExpenses());
 });
 
-app.get('/api/expense/:id', (req, res) => {
+app.get("/api/expense/:id", (req, res) => {
   console.log(`---- GET ('/api/expense/${req.params.id}')`);
 
   const id = parseInt(req.params.id, 10);
   res.json(Repository.getExpense(id));
 });
 
-app.delete('/api/expense',  (req, res) => {
-    console.log(`---- DELETE ('/api/expense')`);
-    Repository.deleteExpenses();
-    return res.json(Repository.getExpenses());
+app.delete("/api/expense", (req, res) => {
+  console.log(`---- DELETE ('/api/expense')`);
+  Repository.deleteExpenses();
+  return res.json(Repository.getExpenses());
 });
 
-app.post('/api/expense/:id',  (req, res) => {
+app.post("/api/expense/:id", (req, res) => {
   console.log(`---- POST ('/api/expense/${req.params.id}')
 ---- ---- Body: ${JSON.stringify(req.body)}`);
 
@@ -39,7 +38,7 @@ app.post('/api/expense/:id',  (req, res) => {
   return res.json(Repository.getExpenses());
 });
 
-app.post('/api/expense/',  (req, res) => {
+app.post("/api/expense/", (req, res) => {
   console.log(`---- POST ('/api/expense/')
 ----Body: ${JSON.stringify(req.body)}`);
 
@@ -47,19 +46,18 @@ app.post('/api/expense/',  (req, res) => {
   return res.json(Repository.getExpenses());
 });
 
-app.get('/',  (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get('/expense/:id', (req, res) => {
+app.get("/expense/:id", (req, res) => {
   if (!req.params.id) {
-    res.redirect('/');
+    res.redirect("/");
   }
 
-  res.sendFile(__dirname + '/public/expense.html');
+  res.sendFile(__dirname + "/public/expense.html");
 });
 
-
-app.listen(3000, '0.0.0.0',   () => {
-  console.log('Example app listening on port 3000!')
+app.listen(3000, "0.0.0.0", () => {
+  console.log("Example app listening on port 3000!");
 });
