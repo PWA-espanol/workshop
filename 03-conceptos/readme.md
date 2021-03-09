@@ -1,8 +1,8 @@
 # 3. Conceptos básicos 📜
 
-_Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho más nuevas. 
+_Progressive Web App_ no es una sola cosa, es un conjunto de herramientas y buenas prácticas, algunas de ellas ya conocidas hace mucho y otras mucho más nuevas.
 
-En este módulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionados a lo que normalmente se llama _Responsive design_ y _Progressive enhancement_. 
+En este módulo veremos algunas de estas herramientas y buenas prácticas que ya existen hace un tiempo, entre ellas algunos conceptos relacionados a los que normalmente se llama _Responsive design_ y _Progressive enhancement_.
 
 Para finalizar veremos una checklist para tener a mano a la hora de hacer una _Progressive Web App_.
 
@@ -27,7 +27,10 @@ Para intentar proporcionar la mejor experiencia, los navegadores móviles proces
 En la solución vista en el módulo anterior, podemos encontrar el siguiente meta tag en los dos archivos html (_index.html_ y _expense.html_).
 
 ```html
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0">
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0"
+/>
 ```
 
 El uso del valor meta viewport `width=device-width` indica a la página que coincida con el ancho de la pantalla en píxeles independientes del dispositivo. Esto permite que la página ajuste el contenido para que coincida con diferentes tamaños de pantalla, ya sea renderizado en un teléfono móvil pequeño o en un monitor de escritorio grande.
@@ -51,7 +54,7 @@ Las media queries son simples filtros que se pueden aplicar a estilos CSS. Facil
 Por ejemplo, puede colocar todos los estilos necesarios para imprimir dentro de una media queries de impresión:
 
 ```html
-<link rel="stylesheet" href="print.css" media="print">
+<link rel="stylesheet" href="print.css" media="print" />
 ```
 
 Además de utilizar el atributo `media` en el tag de stylesheet como se vió en el código anterior, hay otras dos formas de aplicar media queries que se pueden utilizar en un archivo CSS: `@media` y `@import`. Por razones de rendimiento, se recomienda uno de los dos primeros métodos sobre la sintaxis `@import`(consulte [Evitar las importaciones de CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations)).
@@ -85,13 +88,13 @@ Las consultas más comunes son:
 
 ```css
 div {
-    background-color: red;
+  background-color: red;
 }
 
 @media (min-width: 500px) and (max-width: 600px) {
-    div {
-        background-color: #000;
-    }
+  div {
+    background-color: #000;
+  }
 }
 ```
 
@@ -104,7 +107,6 @@ En nuestra solución, aprovechamos la librería _Bootstrap_ como se vió anterio
 La propiedad Flexible Box, o flexbox, de CSS3 es un modo de diseño que permite colocar los elementos de una página para que se comporten de forma predecible cuando el diseño de la página debe acomodarse a diferentes tamaños de pantalla y diferentes dispositivos. Para muchas aplicaciones, el modelo "caja flexible" produce una mejora sobre el modelo "bloque" porque no utiliza la propiedad float, ni hace que los márgenes del contenedor flexible interfieran con los márgenes de sus contenidos.
 
 Muchos diseñadores verán que el modelo "caja flexible" es más sencillo de utilizar. Los elementos "hijos" de una "caja flexible" pueden colocarse en cualquier dirección y pueden tener dimensiones flexibles para adaptarse al espacio visible. Posicionar los elementos "hijos" es por tanto mucho más sencillo, y los diseños complejos pueden hacerse más fácilmente y con código más limpio, ya que el orden de visualización de los elementos es independiente del orden que estos tengan en el código fuente. Esta independencia afecta intencionadamente únicamente a la representación visual, dejando el orden de locución y navegación a lo que diga el código fuente.
-
 
 ## Progressive enhancement
 
@@ -123,72 +125,51 @@ Un ejemplo simple para ver estos conceptos es el tag `picture` donde, en caso de
 
 ```html
 <picture>
-  <source media="(min-width: 800px)" srcset="head.webp" type="image/webp">
-  <source media="(min-width: 800px)" srcset="head.jpg" type="image/jpeg">
-  <source media="(min-width: 450px)" srcset="head-small.webp" type="image/webp">
-  <source media="(min-width: 450px)" srcset="head-small.jpg" type="image/jpeg">
-  <img src="head-fb.jpg" alt="a head carved out of wood">
+  <source media="(min-width: 800px)" srcset="head.webp" type="image/webp" />
+  <source media="(min-width: 800px)" srcset="head.jpg" type="image/jpeg" />
+  <source
+    media="(min-width: 450px)"
+    srcset="head-small.webp"
+    type="image/webp"
+  />
+  <source
+    media="(min-width: 450px)"
+    srcset="head-small.jpg"
+    type="image/jpeg"
+  />
+  <img src="head-fb.jpg" alt="a head carved out of wood" />
 </picture>
 ```
 
 _En este ejemplo vemos como en caso de no tener soporte para el formato webp se usa la imagen jpg y en caso de no tener soporte para picture se usa el img._
 
-
 ## Checklist PWA
+
 Para ayudar a los equipos a construir las mejores experiencias posibles, el equipo de web de Google armó la siguiente checklist con todo lo que debe tener una PWA básica, y con todo lo que creen que se debe agregar para lograr una experiencia "ejemplar".
 
 ### PWA base
 
-- [x] El sitio se sirve sobre HTTPS.
-- [x] Las páginas se adaptan a todas las resoluciones y tamaños de pantalla de dispositivos móviles.
-- [x] Todas las URLs cargan sin conexión.
-- [x] Se provee Metadata para ser usada al agregar un acceso directo al sitio.
-- [x] La primera carga es rápida inclusive en 3G.
-- [x] El sitio funciona en todos los navegadores.
-- [x] Las transiciones se sienten fluidas.
-- [x] Cada página tiene su propia URL.
+- [x] Comienza rápido, se mantiene rápido.
+- [x] Funciona en todos los navegadores.
+- [x] Responsive en todos los tamaños de pantalla.
+- [x] Provee una página sin conexión personalizada.
+- [x] Es instalable.
 
 ### PWA ejemplar
 
-#### Indexability & social
-- [x] El contenido puede ser indexado por los motores de búsqueda. Intentar que el contenido de la página no dependa de la ejecución de JavaScript del lado del cliente.
-- [x] Proveer metadata de [Schema.org](http://schema.org) donde corresponda.
-- [x] Proveer metadata Social donde corresponda (tags meta [OpenGraph](http://ogp.me/)).
-- [x] Indicar URLs canónicas cuando el contenido esté disponible en múltiples URLs.
-- [x] Usar la History API y evitar las URLs con hashes (Evitar urls del tipo: https://example.com/#!user/26601).
-
-#### User experience
-
-- [x] Evitar que el contenido se mueva mientras carga, asegurando que todos los elementos tienen sus tamaños especificados o utilizando placeholders de contenido.
-- [x] Asegurar que el botón de atrás mantiene la posición del scroll en la página anterior.
-- [x] Evitar que los inputs se oculten cuando se abre el teclado.
-- [x] Asegurar que el contenido sea fácil de compartir en modo pantalla completa.
-- [x] Asegurar que el contenido se adapta a todos los tamaños de pantalla.
-- [x] Interceptar el pedido de agregar un acceso directo usando el evento `beforeinstallprompt` para lanzarlo en el mejor momento para el usuario.
-
-
-#### Cache
-
-- [x] Intentar, siempre que se pueda, traer datos de cache antes de ir a la red.
-- [x] Informar al usuario cuando se encuentra offline.
-
-#### Push notifications
-
-Agregar push notifications no es un requerimiento pero, en caso de hacerlo, seguir los siguientes lineamientos:
-
-- [x] Explicar al usuario cómo y para qué serán utilizadas las notificaciones.
-- [x] La UI utilizada para pedir a los usuarios que acepten las notificaciones no debe ser invasiva.
-- [x] El sitio opaca todo el contenido mientras pide el permiso para las notificaciones.
-- [x] Las notificaciones deben ser oportunas, precisas, relevantes.
-- [x] Permitir al usuario activar y desactivar las notificaciones.
-
+- [x] Provee una experiencia offline completa.
+- [x] Es completamente accesible.
+- [x] Puede ser descubierta desde los motores de búsqueda.
+- [x] Funciona con cualquier dispositivo de entrada. (Teclado, mouse, touch, etc.).
+- [x] Provee contexto para las solicitudes de permisos.
+- [x] Sigue las buenas prácticas de código.
 
 Para saber más, [aquí](https://developers.google.com/web/progressive-web-apps/checklist) está la checklist original con explicaciones de cómo probar y corregir cada punto.
-
 
 ## Conclusiones
 
 En este módulo vimos conceptos base a la hora de armar una _Progressive Web App_. Entre ellos _responsive design_, con lo que vimos qué es el _viewport_, las _media queries_ y _flex box_. Aparte de esto vimos el concepto de _progressive enhancement_ y, para finalizar, vimos un checklist para tener en cuenta a la hora de crear una _Progressive Web App_.
 
 ## Próximo modulo
+
 Avanzar al [módulo 4 - Appificación de nuestro sitio web 🏠](../04-appification)
