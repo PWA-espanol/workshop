@@ -112,6 +112,10 @@ Lo primero a realizar para hacer que nuestro sitio web se comporte como una apli
     _La información del manifest que podemos ver en las developer tools_
 
 
+Notar que hay un mensaje que aclara que a partir de chrome 93 para poder instalar la PWA será necesario que la página funcione offline.
+Vamos a trabajar en eso más adelante.
+
+
 ## Consumir datos desde el servidor
 
 Un paso importante a la hora de trabajar en aplicaciones web es consumir datos desde una API, sin cargar todo el sitio entero cada vez que queremos hacer un cambio. Para esto, una opción conocida es la utilización de _AJAX (Asynchronous JavaScript And XML)_, pero en la actualidad, aparece una nueva API del navegador llamada _Fetch_, que nos permite hacer estas operaciones con mayor facilidad, un mejor manejo asincrónico gracias al uso de promesas y la posibilidad de interceptar los requests desde el service worker como se verá más adelante.
@@ -486,26 +490,19 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 
 1. Abrir nuevamente el sitio y las _Developer Tools_.
 
-1. En las _Developer Tools_ del browser, seleccionar la solapa **Application** e ir a la categoría **Manifest**.
+1. Hacer click en el botón instalar de la barra de navegación.
 
-    ![Categoría Manifest dentro de Application en las Developer Tools](./images/dev-tools-manifest.png)
-
-    _Categoría Manifest dentro de Application en las Developer Tools_
-
-1. Hacer click en **Add to homescreen** para instalar el sitio como una aplicación. Esto levantará una notificación en la parte superior del sitio cuando tenga el foco.
-
-    ![Instalando nuestro sitio](./images/installing-the-site.png)
+    ![Instalando nuestro sitio](./images/installing-the-site-1.png)
 
     _Instalando nuestro sitio_
 
+1. Hacer click en el botón de **Instalar** para instalar la aplicación.
 
-1. Hacer click en el botón de **Add** para instalar la aplicación. Esto muestra un nuevo dialogo donde se ve el icono que se va a usar y el nombre que se puede cambiar. Para terminar la instalación hacer click en **Add**.
-
-    ![Dialogo con la información de nuestra aplicación listo para agregar](./images/add-to-applications.png)
+    ![Dialogo con la información de nuestra aplicación listo para agregar](./images/installing-the-site-2.png)
 
     _Dialogo con la información de nuestra aplicación listo para agregar_
 
-1. Luego de dar click en **Add**, veremos la aplicación instalada en nuestro sistema operativo.
+1. Luego de dar click en **Instalar**, veremos la aplicación instalada en nuestro sistema operativo.
 
 > **Nota**: Chrome tiene la posibilidad de escuchar al evento que se dispara cuando se instala una aplicación, permitiéndonos saber si los usuarios instalaron o no la web app.
 > 
@@ -518,6 +515,10 @@ Ahora que ya tenemos todo lo necesario (un Web App Manifest, los logos y un serv
 >   }, handleError); 
 > });
 > ```
+
+Para más información sobre las mejores prácticas instalando apps y algunos patrones interesantes chequear el sitio de web.dev:
+- [Promote install](https://web.dev/promote-install/)
+- [Customize install](https://web.dev/customize-install/)
 
 ## Conclusiones
 
