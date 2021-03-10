@@ -32,14 +32,13 @@ Para eso, workbox también nos provee el módulo `workbox-build`.
 1. Agregar a nuestro service worker:
     - Donde comienza el archivo:
         ```js
-        importScripts('./js/lib/workbox-sw.prod.v2.1.0.js');
+        importScripts('./js/lib/workbox-sw-6.1.1.js');
         ```
         Para importar la librería. 
 
     - Y luego del `'use strict'`:
         ```js
-        const workboxSW = new self.WorkboxSW();
-        workboxSW.precache([]);
+        workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
         ```
         Para indicarle a workbox que inyecte ahí el cache de estáticos que eliminamos antes
 
@@ -73,7 +72,7 @@ Para eso, workbox también nos provee el módulo `workbox-build`.
     ```
 
 
-Si todo anduvo bien, la línea `workboxSW.precache([]);` en el archivo `./public/service-worker-workbox.js` tendrá una lista de todos nuestros archivos estáticos.
+Si todo anduvo bien, la línea `	workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);` en el archivo `./public/service-worker-workbox.js` tendrá una lista de todos nuestros archivos estáticos.
 
 Así, ya resolvimos aquello que hicimos en el paso 5 cuando le pedimos a nuestro service worker que guardara en cache todos los archivos estáticos que necesitamos para poder mostrar nuestro sitio sin tener conexión.
 
@@ -120,8 +119,10 @@ Le proporcionas a Lighthouse una URL que quieras auditar, Lighthouse ejecuta una
 Vamos a elegir la opción de ejecutar lighthouse desde las dev tools de chrome.
 
 1. Abrir las herramientas.
-1. Pestaña Auditorías.
-1. Click en botón azul "Perform an audit".
+1. Pestaña Lighthouse.
+1. Click en botón azul "Generate report".
+
+Probablemente te sugiera hacerlo en modo incógnito para evitar que extensiones u otros factores externos interfieran en el reporte.
 
 ![Lighthouse](./images/lighthouse.png)
 
@@ -132,18 +133,8 @@ Cuando terminen las auditorías, Lighthouse mostrará un informe en los resultad
 ![Reporte de Lighthouse](./images/lighthouse-audit.png)
 
 ### Analizar resultados
-Para el estado actual de nuestra aplicación, los puntos fallando la auditoría son:
+Para el estado actual de nuestra aplicación, hay algunos puntos fallando.
 
-- El sitio no redirecciona el tráfico HTTP a HTTPS. HTTPS es obligatorio para muchas de las funcionalidades que implementamos. Localmente no es necesario pero obviamente es algo a tener en cuenta al subir nuestro sitio a un servidor.
-
-- El sitio usa recursos que bloquean el renderizado. Las hojas de estilo que estamos cargando en el `<head>` de nuestro sitio bloquean el renderizado de la página.
-
-- No se comprimen las respuestas con gzip. Tanto para los archivos estáticos como para el html.
-
-- Algunos elementos no tienen el contraste necesario entre el color de fondo y el color del texto.
-
-- El sitio no usa HTTP/2 para responder las peticiones. Hacerlo mejoraría la performance.
- 
 En el próximo módulo recorreremos algunas opciones para mejorar nuestros resultados.
 
 Resulta muy interesante también leer los puntos que están pasando la auditoría. Entender por qué Lighthouse los tiene en cuenta es muy importante para aplicarlos siempre en todo lo que agregamos a nuestro sitio.
