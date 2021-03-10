@@ -91,13 +91,6 @@ if ('serviceWorker' in navigator && 'SyncManager' in window) {
 
 Si el navegador no fuera compatible, simplemente enviamos los datos como lo haríamos normalmente. Comprobamos la compatibilidad en el `if ('serviceWorker' in navigator && 'SyncManager' in window)`
 
-### El futuro
-
-Se está trabajando en una variante llamada _"periodic background sync"_. Esto nos permitiría pedir un evento de `periodicsync` con restricciones de tiempo, estado de batería y red con el objetivo de hacer sincronizaciones periódicas.
-
-Con esta herramienta un sitio de noticias podría, por ejemplo, pedir sincronizarse cada una hora para que, cuando el usuario ingrese, el contenido esté actualizado y listo para ser leído.
-
-
 ## Usar background sync en nuestra aplicación
 
 Vamos a agregar la posibilidad de eliminar todos los gastos estando sin conexión. Para eso vamos a modificar el botón existente haciendo que dispare la eliminación en backgroud. En caso de presionarlo estando offline, los gastos se borrarán cuando recuperemos la conexión.
@@ -208,9 +201,10 @@ En este paso nos aseguramos de que funcione correctamente el último paso agrega
 1. Los gastos deberían desaparecer en el momento.
 
 #### Sin conexión
-1. Desconectar Wi-Fi.
+1. Activar modo offline en las DevTools.
 1. Clickear el botón de eliminar gastos.
-1. Conectar Wi-Fi.
+1. No deberían desaparecer los gastos.
+1. Desactivar el modo offline.
 1. Los gastos deberían desaparecer sin ninguna acción extra.
 
 > **Nota:** Por si acaso, asegurar que la computadora esté conectada a la corriente eléctrica.
@@ -220,13 +214,13 @@ En este paso nos aseguramos de que funcione correctamente el último paso agrega
 
 Otras pruebas interesantes para realizar son:
 #### Sin conexión cerrando la pestaña
-1. Desconectar Wi-Fi.
+1. Activar modo offline en las DevTools.
 1. Clickear el botón de eliminar gastos.
+1. No deberían desaparecer los gastos.
 1. Cerrar la pestaña.
-1. Conectar Wi-Fi.
-1. Se debería ver el `DELETE` en la consola donde tengamos corriendo node.
+1. Se debería ver el `DELETE` en la consola donde tengamos corriendo node porque al cerrar la pestaña "recuperamos la conexión".
 1. Abrir la pestaña.
-1. Los gastos deberían haber desaparecido.
+1. Los gastos deberían haber desaparecido. 
 
 
 ## Extras
@@ -234,8 +228,17 @@ Otras pruebas interesantes para realizar son:
 Algunas ideas para profundizar más sobre background sync:
 
 - Sincronizar todos los envíos al servidor. Cada nuevo gasto, ítem o cambio en los nombres.
-- Pedir una sincro para descargar un pdf con todos los gastos.
+- Pedir una sync para descargar un pdf con todos los gastos.
 - Utilizar [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Client/postMessage) en alguna otra funcionalidad para comunicar mensajes del SW a nuestro cliente.
+
+
+## Periodic Background Sync
+
+Existe una variante llamada _"periodic background sync"_ que nos permite pedir un evento de `periodicsync` con el objetivo de hacer sincronizaciones periódicas. Este pedido tiene algunas con restricciones de tiempo, estado de batería y red.
+
+Con esta herramienta un sitio de noticias puede, por ejemplo, pedir sincronizarse cada una hora para que, cuando el usuario ingrese, el contenido esté actualizado y listo para ser leído.
+
+Para poder usarla necesitamos Chrome 80 o posterior y que la PWA esté instalada en el dispositivo.
 
 
 ## Créditos
