@@ -142,7 +142,7 @@ function createNotification(title, body) {
     swRegistration.showNotification(title, options);
 }
 
-const VAPID_VALID_PUBLIC_KEY = "Reemplazar por la public key del paso anterior";
+const VAPID_VALID_PUBLIC_KEY = "BGUjD5uW7jQs1YXTppItASnTCJvtIkjxvRJYqq_QKusQLsVib7ESQhyWcSXnxp0YtHjeiBB30pUC0HJrGFcCRSQ";
 function subscribeUser() {
     return swRegistration.pushManager.subscribe({
         userVisibleOnly: true,

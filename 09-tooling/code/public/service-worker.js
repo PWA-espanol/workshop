@@ -1,10 +1,9 @@
-importScripts('./js/lib/workbox-sw.prod.v2.1.0.js');
+importScripts('./js/lib/workbox-sw-6.1.1.js');
 
 (function() {
     'use strict';
 
-	const workboxSW = new self.WorkboxSW();
-	workboxSW.precache([]);
+	workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 	self.addEventListener('push', function(e) {
 
